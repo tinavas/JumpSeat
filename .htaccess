@@ -1,0 +1,19 @@
+AddDefaultCharset UTF-8
+AddType text/javascript .js
+php_flag short_open_tag on
+
+RewriteEngine on
+DirectoryIndex index.php
+RewriteBase /
+
+RewriteCond $1 !^(index\.php)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php/$1 [L,QSA]
+
+AddType application/x-httpd-php .js
+AddHandler x-httpd-php5 .js
+
+<FilesMatch "\.(js|php)$">
+SetHandler application/x-httpd-php
+</FilesMatch>
