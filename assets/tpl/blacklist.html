@@ -1,0 +1,15 @@
+<ul>
+	<% for(i in blacklist){ if(blacklist[i].id){ %>
+		<li data-id="<%= blacklist[i].id %>">
+			<div class="tools" style="float:right;">
+				<a class="edit"><%= AeroStep.lang.edit %></a> <a class="delete"><%= AeroStep.lang.delete %></a>
+			</div>
+
+			<input type="checkbox" class="select" value="1" />
+			URL: <%= blacklist[i].url%><br />
+			Description: <%= blacklist[i].description %><br />
+			Match prefix: <%= blacklist[i].globPrefix %><br />
+			Match suffix: <%= blacklist[i].globSuffix %><br /><br />
+		</li>
+	<% }} %>
+</ul>

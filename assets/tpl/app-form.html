@@ -1,0 +1,53 @@
+<form>
+	<div class="row">
+		<div class="panel-bar large-12 columns">
+			<div class="tools" style="float:right;">
+				<a class="save"><%= AeroStep.lang.saveclose %> <i class="ss-icon">&#x2699</i></a>
+			</div>
+		</div>
+		<div class="large-12 columns">
+
+			<label>Title:</label>
+			<input name="title" class="aero-title aero-required" type="text" placeholder="<%= AeroStep.lang.etitle %>" value="<%= app.title %>">
+
+			<label>Description</label>
+			<textarea style="height:60px;" name="description" type="text" placeholder="<%= AeroStep.lang.edesc %>"><%= app.description %></textarea>
+
+			<label>
+				Host
+				<a class="add-alias">(<%= app.aliases && app.aliases.length %> more)<i class="ss-icon">&#xF501;</i></a>
+			</label>
+			<div class="row collapse">
+				<div class="large-10 columns">
+					<input name="host" class="aero-required" type="text" placeholder="http://example.com" value="<%= app.host %>">
+				</div>
+				<div class="large-2 columns">
+					<a class="add-alias-btn"">
+						<i class="ss-plus" title="Add another host"></i>
+					</a>
+				</div>
+			</div>
+
+			<div class="alias-wrapper" style="display:none;">
+			<% if (app.aliases && app.aliases.length > 0) { %>
+				<% for (i in app.aliases) { %>
+					<div class="row collapse alias">
+						<div class="large-12 columns">
+							<input class="alias-input" type="text" placeholder="http://uat.example.com" value="<%= app.aliases[i] %>">
+							<a class="delete-alias"><i class="ss-delete"></i></a>
+						</div>
+					</div>
+				<% } %>
+			<% } %>
+			</div>
+
+			<div style="display:none;"><input name="active" type="checkbox" value="1" checked='checked'></div>
+
+			<% if(app.id) { %>
+			<a href="#" class="large-12 delete alert small button"><%= AeroStep.lang.delete %></a>
+			<% } else { %>
+			<a href="#" class="large-12 secondary cancel small button"><%= AeroStep.lang.cancel %></a>
+			<% } %>
+		</div>
+	</div>
+</form>

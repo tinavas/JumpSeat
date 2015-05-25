@@ -1,0 +1,12 @@
+<form>
+	<input name="type" type="hidden" value="url">
+
+	<label><%= AeroStep.lang.desc %></label>
+	<textarea name="description" type="text" placeholder="<%= AeroStep.lang.edesc %>"><%= pagedata.description %></textarea>
+
+	<label><%= AeroStep.lang.regex %></label>
+	<input name="prop" type="text" class="aero-required" placeholder="<%= AeroStep.lang.eregex %>" value="<%= pagedata.prop %>">
+
+	<label><%= AeroStep.lang.with %></label>
+	<input name="value" type="text" class="aero-required" placeholder="<%= AeroStep.lang.ewith %>" value="<%= pagedata.value %>">
+</form>

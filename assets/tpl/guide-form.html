@@ -1,0 +1,21 @@
+<form>
+	<label><%= AeroStep.lang.title %></label>
+	<input name="title" type="text" class="aero-required" placeholder="<%= AeroStep.lang.etitle %>" value="<%= guide.title %>">
+
+	<label><%= AeroStep.lang.desc %></label>
+	<textarea name="desc" type="text" placeholder="<%= AeroStep.lang.edesc %>"><%= guide.desc %></textarea>
+
+	<div>
+		<label><%= AeroStep.lang.active %></label>
+		<div class="check row">
+			<div class="large-12">
+				<label class="left"><%= AeroStep.lang.no %></label>
+				<fieldset class="left tiny switch round">
+					<input name="active" id="active" type="checkbox" <%= (guide.active) ? "checked" : "" %>>
+					<label for="active"></label>
+				</fieldset>
+				<label class="left"><%= AeroStep.lang.yes %></label>
+			</div>
+		</div>
+	</div>
+</form>

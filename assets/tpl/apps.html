@@ -1,0 +1,38 @@
+<li class="card-wrapper app columns medium-6 large-3" data-id="<%= app.id %>">
+  <div class="card">
+    <div class="cardFace large-12  front">
+		<div class="panel-wrapper clearfix">
+			<div class="panel-bar large-12 columns">
+				<? if($is_admin){ ?><div class="tools" style="float:right;"><a class="edit"><%= AeroStep.lang.edit %> <i class="ss-icon">&#x2699</i></a></div><? } ?>
+				<span class="app-title"><a class="title link-guide" href="/app/<%= app.hostLink %>/analytics"><%= app.title %></a></span>
+				<span class="host"><a target="_blank" href="<%= app.host %>"><%= app.host %></a></span>
+			</div>
+			<div class="panel-body clearfix">
+				<div class="avatar large-5">
+					<img src="/assets/images/avatar.jpg" />
+					<span><%= app.syn %></span>
+				</div>
+				<div class="large-7 columns">
+					<p class="description"><%= (app.description && app.description != "") ? Utils.words.cut(app.description, 140) : "" %></p>
+				</div>
+			</div>
+			<div class="panel-foot">
+				<span><%= AeroStep.lang.status %></span>
+				<div class="panel-active clearfix">
+					<label class="left"><%= AeroStep.lang.off %></label>
+					<fieldset class="left tiny switch round" tabindex="0">
+						<input id="active<%= app.id %>" type="checkbox" <%= app.active ? "checked" : "" %>  <?= ($is_admin) ? '' : 'disabled' ?> >
+						<label for="active<%= app.id %>"></label>
+					</fieldset>
+					<label class="left"><%= AeroStep.lang.on %></label>
+				</div>
+			</div>
+			<div class="panel-buttons">
+				<a class="link-guide small-6 medium-6 large-6 columns" href="/app/<%= app.hostLink %>/guides"><span><i class="aicon-guide"></i> <%= AeroStep.lang.vguides %></span></a>
+				<a class="link-path small-6 medium-6 large-6 columns" href="/app/<%= app.hostLink %>/pathways"><span><i class="aicon-pathway"></i> <%= AeroStep.lang.vpaths %></span></a>
+			</div>
+		</div>
+    </div>
+    <div class="cardFace large-12 columns back"><div class="panel-wrapper clearfix"><div class="large-12 columns"></div></div></div>
+  </div>
+</li>

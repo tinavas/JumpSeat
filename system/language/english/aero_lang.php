@@ -1,0 +1,190 @@
+<?php
+
+//Copyright
+$lang['copy']		= "TenSpeed Technologies, Inc. &copy; 2015 All rights reserved.<br>You are running version ";
+
+//Menu System
+$lang['home']			= "Home";
+$lang['analytics']		= "Analytics";
+$lang['role']			= "Role";
+$lang['roles']			= "Roles";
+$lang['guide']			= "Guide";
+$lang['guides']			= "Guides";
+$lang['pathway']		= "Pathway";
+$lang['spathway']		= "Select a Pathway";
+$lang['pathways']		= "Pathways";
+$lang['config']			= "Configuration";
+$lang['blacklist']		= "URL Blacklisting";
+$lang['versions']		= "Versions";
+$lang['logout']			= "Logout";
+
+$lang['pagedata']		= $lang['config'];
+$lang['pathwaymap']		= $lang['pathways'];
+$lang['rolemap']		= $lang['roles'];
+
+//Buttons
+$lang['save']			= "Save";
+$lang['saveclose']		= "Save &amp; Close";
+$lang['cancel']			= "Cancel";
+$lang['ok']				= "Ok";
+$lang['add']			= "Add";
+$lang['delete']			= "Delete";
+$lang['edit']			= "Edit";
+$lang['clone']			= "Clone";
+$lang['export']			= "Export";
+$lang['import']			= "Import";
+
+//Labels
+$lang['title']			= "Title";
+$lang['desc']			= "Description";
+$lang['host']			= "Host";
+$lang['permissions']	= "Permissions";
+$lang['multiactions']	= "With Selected...";
+$lang['sguide']			= "Select a Guide";
+$lang['srole']			= "Select a Role";
+$lang['yes']			= "Yes";
+$lang['no']				= "No";
+
+//Error
+$lang['requirede']		= "Please check all required fields";
+$lang['success']		= "Success! Your changes have been saved.";
+
+/**
+ *  Apps
+ */
+
+$lang['hometitle']		= "JUMPSEAT";
+$lang['apps']			= "Applications";
+$lang['appsc']			= "Current Applications";
+$lang['appsd']			= "Listed below are all of the applications in your organization that is using JumpSeat. To add a new application, simply click \"ADD A NEW WEB APPLICATION\" below.";
+$lang['active']			= "Active";
+$lang['status']			= "Application Status";
+$lang['etitle']			= "Enter a title";
+$lang['edesc']			= "Enter a description";
+$lang['vguides']		= "View Guides";
+$lang['vpaths']			= "View Paths";
+$lang['on']				= "On";
+$lang['off']			= "Off";
+$lang['appsa']			= "Add a new web application";
+
+/**
+ *  Blacklist
+ */
+$lang['eurl']			= "Enter a URL";
+$lang['matchpre']		= "Match with any prefix";
+$lang['matchsuf']		= "Match with any suffix";
+
+/**
+ *  Guides
+ */
+$lang['guidesd']		= "If you want to create guides without any step fuss, this is the place. Create your empty guides and then click the \"steps\" button to start the guide. ";
+$lang['versionsd']		= "The latest version is the version currently in use. Restore will copy an older guide and make it the current version. You can also clean up unwanted versions.";
+$lang['trashd']         = "Restore guides from the trash, and cleanup unwanted guides.";
+$lang['addg']			= "Create a new guide";
+$lang['trash']			= "Trash";
+$lang['importg']		= "Import guides";
+$lang['etitle']			= "Enter a title";
+$lang['edesc']			= "Enter a description";
+
+/**
+ *  Roles
+ */
+$lang['assocp']			= "Add a new pathway";
+$lang['addr']			= "Create a new role";
+$lang['roled']			= "This page allows you to manage guide, pathway and user access. Once you have created a role (by clicking create), simply click on the user icon to open the role permissions page.";
+$lang['cardr']			= "Manage role";
+
+/**
+ *  Pathways
+ */
+$lang['addp']			= "Create a new pathway";
+$lang['pathwaysd']		= "Pathways are structured learning paths in which users progress to completion. Add a pathway and try dragging it around to reorder the learning path.";
+$lang['pathd']			= "Pathways help users learn key tasks and related concepts in a sequential way. A pathway can contain any number of guides. To add a new path click the add a pathway button below.";
+$lang['cardp']			= "Manage pathway";
+$lang['assocg']			= "Add a guide";
+$lang['assocr']			= "Add a role";
+
+/**
+ * Mappings
+ */
+$lang['pathmap'] 		= "Pathways associated with this role";
+$lang['pathmapd'] 		= "Control who has access to your learning pathways. Simply add a pathway to this role and users in that group will have access. If a pathway is not part of any role, it will be available to all guest users!";
+$lang['pathguide'] 		= "Guides associated with this role";
+$lang['pathguided'] 	= "Simply add a guide to this role and users in that group will have access. If a guide is not part of any role, it will be available to all guest users!";
+$lang['rolethings'] 	= "Things this role can...";
+$lang['rolethingsd'] 	= "Restricting access to administration features is easy. Simply click on the options below and everything will be updated automatically.";
+$lang['usermap'] 		= "Users associated with this role";
+$lang['usermapd'] 		= "Choose who belongs to this role. Simply add users by clicking the \"Add a user\" button and they will have access to everything in this role.";
+
+/**
+ *  Page data
+ */
+$lang['importc'] 		= "Import URLs";
+$lang['addd'] 			= "Add a dynamic url";
+$lang['configd'] 		= "Guides naturally enforce one-to-one URL matching. Dynamic URL's include things like username, company name (multi-tenant), email address or some unique identifier. By using our dynamic URL replacement you can create one guide for all dynamic URLs.";
+$lang['basicconfigd'] 	= "This section is for advanced users only.";
+$lang['required']		= "Required";
+$lang['requiredhelp']	= "JavaScript e.g. MYAPP";
+$lang['fire']	= "Fire";
+$lang['firehelp']	= "Enter JavaScript to fire some code before JumpSeat starts";
+$lang['username']		= "Username";
+$lang['usernamehelp']	= "JavaScript e.g. MYAPP.constants.USERNAME";
+$lang['roleshelp']		= "JavaScript e.g. MYAPP.constants.ROLES";
+$lang['warnadvanced']	= "Warning this is for advanced users only!";
+$lang['basicconf']		= "Basic Configuration";
+$lang['urlsubstitution']= "Dynamic URLs";
+$lang['regex'] 			= "Replace (regex)";
+$lang['eregex'] 		= "Enter a regex";
+$lang['with'] 			= "With";
+$lang['ewith'] 			= "JavaScript e.g. MYAPP.dynamicValue";
+
+/**
+ *  Permissions
+ */
+$lang['steps'] 			= "Steps";
+
+/**
+ *  Blacklist
+ */
+$lang['addurl'] 		= "Add a URL";
+$lang['blacklistd'] 	= "The guide-bar will be available on all URLs under this domain. In order to ignore pages (e.g. login page), you must blacklist them here.";
+
+/**
+ *  Users
+ */
+$lang['admin']			= "System Administrator";
+$lang['user'] 			= "User";
+$lang['users'] 			= "Users";
+$lang['usersd'] 		= "Manage who can access this administration console. System Administrators have the ability to manage user, applications and their data.";
+$lang['addu'] 			= "Add a User";
+$lang['importu'] 		= "Import Users";
+
+$lang['firstname'] 		= "Firstname";
+$lang['firstnamep'] 	= "Enter a firstname";
+$lang['lastname'] 		= "Lastname";
+$lang['lastnamep'] 		= "Enter a lastname";
+$lang['email'] 			= "Email";
+$lang['emailp'] 		= "Enter email address";
+$lang['passwordc'] 		= "Change Password";
+$lang['password'] 		= "Password";
+$lang['passwordv'] 		= "Confirm New Password";
+$lang['passwordp'] 		= "Enter a password";
+$lang['passwordvp'] 	= "Confirm password";
+$lang['profilec'] 		= "Edit Profile";
+$lang['emailuser']	= "Email user";
+
+/**
+ *  Analytics
+ */
+$lang['reportusers'] 	= "Started vs Completed";
+$lang['reportusersd'] 	= "Difference between users starting and completing guides";
+
+$lang['reporttaken'] 	= "Processes with high support";
+$lang['reporttakend'] 	= "A graph to show which guides people keep coming back to";
+
+$lang['reporttime']	= "Time to complete";
+$lang['reporttimed']	= "A graph to show how long it is taking everyone to complete the guides";
+
+
+/* End of file aero_lang.php */
+/* Location: ./system/language/english/aero_lang.php */

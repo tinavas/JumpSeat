@@ -1,0 +1,30 @@
+<ul>
+	<li class="ui-state-disabled circle columns large-offset-4 large-4">
+		<div>Start<span></span></div>
+	</li>
+	<% for(i in pathwaymaps){  %>
+		<li data-id="<%= pathwaymaps[i].id %>" class="card-wrapper app columns large-offset-4 large-4">
+		  <div class="card">
+		    <div class="cardFace large-12  front">
+				<div class="panel-wrapper clearfix">
+					<div class="clearfix panel-bar large-12 columns">
+						<div style="float:right;" class="tools">
+							<a class="delete">Delete <i class="ss-delete"></i></a>
+						</div>
+					</div>
+					<div class="panel-body large-12 columns">
+						<%= pathwaymaps[i].title %>
+					</div>
+					<div class="panel-buttons">
+						<a class="link-guide large-12 columns"><%= pathwaymaps[i].step.length %> Steps</a>
+					</div>
+				</div>
+		    </div>
+		    <div class="cardFace large-12 back"><div class="panel-wrapper clearfix"><div class="large-12 columns"></div></div></div>
+		  </div>
+		</li>
+	<% } %>
+	<li class="ui-state-disabled circle end columns large-offset-4 large-4">
+		<div><span></span>End</div>
+	</li>
+</ul>

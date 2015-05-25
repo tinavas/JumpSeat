@@ -1,0 +1,27 @@
+<% var edit = <?= $acl['pathways']['edit'] ? "true" : "false"; ?> %>
+<% var create = <?= $acl['pathways']['create']? "true" : "false"; ?> %>
+<% var isCreator = (pathway.creator == Aero.constants.USERNAME) %>
+<li class="card-wrapper app columns small-12 medium-3 large-2" data-id="<%= pathway.id %>">
+  <div class="card">
+    <div class="cardFace large-12  front">
+		<div class="panel-wrapper clearfix">
+			<div class="panel-bar large-12 columns">
+				<div class="tools" style="float:right;">
+					<% if(edit || create && isCreator){ %><a class="edit"><%= AeroStep.lang.edit %> <i class="ss-icon">&#x2699</i></a><% } else { %><a class="empty-btn"></a><% } %>
+				</div>
+			</div>
+			<div class="panel-body clearfix">
+				<a class="flip-button" href="pathway/<%= encodeURI(pathway.title) %>">
+					<img src="/assets/images/pathway-boxed.png" />
+					<span class="title"><%= pathway.title %></span>
+					<span class="description"><%= pathway.description %></span>
+				</a>
+			</div>
+			<div class="panel-buttons">
+				<a class="yellow dark link-guide large-12 columns"><%= pathway.guides %> <%= AeroStep.lang.guides %></a>
+			</div>
+		</div>
+    </div>
+    <div class="cardFace large-12 columns back"><div class="panel-wrapper clearfix"><div class="large-12 columns"></div></div></div>
+  </div>
+</li>

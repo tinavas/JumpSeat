@@ -1,0 +1,33 @@
+<% var s = guides.search;  var a = (s) ? ["aero-search-clear", "fa-times"] : ["aero-search-btn", "fa-search"]; var b = (s) ? s : AeroStep.lang.search; var c = (s) ? "search" : "compass"; var d = (s) ? "Search" : AeroStep.lang.allguides; %>
+<% if(guides[0] && guides[0].path){ c = "avatar"; var ispath = true; var syn = guides[0].path.replace(/(\w)\w*\W*/g, function (_, i) { return i; }); } %>
+<div id="aeroGuidebar" class="aero-app aero-sidebar <% if(sidebar == 1){ %>open<% } %>">
+	<div id="aero-tab"><a></a></div>
+	<div class="aero-head">
+		<div class="aero-search <%= s ? 'aero-active': '' %>">
+			<a class="<%= a[0] %>"><i class="fa <%= a[1] %>"></i></a>
+			<input type="text" name="aero_search" value="<%= b %>" />
+		</div>
+		<div class="aero-carousel">
+			<a class="aero-left"></a><a class="aero-right"></a>
+			<span class="aero-avatar">
+				<img src="<%= AeroStep.baseUrl %>assets/images/<%= c %>.jpg" height="100" />
+				<% if(ispath){ %><span><%= syn.slice(0, 2) %></span> <% } %>
+			</span>
+			<span class="aero-pathway" data-id="<%= (guides[0] && guides[0].pathid) ? guides[0].pathid : 0 %>"><%= (guides[0] && guides[0].path) ? guides[0].path : d %></span>
+		</div>
+	</div>
+	<div class="aero-body">
+		<? if($acl['guides']['create']){ ?><div class="aero-add-step"><a class="aero-btn-red aero-btn-create"><i class="fa fa-plus"></i>&nbsp;&nbsp;<%= AeroStep.lang.guidea %></a></div><? } ?>
+		<% if(guides.search){ %><div class="aero-helper-results"><span><%= guides.length %></span> <%= AeroStep.lang.found %></div><% } %>
+		<% if(!guides.search && AeroStep.admin && (guides.length == 0 || !guides[0].title)) { %><div class="aero-helper"><span class="aero-help-triangle"></span><%= AeroStep.lang.guideh %></div><% } %>
+		<div class="aero-guides">
+			<ul>
+				<% for(i in guides){ if(guides[i].id){ Aero.guide.autoStart(guides[i]); %>
+					<li class="<%= guides[i].complete ? 'aero-complete' : '' %>" data-guideid="<%= guides[i].id %>"><a><%= guides[i].title %></a></li>
+				<% }} %>
+			</ul>
+		</div>
+	   <% if(guides.search && guides.length == 0){ %><div class="aero-helper-empty"><%= AeroStep.lang.searche %></div><% } %>
+	</div>
+	<div class="aero-foot"></div>
+</div>

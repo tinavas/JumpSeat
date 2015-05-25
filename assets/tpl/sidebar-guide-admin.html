@@ -1,0 +1,78 @@
+<% var asSaveButton = '<a class="aero-btn-red aero-btn-save">' + AeroStep.lang.save + '</a>'; %>
+<% var asCancelButton = '<a class="aero-btn-grey aero-cancel-edit">' + AeroStep.lang.cancel + '</a>'; %>
+<div class="aero-app aero-admin-wrapper clearfix aero-editing-guide">
+	<div class="aero-strip-menu">
+		<ul>
+			<li class="aero-menu-active"><a data-title="Basic Details" class="aicon-basic"><span></span></a></li>
+			<!-- <li><a data-title="Ratings" class="aicon-rate"><span></span></a></li> -->
+			<% if(model.id){ %>
+			<li><a data-title="Pathways" class="aicon-path"><span></span></a></li>
+			<li><a data-title="Roles" class="aicon-role"><span></span></a></li>
+			<% } %>
+		</ul>
+	</div>
+	<div class="aero-admin-body">
+		<form id="editGuideFrm">
+	    	<div id="aeroSection0" class="aero-section open">
+		    	<h1><%= AeroStep.lang.basic %></h1>
+		    	<p><%= AeroStep.lang.basicd %></p>
+
+				<label><%= AeroStep.lang.title %></label>
+				<input type="text" name="aero_title" class="aero-required" value="<%= model.title %>" />
+
+				<label><%= AeroStep.lang.desc %></label>
+				<textarea id="aeroEditor" name="aero_desc"><%= model.desc %></textarea>
+
+				<label style="margin-top:15px"><%= AeroStep.lang.active %></label>
+				<div class="aero-radio"><input type="checkbox" name="aero_active" value="1" <%= model.active ? "checked" : "" %> /></div>
+
+				<!-- <label style="margin-top:15px"><%= AeroStep.lang.auto %></label>
+				<div class="aero-radio"><input type="checkbox" name="aero_auto" value="1" <%= model.auto ? "checked" : "" %> /></div> -->
+
+				<div style="margin-top:15px;"><%= asSaveButton %><%= asCancelButton %></div>
+			</div>
+
+			<!-- <div id="aeroSection1" class="aero-section">
+		    	<h1><%= AeroStep.lang.rating %></h1>
+		    	<p><%= AeroStep.lang.ratingd %></p>
+
+		    	<label><%= AeroStep.lang.est %></label>
+				<input type="text" name="aero_est" class="aero-fld-sml" value="<%= model.est %>" />
+
+				<label><%= AeroStep.lang.diff %></label>
+				<select type="text" name="aero_lvl">
+					<option value="" <%= (model.lvl == "1" ? "selected":"") %>>Easy (default)</option>
+					<option value="2" <%= (model.lvl == "2" ? "selected":"") %>>Medium</option>
+					<option value="3" <%= (model.lvl == "3" ? "selected":"") %>>Hard</option>
+					<option value="4" <%= (model.lvl == "4" ? "selected":"") %>>Expert</option>
+				</select>
+
+				<%= asSaveButton %><%= asCancelButton %>
+			</div> -->
+
+			<div id="aeroSection1" class="aero-section">
+		    	<h1><%= AeroStep.lang.pathways %></h1>
+		    	<p><%= AeroStep.lang.pathd %></p>
+
+		    	<div class="aero-pathways-search">
+					<select class="aero-assoc-select aero-pathways"></select><a class="aero-btn-grey"><i class="fa fa-plus-circle"></i> <%= AeroStep.lang.add %></a>
+				</div>
+
+				<div class="aero-assoc aero-pathways-list"><ul></ul></div>
+				<%= asSaveButton %><%= asCancelButton %>
+			</div>
+
+			<div id="aeroSection2" class="aero-section">
+		    	<h1><%= AeroStep.lang.roles %></h1>
+		    	<p><%= AeroStep.lang.roled %></p>
+
+				<div class="aero-roles-search">
+					<select class="aero-assoc-select aero-roles"></select><a class="aero-btn-grey"><i class="fa fa-plus-circle"></i> <%= AeroStep.lang.add %></a>
+				</div>
+
+				<div class="aero-assoc aero-roles-list"><ul></ul></div>
+				<%= asSaveButton %><%= asCancelButton %>
+			</div>
+		</form>
+	</div>
+</div>

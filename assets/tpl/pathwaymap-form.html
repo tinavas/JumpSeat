@@ -1,0 +1,8 @@
+<form>
+	<label><%= AeroStep.lang.sguide %></label>
+	<select name="guideid">
+		<% for(i in guides){ %>
+			<option value="<%= guides[i].id %>"><%= guides[i].title %></option>
+		<% } %>
+	</select>
+</form>

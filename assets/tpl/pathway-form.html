@@ -1,0 +1,26 @@
+<% var del = <?= $acl['pathways']['delete'] ? "true" : "false"; ?> %>
+<% var create = <?= $acl['pathways']['create']? "true" : "false"; ?> %>
+<% var isCreator = (pathway.creator == Aero.constants.USERNAME) %>
+<form>
+	<div class="row">
+		<div class="panel-bar large-12 columns">
+			<div class="tools" style="float:right;">
+				<a class="save"><%= AeroStep.lang.saveclose %> <i class="ss-icon">&#x2699</i></a>
+			</div>
+		</div>
+		<div class="large-12 columns">
+
+			<label><%= AeroStep.lang.title %></label>
+			<input name="title" type="text" class="aero-required" placeholder="<%= AeroStep.lang.etitle %>" value="<%= pathway.title %>">
+
+			<label><%= AeroStep.lang.desc %></label>
+			<textarea name="description" type="text" placeholder="<%= AeroStep.lang.edesc %>"><%= pathway.description %></textarea>
+
+			<% if(pathway.id && (del || create && isCreator)) { %>
+			<a href="#" class="large-12 delete alert small button"><%= AeroStep.lang.delete %></a>
+			<% } else { %>
+			<a href="#" class="large-12 secondary cancel small button"><%= AeroStep.lang.cancel %></a>
+			<% } %>
+		</div>
+	</div>
+</form>

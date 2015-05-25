@@ -1,0 +1,231 @@
+<% var asSaveButton = '<a class="aero-btn-red aero-btn-save">' + AeroStep.lang.save + '</a>'; %>
+<% var asCancelButton = '<a class="aero-btn-grey aero-cancel-edit">' + AeroStep.lang.cancel + '</a>'; %>
+<% Aero.nav = model.nav; Aero.index = null; %>
+<div class="aero-app aero-admin-wrapper clearfix aero-editing-step <%= (model.isAdd) ? 'aero-add-step':'' %>">
+	<div class="aero-strip-menu">
+		<ul>
+			<li class="aero-menu-active"><a data-title="Basic Details" class="aicon-basic"><span></span></a></li>
+			<li><a data-title="Styling" class="aicon-style"><span></span></a></li>
+			<li><a data-title="Navigation" class="aicon-nav"><span></span></a></li>
+			<li><a data-title="Location" class="aicon-loc"><span></span></a></li>
+			<li><a data-title="Exceptions" class="aicon-alert"><span></span></a></li>
+			<li><a data-title="Branching" class="aicon-branch"><span></span></a></li>
+			<li><a data-title="Custom code" class="aicon-code"><span></span></a></li>
+		</ul>
+	</div>
+	<div class="aero-admin-body">
+		<form id="editStepFrm">
+			<input type="hidden" class="aero-step-index" value="<%= model.index %>" />
+	    	<div id="aeroSection0" class="aero-section open">
+		    	<h1><%= AeroStep.lang.contente %></h1>
+		    	<p><%= AeroStep.lang.contentd %></p>
+
+				<label><%= AeroStep.lang.title %></label>
+				<input type="text" name="aero_title" class="aero-required" value="<%= model.title %>" />
+
+				<label><%= AeroStep.lang.content %></label>
+				<textarea id="aeroEditor" name="aero_body" style="height:150px"><%= model.body %></textarea>
+				<div style="margin-top:15px;"><%= asSaveButton %><%= asCancelButton %></div>
+			</div>
+			<div id="aeroSection1" class="aero-section">
+		    	<h1><%= AeroStep.lang.stylee %></h1>
+		    	<p><%= AeroStep.lang.styled %></p>
+
+				<label><%= AeroStep.lang.pos %></label>
+				<select type="text" name="aero_position">
+					<option value="bottom" <%= (model.position == "bottom" ? "selected":"") %>>Bottom (default)</option>
+					<option value="top" <%= (model.position == "top" ? "selected":"") %>>Top</option>
+					<option value="left" <%= (model.position == "left" ? "selected":"") %>>Left</option>
+					<option value="right" <%= (model.position == "right" ? "selected":"") %>>Right</option>
+					<option value="orphan" <%= (model.position == "orphan" ? "selected":"") %>>Orphan</option>
+				</select>
+
+				<label><%= AeroStep.lang.size %></label>
+				<select type="text" name="aero_size">
+					<option value="" <%= (model.size == "" ? "selected":"") %>>Small (default)</option>
+					<option value="med" <%= (model.size == "med" ? "selected":"") %>>Medium</option>
+					<option value="lrg" <%= (model.size == "lrg" ? "selected":"") %>>Large</option>
+					<option value="auto" <%= (model.size == "auto" ? "selected":"") %>>Auto</option>
+					<option value="custom" <%= (!isNaN(model.size) ? "selected":"") %>>Custom</option>
+				</select>
+
+				<div class="aero-custom-size" style="<%= isNaN(model.size) ? 'display:none' : '' %>">
+					<label><%= AeroStep.lang.sizec %></label>
+					<input type="text" name="aero_size_custom" value="<%= model.size %>" />
+				</div>
+
+				<label><%= AeroStep.lang.stitle %></label>
+				<div class="aero-radio"><input type="checkbox" value="1" name="aero_showTitle" <%= model.showTitle ? "checked" : "" %> /></div>
+
+				<label><%= AeroStep.lang.sprev %></label>
+				<div class="aero-radio"><input type="checkbox" value="1" name="aero_multi" <%= model.multi ? "checked" : "" %> /></div>
+
+				<label><%= AeroStep.lang.sbar %></label>
+				<div class="aero-radio"><input type="checkbox" value="1" name="aero_sidebar" <%= model.sidebar ? "checked" : "" %> /></div>
+				<%= asSaveButton %><%= asCancelButton %>
+			</div>
+
+			<div id="aeroSection2" class="aero-section">
+		    	<h1><%= AeroStep.lang.nave %></h1>
+		    	<p><%= AeroStep.lang.navd %></p>
+
+				<label><span class="aero-move"><%= AeroStep.lang.move %></span> <%= AeroStep.lang.moveto %></label>
+				<div class="aero-nav-wrapper">
+
+					<%  if(!model.nav || model.nav.length == 0) model.nav = [{ "": -1 }];
+						for(j in model.nav){ if(typeof model.nav[j] != "function"){
+						%>
+						<div class="aero-nav-item">
+							<select class="aero_nav_when" style="width:200px;">
+								<option value="">Next is clicked</option>
+								<option value="click" <%= j== "click" ? "selected" : "" %>>Element is clicked</option>
+								<option value="hover" <%= j == "hover" ? "selected" : "" %>>Hover over element</option>
+								<option value="blur"  <%= j == "blur" ? "selected" : "" %>>Keyboard input finished</option>
+								<option value="unload" <%= j == "unload" ? "selected" : "" %>>Page changed or refreshed</option>
+								<option value="observe" <%= j == "observe" ? "selected" : "" %>>Next item visible</option>
+							</select>
+							<select class="aero_nav_to" style="width:170px;">
+								<option value="-1">Next Step (default)</option>
+								<% for(var i = 0; i < Aero.tip._guide.step.length + 1; i++){
+									var d = "";
+									var s = "";
+									if(model.index != i){
+										if(model.nav[j] == i) s = "selected";
+								%>
+									<option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
+								<% }} %>
+							</select>
+						</div>
+					<% }} %>
+				</div>
+
+				<a class="aero-btn-grey aero-add-nav"><i class="fa fa-plus"></i> <%= AeroStep.lang.addm %></a>
+		    	<p style="margin-bottom:20px; margin-top:30px;"><%= AeroStep.lang.buttonc %></p>
+
+				<label><%= AeroStep.lang.hide %></label>
+				<select type="text" name="aero_hide">
+					<option value="" <%= (model.position == "top" ? "selected":"") %>>None (default)</option>
+					<option value="noNext" <%= (model.noNext ? "selected":"") %>>Next button</option>
+					<option value="noPrev" <%= (model.noPrev ? "selected":"") %>>Previous button</option>
+					<option value="noNav" <%= (model.noNav ? "selected":"") %>>All buttons</option>
+				</select>
+				<%= asSaveButton %><%= asCancelButton %>
+			</div>
+			<div id="aeroSection3" class="aero-section">
+		    	<h1><%= AeroStep.lang.loce %></h1>
+		    	<p><%= AeroStep.lang.locd %></p>
+
+				<label><%= AeroStep.lang.loc %></label>
+				<input type="text" name="aero_loc" value="<%= model.loc %>" />
+
+				<div class="clearfix">
+					<div class="aero-loc-find">
+						<label><%= AeroStep.lang.pause %></label>
+						<select type="text" name="aero_pause">
+							<option value=""><%= AeroStep.lang.dd %></option>
+							<% for(i = 1; i <= 10; i++){ var p = i / 2; %>
+								<option value="<%= (i == 0) ? '' : p %>" <%= (model.pause == p) ? 'selected' : '' %>><%= AeroStep.lang.wf %> <%= p %> <%= AeroStep.lang.seconds %></option>
+							<% } %>
+						</select>
+					</div>
+					
+					<div class="aero-loc-find">	
+						<label><%= AeroStep.lang.find %></label>
+						<select type="text" name="aero_tries">
+							<option value=""><%= AeroStep.lang.ra %></option>
+							<% for(i = 1; i <= 30; i++){ %>
+								<option value="<%= (i == 0) ? '' : i %>" <%= (model.tries == i) ? 'selected' : '' %>><%= AeroStep.lang.ut %> <%= i %> <%= AeroStep.lang.seconds %></option>
+							<% } %>
+						</select>
+					</div>
+				</div>
+				
+				<h1 style="margin-top:15px;"><%= AeroStep.lang.url %></h1>
+		    	<p style="margin-bottom:15px;"><%= AeroStep.lang.urls %></p>
+
+				<div class="aero-host clearfix">
+					<span><%= Aero.host %></span><input type="text" name="aero_url" value="<%= model.url %>" />
+				</div>
+
+				<label><%= AeroStep.lang.urlv %></label>
+				<select type="text" name="aero_noUrl">
+					<option value="" <%= (model.noUrl == "" ? "selected":"") %>>Whole URL (default)</option>
+					<option value="anc" <%= (model.noUrl == "anc" ? "selected":"") %>>Without Anchors (example.com/#something)</option>
+					<option value="par" <%= (model.noUrl == "par" ? "selected":"") %>>Without Parameters (example.com?key=value)</option>
+					<option value="all" <%= (model.noUrl == "all" ? "selected":"") %>>Ignore URL Entirely</option>
+				</select>
+				<%= asSaveButton %><%= asCancelButton %>
+			</div>
+			<div id="aeroSection4" class="aero-section">
+		    	<h1><%= AeroStep.lang.exce %></h1>
+		    	<p><%= AeroStep.lang.excd %></p>
+
+				<label><%= AeroStep.lang.alerta %></label>
+				<select type="text" name="aero_miss">
+					<option value="" <%= (!model.miss ? "selected" : "") %>>Skip step (default)</option>
+					<option value="back" <%= (model.miss == "back" ? "selected":"") %>>Move back to previous step</option>
+					<option value="alert" <%= (model.miss == "alert" ? "selected":"") %>>Display a message</option>
+				</select>
+
+				<div class="aero-alert-edit" style="<%= (model.miss != "alert") ? 'display:none' : '' %>">
+					<p style="margin-bottom:20px; margin-top:0px;"><%= AeroStep.lang.alertm %></p>
+
+					<label><%= AeroStep.lang.title %></label>
+					<input type="text" name="aero_alert" value="<%= model.alert %>" />
+
+					<label><%= AeroStep.lang.content %></label>
+					<textarea name="aero_alertContent"><%= model.alertContent %></textarea>
+				</div>
+				<%= asSaveButton %><%= asCancelButton %>
+			</div>
+			<div id="aeroSection5" class="aero-section">
+				<h1><%= AeroStep.lang.branch %></h1>
+		    	<p><%= AeroStep.lang.branchd %></p>
+
+				<label><%= AeroStep.lang.bt %></label>
+				<select type="text" name="aero_branch">
+					<option value="" <%= (!model.return ? "selected" : "") %>>- Select Guide -</option>
+					<%
+					var ls = localStorage.getItem('aero:guides');
+					var guides = JSON.parse(ls);
+					for(var i = 0; i < guides.length; i++){
+						if(guides[i]){ var s = (model.branch == guides[i].id) ? "selected" : "";
+					 %>
+						<option value="<%= guides[i].id %>" <%= s %>><%= guides[i].title %></option>
+					<% }} %>
+				</select>
+
+				<div style="<%= (model.branch) ? '' : 'display:none' %>">
+					<p style="margin-bottom:20px; margin-top:15px;"><%= AeroStep.lang.bre %></p>
+					<label><%= AeroStep.lang.br %></label>
+					<select type="text" name="aero_return">
+						<option value="" <%= (!model.return ? "selected" : "") %>>Don't return (default)</option>
+						<% for(var i = 0; i < Aero.tip._guide.step.length + 1; i++){
+							var s = (model.return == i) ? "selected" : ""; %>
+							<option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
+						<% } %>
+					</select>
+				</div>
+
+				<%= asSaveButton %><%= asCancelButton %>
+			</div>
+			<div id="aeroSection6" class="aero-section">
+		    	<h1><%= AeroStep.lang.codee %></h1>
+		    	<p><%= AeroStep.lang.coded %></p>
+
+				<label><%= AeroStep.lang.bs %></label>
+				<textarea name="aero_beforeCode" style="height:90px"><%= model.beforeCode %></textarea>
+
+				<label><%= AeroStep.lang.os %></label>
+				<textarea name="aero_onCode" style="height:90px"><%= model.onCode %></textarea>
+
+				<label><%= AeroStep.lang.bh %></label>
+				<textarea name="aero_afterCode" style="height:90px"><%= model.afterCode %></textarea>
+
+				<label><%= AeroStep.lang.oh %></label>
+				<textarea name="aero_offCode" style="height:90px"><%= model.offCode %></textarea>
+				<%= asSaveButton %><%= asCancelButton %>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,55 @@
+<form>
+	<ul class="tabs" data-tab role="tablist">
+	  <li class="tab-title active"><a href="#panel2-1">Details</a></li>
+	  <li class="tab-title"><a href="#panel2-2" role="tab">Password</a></li>
+	</ul>
+	<div class="tabs-content">
+		<div class="content active" id="panel2-1">
+		  	<label><%= AeroStep.lang.firstname %></label>
+			<input name="firstname" type="text" class="aero-required" placeholder="<%= AeroStep.lang.firstnamep %>" value="<%= user.firstname %>">
+
+			<label><%= AeroStep.lang.lastname %></label>
+			<input name="lastname" type="text" class="aero-required" placeholder="<%= AeroStep.lang.lastnamep %>" value="<%= user.lastname %>">
+
+			<label><%= AeroStep.lang.email %></label>
+			<input name="email" type="text" class="aero-required" placeholder="<%= AeroStep.lang.emailp %>" value="<%= user.email %>">
+
+			<div>
+				<label><%= AeroStep.lang.admin %></label>
+				<div class="check row">
+					<div class="large-12">
+						<label class="left"><%= AeroStep.lang.no %></label>
+						<fieldset class="left tiny switch round">
+							<input name="sysadmin" id="sysadmin" type="checkbox" <%= (user.sysadmin) ? "checked" : "" %>>
+							<label for="sysadmin"></label>
+						</fieldset>
+						<label class="left"><%= AeroStep.lang.yes %></label>
+					</div>
+				</div>
+			</div>
+	  	</div>
+	  	<div class="content" id="panel2-2">
+
+			<label><%= AeroStep.lang.password %></label>
+			<input name="password" type="password" placeholder="<%= AeroStep.lang.passwordp %>" value="">
+
+			<label><%= AeroStep.lang.passwordv %></label>
+			<input class="passwordv" type="password" placeholder="<%= AeroStep.lang.passwordvp %>" value="">
+
+            <div>
+                <label><%= AeroStep.lang.emailuser%></label>
+                <div class="check row">
+                    <div class="large-12">
+                        <label class="left"><%= AeroStep.lang.no %></label>
+                        <fieldset class="left tiny switch round">
+                            <input name="emailuser" id="emailuser" type="checkbox">
+                            <label for="emailuser"></label>
+                        </fieldset>
+                        <label class="left"><%= AeroStep.lang.yes %></label>
+                    </div>
+                </div>
+            </div>
+
+	  	</div>
+	</div>
+</form>

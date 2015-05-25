@@ -1,0 +1,9 @@
+<form>
+	<label><%= AeroStep.lang.pathway %></label>
+	<select name="pathwayid">
+        <option value="">- <%= AeroStep.lang.spathway %> -</option>
+		<% for(i in paths){ %>
+			<option value="<%= paths[i].id %>"><%= paths[i].title %></option>
+		<% } %>
+	</select>
+</form>
