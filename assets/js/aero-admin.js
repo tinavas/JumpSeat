@@ -821,110 +821,15 @@ Aero.picker = {
 	get : function(e) {
 		var self = this;
 		var $el = self.getElementByPos(e.pageX, e.pageY);
-		var bits = [], iterator = 10, level = 3, el = $el.get(0);
 
-		//Loop nodes
-		while (el.nodeType === 1) {
-			var tag = el.nodeName.toLowerCase();
-			var ref = self.getReference($q(el));
-
-			//Stop
-			if(tag == "html" || tag == "body") break;
-
-			//Did we add unique?
-			if (iterator > 0 && ref !== tag) {
-				if (level == 1) {
-					//Add final absolute index
-					bits.unshift(self.getIndex($q(el), ref));
-					break;
-				}
-				else {
-					bits.unshift(self.getRelativeIndex($q(el), ref));
-				}
-				level--;
-			}
-			else {
-				bits.unshift(self.getRelativeIndex($q(el), tag));
-			}
-			iterator--;
-			el = el.parentNode;
-		}
-		return bits.join(' ');
-	},
-
-	/**
-	 *  Get Element unique reference
-	 */
-	getReference : function($el) {
-		var tag = $el.prop('tagName').toLowerCase();
-		var contains = ['button', 'a', 'label'];
-		var name = ['input', 'textarea', 'select'];
-
-		//Looks for contains
-		if($q.inArray(tag, contains) > -1){
-			return $el.prop("tagName").toLowerCase() + ":contains('" + $q.trim($el.text()) + "')";
-		}
-
-		// Looks for name attr
-		if($q.inArray(tag, name) > -1){
-			if ($el.attr("name") && $el.attr("name") != '') {
-				return $el.prop("tagName").toLowerCase() + "[name='" + $el.attr("name") + "']";
-			}
-		}
-
-		// Looks for images
-		if (tag == "img") {
-			if ($el.attr("src") != '') {
-				return "img[src='" + $el.attr("src") + "']";
-			}
-		}
-
-		// Look for ids without numbers
-		if ($el.attr('id') && $el.attr('id').search(/[0-9]+/) == -1) {
-			return tag + '#' + $el.attr('id');
-		}
-
-		// Looks for unique classnames
-		var classes = $el.attr('class');
-
-		if (classes && classes.replace(/ /g, "") != ""){
-			var classArr = classes.split(" ");
-
-			//Drop classes with numbers
-			classArr = $q.grep(classArr, function(n, i) {
-				var regex = /\d/g;
-				return !regex.test(n);
-			});
-
-			classes = classArr.join(".");
-			if(classes != "") classes = '.' + classes;
-
-			return tag + classes;
-		}
-
-		return tag;
-	},
-
-	/**
-	 *  Gets absolute index of same tag
-	 */
-	getIndex : function($el, path) {
-		var index = $q(path).index($el);
-		return path += ":eq(" + index + ")";
-	},
-
-	/**
-	 *  Gets relative index of same tag
-	 */
-	getRelativeIndex : function($el, path) {
-		var index = $el.parent().find(path).index($el);
-		return path += ":eq(" + index + ")";
+        return $el.getSelector().join("\n");
 	},
 
 	/**
 	 *  Get element by x-y position
 	 */
 	getElementByPos : function(x, y) {
+
 		$q('.aero-picker').hide();
 
 		x -= $q(document).scrollLeft();

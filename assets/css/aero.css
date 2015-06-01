@@ -1018,3 +1018,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 #ESPTranslators {
     padding-top: 10px;
 }
+
+ul.trumbowyg-button-pane button {
+    padding: 0!important;
+}
