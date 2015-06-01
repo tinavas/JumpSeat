@@ -28,79 +28,112 @@ class Version_Model extends CI_Model
     /** Create the first version
      * @param string $guideid Guide ID
      * @param [] $guide Guide object
+     * @return string Version ID
      */
     function create($guideid, $guide)
     {
-        if (!isset($guide['step']))
-            $guide['step'] = array();
+        try {
+            if (!isset($guide['step']))
+                $guide['step'] = array();
 
-        $new_version = array(
-            "guideid" => $guideid,
-            'current'   => 1,
-            'latest'    => 1,
-            "versions" => array($guide)
+            $new_version = array(
+                "guideid" => $guideid,
+                'current' => 1,
+                "versions" => array($guide)
             );
 
-        $this->mongo_db->insert($this->version_collection, (array) $new_version);
+            $versionid = $this->mongo_db
+                ->insert($this->version_collection, (array)$new_version);
+
+            return $versionid;
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 
     /** Guide was updated, so create a new version
      * @param string $guideid Guide ID
      * @param [] $guide Guide object
+     * @return bool Success
      */
     function update($guideid, $guide)
     {
-        // Need to get old guide data to store all fields in versioning
-        $old_guide = $this->mongo_db
-            ->where(array('_id' => new MongoId($guideid)))
-            ->get($this->collection);
-        $guide = array_merge($old_guide[0], $guide);
-        unset($guide['id']);
-
-        // Check if there is any previous versions, and create if necessary
-        if ($this->_is_empty($guideid))
+        try
         {
-            $this->create($guideid, $guide);
-            return;
+            // Need to get old guide data to store all fields in versioning
+            $old_guide = $this->mongo_db
+                ->where(array('_id' => new MongoId($guideid)))
+                ->get($this->collection);
+            $guide = array_merge($old_guide[0], $guide);
+            unset($guide['id']);
+
+            // Check if there is any previous versions, and create if necessary
+            if ($this->_is_empty($guideid))
+            {
+                $success = $this->create($guideid, $guide);
+                return $success;
+            }
+
+            // Find out what version number to create
+            $current = $this->get_current_version($guideid) + 1;
+            $guide['version'] = $current;
+
+            // Create new version in guides array
+            return $this->mongo_db
+                ->where(array('guideid' => $guideid))
+                ->push('versions', $guide)
+                ->set(array("current" => $current))
+                ->update($this->version_collection);
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            return false;
         }
 
-        // Find out what version number to create
-        $current = $this->get_current_version($guideid) + 1;
-        $guide['version'] = $current;
 
-        // Create new version in guides array
-        $t = $this->mongo_db
-            ->where(array('guideid' => $guideid))
-            ->push('versions', $guide)
-            ->set(array(
-                "current" => $current,
-                "latest" => $current
-            ))
-            ->update($this->version_collection);
     }
 
-    /** Remove a specific version
+    /**
+     * Remove a specific version
      * @param string $guideid Guide ID
-     * @param string $version Version number
+     * @param string[] $versions Version number, or array of numbers
+     * @return bool Success
      */
-    function delete($guideid, $version)
+    function delete($guideid, $versions)
     {
-        $guides = $this->mongo_db
-            ->where('guideid', $guideid)
-            ->get($this->version_collection);
-        // TODO: where was this ID set
-        unset($guides[0]['id']);
-
-        foreach ($guides[0]['versions'] as $key => $value)
+        try
         {
-            if ($value['version'] == $version)
-                unset($guides[0]['versions'][$key]);
-        }
+            $guides = $this->mongo_db
+                ->where('guideid', $guideid)
+                ->get($this->version_collection);
+            // TODO: where was this ID set
+            unset($guides[0]['id']);
 
-        $this->mongo_db
-            ->where('guideid', $guideid)
-            ->set('versions', array_values($guides[0]['versions']))
-            ->update($this->version_collection);
+            // Convert to single element array if a string, to pass to foreach
+            if (!is_array($versions))
+                $versions = array($versions);
+
+            foreach ($guides[0]['versions'] as $key => $value) {
+                foreach ($versions as $version) {
+                    if ($value['version'] == $version)
+                        unset($guides[0]['versions'][$key]);
+                }
+            }
+
+            return $this->mongo_db
+                ->where('guideid', $guideid)
+                ->set('versions', array_values($guides[0]['versions']))
+                ->update($this->version_collection);
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            return false;
+        }
 
         /**
          * This should work!!!
@@ -109,28 +142,28 @@ class Version_Model extends CI_Model
         $select = array('guideid' => $guideid);
 
         $update = array(
-            '$pull' => array(
-                "versions" => array(
-                    "version" => $version
-                )
-            )
+        '$pull' => array(
+        "versions" => array(
+        "version" => $version
+        )
+        )
         );
 
         $query = array(
-            'update' => $this->version_collection,
-            'updates' => array(
-                array(
-                    'q'=> $select,
-                    'u' => $update
-                )
-            )
+        'update' => $this->version_collection,
+        'updates' => array(
+        array(
+        'q'=> $select,
+        'u' => $update
+        )
+        )
         );
 
         $tt = json_encode($query);
         $execute = $this->mongo_db->_dbhandle->command($query);
 
         $t = $this->mongo_db->lastQuery();
-        */
+         */
     }
 
     /** Get all versions for a specific guide
@@ -139,61 +172,77 @@ class Version_Model extends CI_Model
      */
     function get_all($guideid)
     {
-        $versions = $this->mongo_db
-            ->where(array('guideid' => $guideid))
-            ->get($this->version_collection);
+        try
+        {
+            $versions = $this->mongo_db
+                ->where(array('guideid' => $guideid))
+                ->get($this->version_collection);
 
-            $t = $this->mongo_db->lastQuery();
             return $versions;
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 
 
-    /** Switch to a specific version
-     * @param string $guideid Guide ID
+    /**
+     * Restore an older version
+     * @param string $trashid Trash ID
      * @param int $version Version number
+     * @return bool Success
      */
-    function use_version($guideid, $version)
+    function restore($trashid, $version)
     {
-        $guide = $this->get_version($guideid, $version);
-        $this->guide_model->update_without_version($guideid, $guide);
-        $this->set_current_version($guideid, $version);
+
+        // TODO: Clean this up, quick fix for ESP training
+
+//        $guide = false;
+//        if (
+//        $guide = $this->get_version($trashid, $version) &&
+//            $this->guide_model->update_by_id($trashid, $guide) &&
+//            $this->set_current_version($trashid, $version)
+//        )
+//            return true;
+//        else
+//            return false;
+        $guide = $this->get_version($trashid, $version);
+        $this->guide_model->update_by_id($trashid, $guide);
+
+        return true;
+
     }
 
-    /** Get a specific version
+    /**
+     * Get a specific version
      * @param string $guideid Guide ID
      * @param int $version
-     * @return [] guide
+     * @return version[] Version
      */
     function get_version($guideid, $version)
     {
-        $guide = $this->mongo_db
-            ->select(array('versions.$'))
-            ->where('versions.version', (int)$version)
-            ->where('guideid', $guideid)
-            ->get($this->version_collection);
+        try
+        {
+            $guide = $this->mongo_db
+                ->select(array('versions.$'))
+                ->where('versions.version', (int)$version)
+                ->where('guideid', $guideid)
+                ->get($this->version_collection);
 
-        return $guide[0]['versions'][0];
+            $version = $guide[0]['versions'][0];
+            return $version ? $version : false;
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 
-    /** Get both current and latest version numbers
-     * @param string $guideid
-     * @return array
-     */
-    function get_version_numbers($guideid)
-    {
-        $versions = $this->mongo_db
-            ->where(array('guideid' => $guideid))
-            ->select(array(), array('guides'))
-            ->get($this->version_collection);
-
-        $data = array();
-        $data['current'] = $versions[0]['current'];
-        $data['latest'] = $versions[0]['latest'];
-
-        return $data;
-    }
-
-    /** Get current version number
+    /**
+     * Get current version number
      * @param string $guideid Guide ID
      * @return int
      */
@@ -209,29 +258,56 @@ class Version_Model extends CI_Model
 
     function set_current_version($guideid, $version)
     {
-        $this->mongo_db
-            ->where('guideid', $guideid)
-            ->set('current', $version)
-            ->update($this->version_collection);
+        try {
+            return $this->mongo_db
+                ->where('guideid', $guideid)
+                ->set('current', $version)
+                ->update($this->version_collection);
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 
-    /** Bring in all versions for a guide at once
-     * @param $versions Array of versions
+    /**
+     * Bring in all versions for a guide at once
+     * (Needed for restoring a guide from trash)
+     * @param version[] $versions Array of versions
+     * @return bool Success
      */
     function import_versions($versions)
     {
-        $this->mongo_db
-            ->insert($this->version_collection, $versions);
+        try
+        {
+            $this->mongo_db
+                ->insert($this->version_collection, $versions);
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 
-    /** Checks to see if any versions exist
-     * @return bool
+    /**
+     * Checks to see if any versions exist
+     * @return bool True if no versions for that guide
      */
     private function _is_empty($guideid)
     {
-        $count = $this->mongo_db
-            ->where(array('guideid' => $guideid))
-            ->count($this->version_collection);
-        return $count > 0 ? false : true;
+        try
+        {
+            $count = $this->mongo_db
+                ->where(array('guideid' => $guideid))
+                ->count($this->version_collection);
+            return $count > 0 ? false : true;
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 }

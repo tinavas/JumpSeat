@@ -9,12 +9,12 @@
  * @subpackage	Guides
  * @category	REST Controller
  * @author      Trevor Dell
-*/
+ */
 require APPPATH.'/libraries/REST_Controller.php';
 
 class Versions extends REST_Controller
 {
-	function __construct()
+    function __construct()
     {
         // Construct our parent class
         parent::__construct();
@@ -24,44 +24,42 @@ class Versions extends REST_Controller
 
     /**
      *  GET guide service call
+     *  string $id Guide ID
+     *  returns All versions
      */
     function index_get()
     {
-    	$id = $this->input->get('id');
+        $id = $this->input->get('id');
 
         $guides = $this->version_model->get_all($id);
 
-    	$this->response($guides, 200);
+        $this->response($guides, $guides && count($guides) > 0 ? 200 : 400);
     }
 
     /**
-     *  PUT Restore an older version
+     * POST - Restore from an older version
+     * string $id Guide ID
+     * int $version Version number
+     * returns bool Success
      */
-    function index_put()
+    function index_post()
     {
         $id = $this->request_data['id'];
         $version = $this->request_data['version'];
 
-        $guide = $this->version_model->restore_version($id, $version);
-        $this->response($guide, 200);
+        $success = $this->version_model->restore($id, $version);
+        $this->response($success, $success ? 200 : 400);
     }
 
     /**
-     *  Permanently delete a version, or move all of them to trash
-     * GET string id Guide ID
-     * GET string version Version number, or left out to move all versions to trash
+     * DELETE - Permanently delete a version (or versions), or move all of them to trash
+     * string id Guide ID
+     * string[] version Version number(s), or leave out to move all versions to trash
      */
     function index_delete()
     {
-        $id = $this->delete('id');
-        $version = $this->delete('id');
-
-        if (!isset($version))
-            $this->version_model->trash_versions($id);
-        else
-            $this->version_model->delete($id, $this->delete('version'));
-
-        $this->response('', 200);
+        $success = $this->version_model->delete($this->delete('id'), $this->delete('version'));
+        $this->response($success, $success ? 200 : 400);
     }
 
 
@@ -80,75 +78,84 @@ class Versions extends REST_Controller
     function table_get()
     {
         $id = $this->input->get('id');
-    	$rows["data"] = array();
+        $rows["data"] = array();
 
-    	//All versions
-        $versions = $this->version_model->get_all($id);
+        //Get all versions
+        try
+        {
+            $versions = $this->version_model->get_all($id);
+        }
+        catch (Exception $e)
+        {
+            log_message('error', $e->getMessage());
+            $this->response('Error retrieving versions for guide: '. $id, 400);
+            return false;
+        }
 
-    	//Get person
-    	$this->load->library('person', array('host' => $this->host));
-		$acl = $this->person->acl;
-		$user = $this->person->username;
+        //Get person
+        $this->load->library('person', array('host' => $this->host));
+        $acl = $this->person->acl;
+        $user = $this->person->username;
 
-    	date_default_timezone_set($this->config->item('timezone'));
+        date_default_timezone_set($this->config->item('timezone'));
 
-    	//Build rows
-    	foreach($versions[0]['versions'] as $guide)
-    	{
-	    	$title = $guide['title'];
-	    	$desc = $guide['desc'];
-	    	$active = $guide['active'] ? "Yes" : "No";
-            $modifier = '';
-            $modified = '';
+        //Build rows
+        foreach($versions[0]['versions'] as $guide)
+        {
+            try {
+                $title = $guide['title'];
+                $desc = $guide['desc'];
+                $active = $guide['active'] ? "Yes" : "No";
+                $modifier = '';
+                $modified = '';
 
-            if (isset($guide['modifier']))
-                $modifier = $guide['modifier'];
-            else
-                $modifier = $guide['creator'];
+                if (isset($guide['modifier']))
+                    $modifier = $guide['modifier'];
+                else
+                    $modifier = $guide['creator'];
 
 
-            if (isset($guide['modified']->sec))
-            {
-                $modified = explode(" ", date('y-m-d h:i:s', $guide['modified']->sec));
-                $modified = implode(' at ', $modified);
+                if (isset($guide['modified']->sec)) {
+                    $modified = explode(" ", date('y-m-d h:i:s', $guide['modified']->sec));
+                    $modified = implode(' at ', $modified);
+                } else {
+                    $modified = explode(" ", date('y-m-d h:i:s', $guide['created']->sec));
+                    $modified = implode(' at ', $modified);
+                }
+
+
+                $steps = sizeof($guide['step']);
+                $version = $guide['version'];
             }
-            else
+            catch (Exception $e)
             {
-                $modified = explode(" ", date('y-m-d h:i:s', $guide['created']->sec));
-                $modified = implode(' at ', $modified);
+                log_message('error', $e->getMessage());
+                $this->response('Error processing versions for guide: '. $id, 400);
+                return false;
             }
-
-
-	    	$steps = sizeof($guide['step']);
-            $version = $guide['version'];
-
-	    	//@todo USE ACTUAL HOST
-	    	$first = str_replace("http_", "http://", $this->host);
-			$second = str_replace("https_", "https://", $first);
-			$host = str_replace("_", ".", $second);
 
             $tools = "<div class='tools' style='width:240px' data-id='$version'>";
 
             if($acl['guides']['edit'] || ($modifier == $user && $acl['guides']['create'])){
-    			$tools .= "<a class='small button success restore'>Restore<i class='ss-icon'>&#x1F4CC;</i></a>";
-    		}
-    		if($acl['guides']['delete'] || ($modifier == $user && $acl['guides']['create'])){
-    			$tools .= "<a class='small button alert delete'>Delete <i class='ss-icon'>&#xE0D0;</i></a>";
-    		}
-    		$tools .= "</div></li>";
+                $tools .= "<a class='small button success restore'>Restore<i class='ss-icon'>&#x1F4CC;</i></a>";
+            }
+            if($acl['guides']['delete'] || ($modifier == $user && $acl['guides']['create'])){
+                $tools .= "<a class='small button alert delete'>Delete <i class='ss-icon'>&#xE0D0;</i></a>";
+            }
+            $tools .= "</div></li>";
 
 
-    		$row = array(
-    				"<input type='checkbox' class='select' value='1' data-id='$id' />",
-                    $version,
-    				$desc,
-    				$steps,
-    				$modifier . "<br/>" .$modified,
-    				$tools
-    		);
+            $row = array(
+                "<input type='checkbox' class='select' value='1' data-id='$version' />",
+                $version,
+                $desc,
+                $steps,
+                $modifier . "<br/>" .$modified,
+                $tools
+            );
 
-    		array_push($rows['data'], $row);
-    	}
-    	$this->response($rows, 200);
+            array_push($rows['data'], $row);
+        }
+        $this->response($rows, count($rows) > 0 ? 200 : 400);
     }
 }
