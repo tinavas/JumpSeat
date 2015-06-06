@@ -397,7 +397,7 @@ li.aero-helper-dropable {
 * 	Tooltip Styles | .aero-tip
 */
 .aero-tip {
-	width:300px;
+	width:210px;
 	background:#25303F;
 	color:#fff;
 	padding:25px;
@@ -457,10 +457,10 @@ li.aero-helper-dropable {
 *  Sizes | .aero-tip-x
 */
 .aero-tip-med {
-	width:400px;
+	width:300px;
 }
 .aero-tip-lrg {
-	width:500px;
+	width:400px;
 }
 .aero-tip-auto {
 	width:auto;
@@ -809,6 +809,8 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 .aero-section select { height:40px; width:400px; }
 .aero-fld-sml { width:120px!important;}
 .aero-move { display:inline-block; width:220px; }
+.aero-strip-menu a { -webkit-box-sizing:content-box; box-sizing: content-box; -moz-box-sizing: content-box; background-image: none;}
+.aero-stop span {   text-align: center!important;   }
 
 /**
 *	Step/Guide Tools | .aero-item-tools
