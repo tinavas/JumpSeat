@@ -35,6 +35,7 @@
 						<a id="import" href="#"><?= $lang->importg; ?> <i class="ss-icon">&#xEB41;</i></a>
                         <a href="#" class="success trash small button"><?= $lang->trash; ?> <i class="ss-icon">&#xE0D0;</i></a>
 						<a href="#" class="success add small button"><?= $lang->addg; ?> <i class="ss-icon">&#x002B;</i></a>
+                        <a href="features" class="success small button"><?= $lang->features; ?> <i class="ss-icon">&#x002B;</i></a>
 					<? } ?>
 			</div>
 

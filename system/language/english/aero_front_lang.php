@@ -1,5 +1,7 @@
 <?php
 //Non Admin
+$lang['ok']		= "OK";
+
 $lang['search']		= "Search...";
 $lang['searche']	= "Please try another search.";
 $lang['allguides']	= "All Guides";
@@ -8,6 +10,7 @@ $lang['found']		= "result(s) found.";
 
 //Tips
 $lang['finished']   = "Finish";
+$lang['gfinished']   = "Guide Complete";
 $lang['next']       = "Next &raquo;";
 $lang['prev']       = "&laquo; Prev";
 $lang['tdone']      = "Done";
@@ -55,7 +58,7 @@ $lang['guideh']		= "Looks like you haven't added any guides yet. Started by clic
 $lang['basic']		= "Basic details";
 $lang['basicd']		= "Describe your guide so that people understand what they will be learning.";
 $lang['tags']		= "Tags";
-$lang['auto']		= "Auto Start";
+$lang['auto']		= "Auto Start (New Users)";
 
 //Ratings
 $lang['rating']		= "Ratings";
@@ -122,6 +125,14 @@ $lang['exce']    	= "Manage Exceptions";
 $lang['excd']    	= "Steps may not be visible for a number reasons (incorrect permissions, setup required etc.). You can decide what to do when we find a missing step.";
 $lang['codee']    	= "Custom code (javascript)";
 $lang['coded']    	= "This section is for advanced users only.";
+
+$lang['start']   = "Starting a Guide";
+$lang['startd']   = "Guides can always be started by the use of the guide sidebar. However, sometimes it's important to start guides through other means.";
+$lang['restrictd']   = "Restrict element use to only trained users";
+$lang['restrictc']   = "Overlay color";
+
+$lang['restrictt']   = "Feature Restricted";
+$lang['restrictb']   = "This feature has been restricted and requires guidance for first time that you use it.";
 
 /* End of file injected_lang.php */
 /* Location: ./system/language/english/injected_lang.php */

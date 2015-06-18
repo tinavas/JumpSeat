@@ -312,7 +312,7 @@ Utils.datatable = function(url, columns, id){
     $q('#'+api+' table tbody').html("");
     table = $('#'+api+' table').DataTable({
         "ajax" : '/api/'+ url + host + Aero.host +'&id='+ id,
-        "order": [[ 1, "desc" ]],
+        "order": [[ 1, "asc" ]],
         "columnDefs": [{ "targets": 0, "orderable": false }, { "targets": (columns.length - 1), "orderable": false }],
         "columns": columns
     });

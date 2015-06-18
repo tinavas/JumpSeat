@@ -157,6 +157,7 @@ Aero.audit = {
 	 * @function Create new audit log
 	 */
 	create: function() {
+        if(AeroStep.admin) return;
 
 		// This function is called only from init for new sessions not to be called if
 		// Create new audit log (row) in database
@@ -167,13 +168,17 @@ Aero.audit = {
 			data.timeStart = data.timeStamp;
 			data.timeTotal = Aero.view.audit.timeTotal;
 
-		Aero.send(this.url, data, function(r) {
-			self.id = data.id = r;
-			Aero.model.audit.update(data);
-		}, 'POST');
+        Aero.send(this.url, data, function (r) {
+            self.id = data.id = r;
+            Aero.model.audit.update(data);
+        }, 'POST');
 	},
 
+    /**
+     * @function Save audit info to server
+     */
 	update: function() {
+        if(AeroStep.admin) return;
 
 		var data = Aero.model.audit.get();
 		var current = Aero.tip._current;
@@ -198,6 +203,7 @@ Aero.audit = {
 	 * @param {function} callback function
 	 */
 	save: function(callback) {
+        if(AeroStep.admin) return;
 
 		var data = Aero.model.audit.get();
 

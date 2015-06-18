@@ -185,6 +185,17 @@ $lang['reporttakend'] 	= "A graph to show which guides people keep coming back t
 $lang['reporttime']	= "Time to complete";
 $lang['reporttimed']	= "A graph to show how long it is taking everyone to complete the guides";
 
+/**
+ *  Features
+ */
+$lang['features']	= "Features";
+$lang['featuresd']	= "Features allow us to replicate non-browser application screens for the purpose of training. A feature is a collection of screen-shots that makeup an emulated process. Create screen-shots for each step within your process";
+$lang['addf']	= "Create a new feature";
+
+$lang['pages']	= "Pages";
+$lang['pagesd']	= "Pages belong to a feature and should contain a screen-shot for that step of the process.";
+$lang['addpage'] = "Create a new page";
+
 
 /* End of file aero_lang.php */
 /* Location: ./system/language/english/aero_lang.php */

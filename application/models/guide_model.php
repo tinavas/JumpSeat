@@ -77,14 +77,39 @@ class Guide_Model extends CI_Model
 	}
 
 
+    /**
+     * Tag guides with completed
+     * @param $enduser username
+     * @param $whereIds array of ids
+     * @param $guides array of guides
+     */
+    public function tag_completed($enduser, $whereIds, &$guides)
+    {
+        //Get Audit
+        $this->load->model('analytics_model', '', FALSE, $this->host);
+        $stats = $this->analytics_model->has_completed_by_ids($enduser, $whereIds);
+
+        //Merge guides with completed
+        foreach($guides as &$guide)
+        {
+            foreach($stats as $stat)
+                if($stat['guideid'] == $guide['id'] && $stat['perc'] == 100) $guide['isComplete'] = true;
+        }
+    }
+
+
 	/**
 	 * Get all guides from mongo
 	 * @param array $order_by order of tours
 	 * @return array $guides
 	*/
-	public function get_all($select = array(), $forceAdmin = false)
+	public function get_all($select = array(), $forceAdmin = false, $enduser = "")
 	{
-		$order = array('title' => 'ASC');
+        $hasAuto = false;
+        $hasRestrict = false;
+        $whereIds = array();
+
+        $order = array('title' => 'ASC');
 
 		// @todo Admin inactive
 		$where = array('active' => true);
@@ -107,16 +132,18 @@ class Guide_Model extends CI_Model
 			if( !$this->has_access($guide['id']) )
             {
 				unset($guides[$key]);
-
 				$guides = array_values($guides);
-			}
-
-            //Check for auto start
-//            if($this->t_user && isset($guide['auto']) && $guide['auto'] && (isset($guide['step']) && count($guide['step']) > 0))
-//            {
-//
-//            }
+			}else{
+                $hasAuto = $guide['auto'];
+                $hasRestrict = (isset($guide['restrict']) && sizeof($guide['restrict']) > 0) ? true : false;
+                array_push($whereIds, $guide['id']);
+            }
 		}
+
+        //Check Audit for Completed items
+        if($enduser && $hasRestrict || $enduser && $hasAuto) {
+            $this->tag_completed($enduser, $whereIds, $guides);
+        }
 
 		return $guides;
 	}

@@ -157,6 +157,9 @@ Aero.tip = {
 		this.setNav();
 		this.setStep(s);
 
+        //Remove restrictions
+        $q('.aero-restrict').remove();
+
 		step = Aero.step.get(this._current);
 		this.beforeShow(s, step);
 	},
@@ -166,6 +169,9 @@ Aero.tip = {
      * @returns {void}
 	 */
 	stop : function(){
+
+        //@todo clear on restrict and auto only
+        localStorage.setItem('aero:cache', 0);
 
 		//Return to branch?
 		var isReturn = this.isReturnBranch();

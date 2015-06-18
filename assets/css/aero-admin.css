@@ -1,4 +1,4 @@
-/*@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,400,300,600,700);*/
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,400,300,600,700);
 
 /*@font-face {*/
     /*font-family:'Source Sans Pro';*/
@@ -9,13 +9,14 @@
     /*font-weight: normal;*/
     /*font-style: normal;*/
 /*}*/
-
+/*
 @font-face {
     font-family:'Source Sans Pro';
     src: url('../fonts/SourceSansPro-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+*/
 
 html, body {
 	background:#e1eef3;

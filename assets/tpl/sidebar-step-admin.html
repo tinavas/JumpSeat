@@ -62,7 +62,23 @@
 
 				<label><%= AeroStep.lang.sbar %></label>
 				<div class="aero-radio"><input type="checkbox" value="1" name="aero_sidebar" <%= model.sidebar ? "checked" : "" %> /></div>
-				<%= asSaveButton %><%= asCancelButton %>
+
+                <label><%= AeroStep.lang.restrictd %></label>
+                <div class="aero-radio"><input type="checkbox" value="1" name="aero_isRestrict" <%= model.isRestrict ? "checked" : "" %> /></div>
+
+                <div class="aero-color-wrapper" style="<%= model.isRestrict ? '' : 'display:none' %>">
+                    <label><%= AeroStep.lang.restrictc %></label>
+                    <select name="aero_restrictColor">
+                        <option value="">Transparent (default)</option>
+                        <option <%= model.restrictColor == '#DB5052' ? 'selected="selected"' :'' %> value="#DB5052">Red</option>
+                        <option <%= model.restrictColor == '#D8EA37' ? 'selected="selected"' :'' %> value="#D8EA37">Yellow</option>
+                        <option <%= model.restrictColor == '#3BEA37' ? 'selected="selected"' :'' %> value="#3BEA37">Green</option>
+                        <option <%= model.restrictColor == '#378BEA' ? 'selected="selected"' :'' %> value="#378BEA">Blue</option>
+                        <option <%= model.restrictColor == '#000' ? 'selected="selected"' :'' %> value="#000">Black</option>
+                    </select>
+                </div>
+
+                <%= asSaveButton %><%= asCancelButton %>
 			</div>
 
 			<div id="aeroSection2" class="aero-section">
@@ -128,8 +144,8 @@
 							<% } %>
 						</select>
 					</div>
-					
-					<div class="aero-loc-find">	
+
+					<div class="aero-loc-find">
 						<label><%= AeroStep.lang.find %></label>
 						<select type="text" name="aero_tries">
 							<option value=""><%= AeroStep.lang.ra %></option>
@@ -139,7 +155,7 @@
 						</select>
 					</div>
 				</div>
-				
+
 				<h1 style="margin-top:15px;"><%= AeroStep.lang.url %></h1>
 		    	<p style="margin-bottom:15px;"><%= AeroStep.lang.urls %></p>
 

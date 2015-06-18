@@ -90,6 +90,7 @@ Aero.view.guide = {
 		var self = this;
 
 		//Cleanup stuff
+        $q('.aero-restrict').remove();
 		if(!search) self.clearSearch();
 
 		Aero.tpl.get("sidebar-guides.html", function(r){
@@ -114,6 +115,47 @@ Aero.view.guide = {
             }
 		});
 	},
+
+    /**
+     *  @function restrict a guide
+     *  @param guide with restrictions
+     */
+    renderRestrict : function(guide){
+        if(guide.isComplete || !guide.restrict || guide.restrict.length == 0) return;
+
+        function renderBox(step, loc, color){
+
+            var $el, $box;
+            $el = $q(loc);
+
+            //Setup Box
+            $box = $q('<a />')
+                .addClass('aero-restrict')
+                .css({
+                    'background-color' : color,
+                    'width' : $el.outerWidth(),
+                    'height' : $el.outerHeight(),
+                    'top' : $el.offset().top,
+                    'left' : $el.offset().left,
+                    'position' : 'absolute',
+                    'z-index' : 99,
+                    'cursor' : 'pointer',
+                    'opacity' : 0.5
+                })
+                .data('guideid', guide.id)
+                .data('step', parseInt(step));
+
+            $q('body').append($box);
+        }
+
+        for(var j in guide.restrict) {
+            j = parseInt(j.replace('s', ''));
+
+            if (guide.step.length > 0) {
+                renderBox(j, guide.step[j].loc, guide.step[j].restrictColor);
+            }
+        }
+    },
 
 	/**
 	 *  @function search
@@ -186,6 +228,21 @@ Aero.view.guide = {
 			});
 			return false;
 		});
+
+        //Restrict Start
+        $q('body').off('click.asr').on('click.asr', '.aero-restrict', function(){
+
+            var _this = $q(this);
+
+            Aero.confirm({
+                ok : AeroStep.lang.ok,
+                title : AeroStep.lang.restrictt,
+                msg : AeroStep.lang.restrictb,
+                onConfirm : function(){
+                    Aero.tip.start(_this.data('guideid'));
+                }
+            });
+        });
 	}
 };
 
@@ -242,11 +299,15 @@ Aero.guide = {
 	 *  @param guide to start
 	 */
 	autoStart : function(guide){
-		if(!guide.auto) return;
 
-		console.log(window.location.pathname);
-		if(guide.step.length > 0){
-			console.log(guide.step[0].url);
+        //Check restrict
+        Aero.view.guide.renderRestrict(guide);
+
+        if(!guide.auto) return;
+
+		//@todo add option for start on URL
+        if(!guide.isComplete && !AeroStep.admin && guide.step.length > 0){
+            Aero.tip.start(guide.id);
 		}
 	},
 
@@ -283,7 +344,7 @@ Aero.guide = {
 		if(!ls || force){
 
 			Aero.log("Loading from SS", "success");
-			Aero.send(Aero.model.guide.url, {}, function(guides){
+			Aero.send(Aero.model.guide.url, { enduser: Aero.constants.USERNAME }, function(guides){
 
                 //Notify of new
                 if(oldData) {

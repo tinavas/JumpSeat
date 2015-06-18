@@ -27,14 +27,16 @@ class Guides extends REST_Controller
     function index_get()
     {
     	$id = $this->input->get('id');
+        $enduser = $this->input->get('enduser');
+
     	$select = $this->input->get('select') ? $this->input->get('select') : array();
 
     	if($id && is_array($id)){
     		$guides = $this->guide_model->get_by_ids($id);
     	}elseif($id){
     		$guides = $this->guide_model->get_by_id($id);
-    	}else{
-    		$guides = $this->guide_model->get_all($select);
+        }else{
+    		$guides = $this->guide_model->get_all($select, false, $enduser);
     	}
 
     	//Current cache

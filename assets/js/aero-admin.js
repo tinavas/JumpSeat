@@ -359,6 +359,12 @@ Aero.view.guide.admin = {
 			return false;
 		});
 
+        //Change restrict
+        $q('body').off("click.arcs").on("click.arcs", ".aero-section input[name='aero_isRestrict']", function(){
+            $q('.aero-color-wrapper').hide();
+            if($q(this).is(':checked')) $q('.aero-color-wrapper').show();
+        });
+
 		//Delete role association
 		$q('body').off("click.drA").on("click.drA", ".aero-roles-list a", function(){
 			var id = $q(this).parent().data('id');
@@ -525,6 +531,7 @@ Aero.view.step.admin = {
 		data.showTitle = (data.showTitle == "1") ? true : null;
 		data.sidebar = (data.sidebar == "1") ? true : null;
 		data.multi = (data.multi == "1") ? true : null;
+        data.isRestrict = (data.isRestrict == "1") ? true : null;
 
 		//Clean data for empty props
 		data = _q.pick(data,_q.identity);
