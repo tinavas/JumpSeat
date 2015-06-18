@@ -39,14 +39,14 @@ class Analytics_Model extends CI_Model
 	{
 		$report = array();
 		$guides = $this->guide_model->get_all(array('title'));
-		
+
 		//Grab count of started
 		$started = $this->_guides_started();
-		
+
 		//Collect report on all guides
 		foreach($guides as $guide)
 		{
-			
+
 			if(isset($started[$guide['id']])){
 				array_push($report, array(
 					'title' => $guide['title'],
@@ -59,11 +59,11 @@ class Analytics_Model extends CI_Model
 				));
 			}
 		}
-		
+
 		return $report;
 	}
 
-	
+
 	/**
 	 * Returns number of unique users for this app
 	 */
@@ -177,10 +177,10 @@ class Analytics_Model extends CI_Model
 				)
 		);
 		$results = $c->aggregate($ops)['result'];
-		
+
 		//Remap
 		foreach($results as $result){ $totals[$result['_id']] = $result['taken']; }
-		
+
 		return $totals;
 	}
 

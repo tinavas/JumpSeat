@@ -121,6 +121,9 @@ Aero.view.guide = {
      *  @param guide with restrictions
      */
     renderRestrict : function(guide){
+
+        var _this = this;
+
         if(guide.isComplete || !guide.restrict || guide.restrict.length == 0) return;
 
         function renderBox(step, loc, color){
@@ -128,24 +131,23 @@ Aero.view.guide = {
             var $el, $box;
             $el = $q(loc);
 
-            //Setup Box
-            $box = $q('<a />')
-                .addClass('aero-restrict')
-                .css({
-                    'background-color' : color,
-                    'width' : $el.outerWidth(),
-                    'height' : $el.outerHeight(),
-                    'top' : $el.offset().top,
-                    'left' : $el.offset().left,
-                    'position' : 'absolute',
-                    'z-index' : 99,
-                    'cursor' : 'pointer',
-                    'opacity' : 0.5
-                })
-                .data('guideid', guide.id)
-                .data('step', parseInt(step));
+            if($el.length > 0) {
+                //Setup Box
+                $box = $q('<a />')
+                    .addClass('aero-restrict')
+                    .css({
+                        'background-color': color,
+                        'cursor': 'pointer',
+                        'opacity': 0.5
+                    })
+                    .data('loc', loc)
+                    .data('guideid', guide.id)
+                    .data('step', parseInt(step));
 
-            $q('body').append($box);
+                $q('body').append($box);
+
+                _this.positionRestrict($box);
+            }
         }
 
         for(var j in guide.restrict) {
@@ -155,6 +157,25 @@ Aero.view.guide = {
                 renderBox(j, guide.step[j].loc, guide.step[j].restrictColor);
             }
         }
+    },
+
+    /**
+     *  @function restrict a guide
+     *  @param guide with restrictions
+     */
+    positionRestrict : function($box){
+
+        var $el = $q($box.data('loc'));
+
+        //Setup Box
+        $box.css({
+            'width' : $el.outerWidth(),
+            'height' : $el.outerHeight(),
+            'top' : $el.offset().top,
+            'left' : $el.offset().left,
+            'position' : 'absolute',
+            'z-index' : 99
+        });
     },
 
 	/**
@@ -307,6 +328,7 @@ Aero.guide = {
 
 		//@todo add option for start on URL
         if(!guide.isComplete && !AeroStep.admin && guide.step.length > 0){
+            console.log("Starting Auto...");
             Aero.tip.start(guide.id);
 		}
 	},
@@ -487,6 +509,15 @@ Aero.view.sidebar = {
 			clearTimeout(sizing);
 			sizing = setTimeout(function(){
 				self.setScrollable();
+
+                //Reposition overlays
+                var $ar = $q('.aero-restrict');
+                if($ar.length == 0) return;
+
+                $ar.each(function(){
+                    Aero.view.guide.positionRestrict($q(this));
+                });
+
 			}, 100);
 		};
 

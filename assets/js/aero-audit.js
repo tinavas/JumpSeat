@@ -35,7 +35,7 @@ Aero.model.audit = {
 	 * Retrieve local storage
 	 */
 	get: function() {
-		return JSON.parse(localStorage.getItem(this.key));
+        return JSON.parse(localStorage.getItem(this.key));
 	},
 
 	/**
@@ -43,9 +43,13 @@ Aero.model.audit = {
 	 */
 	update: function(data) {
 
+        var old = JSON.parse(localStorage.getItem(this.key));
+        if(old && old.id != "" && data.id == "") data.id = old.id;
+
 		// This function is called on beforeShow step
 		// Update local storage with new step activity
 		data.timeStamp = this.getTime();
+
 		localStorage.setItem(this.key, JSON.stringify(data));
 	},
 
@@ -169,7 +173,10 @@ Aero.audit = {
 			data.timeTotal = Aero.view.audit.timeTotal;
 
         Aero.send(this.url, data, function (r) {
-            self.id = data.id = r;
+
+            self.id = r;
+            data.id = r;
+
             Aero.model.audit.update(data);
         }, 'POST');
 	},
@@ -215,10 +222,8 @@ Aero.audit = {
 
 			// Save local storage to server using the auditid
 			Aero.send(this.url, data, function(r) {
-				self.id = data.id = r;
-				Aero.model.audit.update(data);
+				Aero.model.audit.update(r);
 			}, 'PUT');
-
 		}
 		if (callback) callback();
 	}
