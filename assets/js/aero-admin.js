@@ -252,6 +252,7 @@ Aero.view.guide.admin = {
 		//Switch checkboxes to boolean
 		data.active = (data.active == "1");
 		data.auto = (data.auto == "1") ? true : null;
+        data.autoPage = (data.autoPage == "1") ? true : null;
 
 		//Update or create
 		if(id != ""){

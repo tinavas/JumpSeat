@@ -58,7 +58,8 @@ $lang['guideh']		= "Looks like you haven't added any guides yet. Started by clic
 $lang['basic']		= "Basic details";
 $lang['basicd']		= "Describe your guide so that people understand what they will be learning.";
 $lang['tags']		= "Tags";
-$lang['auto']		= "Auto Start (New Users)";
+$lang['auto']		= "Auto Start (For New Users)";
+$lang['autop']		= "On any page?";
 
 //Ratings
 $lang['rating']		= "Ratings";

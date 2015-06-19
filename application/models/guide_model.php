@@ -134,7 +134,7 @@ class Guide_Model extends CI_Model
 				unset($guides[$key]);
 				$guides = array_values($guides);
 			}else{
-                $hasAuto = $guide['auto'];
+                $hasAuto = isset($guide['auto']) ? $guide['auto'] : false;
                 $hasRestrict = (isset($guide['restrict']) && sizeof($guide['restrict']) > 0) ? true : false;
                 array_push($whereIds, $guide['id']);
             }

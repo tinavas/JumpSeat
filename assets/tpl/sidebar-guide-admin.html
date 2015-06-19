@@ -26,8 +26,17 @@
 				<label style="margin-top:15px"><%= AeroStep.lang.active %></label>
 				<div class="aero-radio"><input type="checkbox" name="aero_active" value="1" <%= model.active ? "checked" : "" %> /></div>
 
-				<label style="margin-top:15px"><%= AeroStep.lang.auto %></label>
-				<div class="aero-radio"><input type="checkbox" name="aero_auto" value="1" <%= model.auto ? "checked" : "" %> /></div>
+                <div class="auto-wrapper clearfix">
+                    <div>
+                        <label style="margin-top:15px"><%= AeroStep.lang.auto %></label>
+                        <div class="aero-radio"><input type="checkbox" name="aero_auto" value="1" <%= model.auto ? "checked" : "" %> /></div>
+                    </div>
+                    <div class="aero-auto-page" style="<%= model.auto ? '' : 'display:none' %>">
+                        <label style="margin-top:15px"><%= AeroStep.lang.autop %></label>
+                        <div class="aero-radio"><input type="checkbox" name="aero_autoPage" value="1" <%= model.autoPage ? "checked" : "" %> /></div>
+                    </div>
+                </div>
+
 
 				<div style="margin-top:15px;"><%= asSaveButton %><%= asCancelButton %></div>
 			</div>

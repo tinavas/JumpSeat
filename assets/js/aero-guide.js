@@ -314,9 +314,8 @@ Aero.guide = {
 		});
 	},
 
-
 	/**
-	 *  @function autoStart a guide
+	 *  @function autoStart a guide based on URL or any page
 	 *  @param guide to start
 	 */
 	autoStart : function(guide){
@@ -326,10 +325,21 @@ Aero.guide = {
 
         if(!guide.auto) return;
 
-		//@todo add option for start on URL
         if(!guide.isComplete && !AeroStep.admin && guide.step.length > 0){
-            console.log("Starting Auto...");
-            Aero.tip.start(guide.id);
+
+            var isStart = false;
+
+            //Start on any page?
+            if(guide.autoPage){
+                isStart = true;
+            }else{
+                //Check current page matches first step URL
+                if(guide.step.length > 0 && window.location.pathname == guide.step[0].url){
+                    isStart = true;
+                }
+            }
+
+            if(isStart) Aero.tip.start(guide.id);
 		}
 	},
 
