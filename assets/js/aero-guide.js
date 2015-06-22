@@ -264,6 +264,14 @@ Aero.view.guide = {
                 }
             });
         });
+
+        //Auto start options
+        $q('body').on('click', 'input[name="aero_auto"]', function(){
+            $q('.aero-auto-page').hide();
+            if($q(this).is(':checked')){
+                $q('.aero-auto-page').show();
+            }
+        });
 	}
 };
 

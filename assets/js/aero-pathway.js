@@ -110,7 +110,7 @@ Aero.pathway = {
 		if(id) data = { id : id };
 
 		Aero.send(Aero.model.pathway.url, data, function(r){
-			r.unshift({ 'title': AeroStep.lang.allguides });
+            r.unshift({ 'title': AeroStep.lang.allguides });
 
 			Aero.constants.PATHWAYS = r;
 			if(callback) callback(r);
