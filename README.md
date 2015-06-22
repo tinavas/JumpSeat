@@ -9,6 +9,9 @@ whilst reducing costs of training and support.
 Please note that the open-source version is unsupported. Use at your own risk. If you require support or hosting, please
 visit our website http://jumpseat.io for pricing.
 
+####DOCUMENTATION
+All administrative and installation documentation is available @ http://wiki.jumpseat.io
+
 ####BROWSER PLUGIN
 Courtesy of CrossRider.com
 
