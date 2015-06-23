@@ -12,6 +12,7 @@ visit our website http://jumpseat.io for pricing.
 ####DOCUMENTATION
 All administrative and installation documentation is available @ http://wiki.jumpseat.io
 
+
 ###BROWSER SUPPORT
 JumpSeat currently supports the following browsers:
 
@@ -51,7 +52,7 @@ appAPI.ready(function($) {
 });
 ````
 
-####LICENSE
+###LICENSE
 
 JumpSeat is released under the GNU Affero General Public License. This Free Software Foundation license is fairly new, and thus we wanted to talk about how this license differs from GPL.
 Our goal with using AGPL is to preserve the concept of copyleft with JumpSeat. With traditional GPL, copyleft was associated with the concept of distribution of software.  The problem is that nowadays,
