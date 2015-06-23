@@ -66,6 +66,20 @@ class User_Model extends CI_Model
 		return $users;
 	}
 
+
+    /**
+     * Count all users
+     * @return int $users
+     */
+    public function count()
+    {
+        //Get users
+        $users = $this->mongo_db
+            ->count($this->collection);
+
+        return $users;
+    }
+
 	/**
 	 * Get all users from mongo
 	 * @param array $order_by order of tours

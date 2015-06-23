@@ -21,8 +21,14 @@ class Login extends CI_Controller {
 	{
 		if (session_status() != PHP_SESSION_NONE) session_destroy();
 
-		$data['baseUrl'] = base_url();
-		$this->load->view('login_view', $data);
+        $this->load->model('user_model');
+        $data['baseUrl'] = base_url();
+
+        if($this->user_model->count() == 0) {
+            $this->load->view('install_view', $data);
+        }else {
+            $this->load->view('login_view', $data);
+        }
 	}
 }
 

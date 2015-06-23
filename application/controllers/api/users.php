@@ -99,12 +99,38 @@ class Users extends REST_Controller
     	$this->response($rows, 200);
     }
 
+    /**
+     *  POST user service call
+     */
+    function install_post()
+    {
+        if($this->user_model->count() > 0){
+            $this->response(array('error' => 'Function not allowed'), 404);
+            exit;
+        }
+
+        $user = array(
+            "email" => $this->post('email'),
+            "password" => $this->post('password'),
+            "firstname" => $this->post('firstname'),
+            "lastname" => $this->post('lastname'),
+            "sysadmin" => true
+        );
+
+        $new = $this->user_model->create($user);
+
+        $data['success'] = $this->user_model->login($user['email'], $user['password']);
+
+        $response_code = $data['success'] ? 200 : 400;
+        $this->response($data, $response_code);
+    }
+
  	/**
      *  POST user service call
      */
     function index_post()
     {
-    	$new = $this->user_model->create($this->request_data);
+        $new = $this->user_model->create($this->request_data);
 
     	$response_code = $new ? 200 : 400;
     	$this->response($new, $response_code);
