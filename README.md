@@ -12,6 +12,14 @@ visit our website http://jumpseat.io for pricing.
 ####DOCUMENTATION
 All administrative and installation documentation is available @ http://wiki.jumpseat.io
 
+###BROWSER SUPPORT
+JumpSeat currently supports the following browsers:
+
+ 1. Internet Explorer 10+ (9 works but is not supported)
+ 2. Firefox
+ 3. Chrome
+ 4. Safari
+
 ####BROWSER PLUGIN
 Courtesy of CrossRider.com
 
