@@ -1,6 +1,6 @@
 ###JUMPSEAT PROJECT OVERVIEW
 
-Latest Version: 1.1.0.2
+Latest Version: 1.1.0.3
 
 JumpSeat is an Interactive Learning Management System (ILMS) that enables businesses to create step-by-step
 task guidance over any web-based application. This proactive learning platform enables businesses to become more agile,
