@@ -209,6 +209,10 @@ class App_Model extends CI_Model
 		//Do we need to rename collections?
 		if($app['host'] != $current['host']){
 			try {
+                $exists = $this->get_by_host($app['host']);
+
+                if(sizeof($exists) > 0) return false;
+
 				foreach($this->collections as $collection){
 					$query = array(
 						"renameCollection" => DATABASE . "." . $this->san_collection_name($current['host']) . "_" . $collection,
@@ -216,8 +220,7 @@ class App_Model extends CI_Model
 						"dropTarget" => "true"
 					);
 
-					//@todo check if collection exists
-					$cmd = $this->mongo_db->command($query);
+					$this->mongo_db->command($query);
 				}
 			}
 			catch (Exception $e) {

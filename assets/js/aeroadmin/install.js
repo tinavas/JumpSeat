@@ -112,6 +112,56 @@ User.api = {
     }
 };
 
+
+//Form Validate
+$q.fn.isFormValid = function()
+{
+    var errors = [];
+
+    //Clear
+    $q('.aero-require-error').removeClass('aero-require-error');
+    $q('.aero-error-box').remove();
+
+    $q(this).find('.aero-required').each(function(){
+        //Clear error
+        $q(this).removeClass('aero-require-error');
+
+        //Check error
+        if($q(this).val() == ""){
+            if(errors.length == 0) errors.push("Please check required fields");
+            $q(this).addClass('aero-require-error');
+        }
+    });
+
+    if(errors.length > 0){
+        if($q('.aero-modal form:eq(0)').length > 0) $q('.aero-modal form:eq(0)').prepend('<div class="aero-error-box"><ul><li>'+errors.join('</li><li>')+'</li></ul></div>');
+        return false;
+    }
+
+    return true;
+};
+
+//$q Utilies
+$q.fn.aeroSerialize = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+
+    $q.each(a, function() {
+        var name = this.name.replace("aero_", "");
+
+        if (o[name] !== undefined) {
+            if (!o[name].push) {
+                o[name] = [o[this.name]];
+            }
+            o[name].push(this.value || '');
+        } else {
+            o[name] = this.value || '';
+        }
+    });
+    return o;
+};
+
 $q(function(){
     User.view.setEvents();
 });
