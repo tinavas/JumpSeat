@@ -51,86 +51,94 @@ class App extends CI_Controller {
 		}
 	}
 
-	/**
-	 * Section views
-	 * @param string $host
-	 * @param string $view
-	 */
-	public function section($host, $view)
-	{
-		$this->load->library('person', array('host' => $host));
-		$acl = $this->person->acl;
-		$aclSection = $view;
-		if($aclSection == "blacklist" || $aclSection == "pagedata") $aclSection = 'config';
+    /**
+     * Section views
+     * @param string $host
+     * @param string $view
+     */
+    public function section($host, $view)
+    {
+        $this->load->library('person', array('host' => $host));
+        $acl = $this->person->acl;
+        $aclSection = $view;
+        if($aclSection == "blacklist" || $aclSection == "pagedata") $aclSection = 'config';
 
-		$this->data['username'] = $this->person->username;
-		$this->data['acl'] = $acl;
-		$this->data['baseUrl'] = base_url();
-		$this->data['host'] = $host;
-		$this->data['view'] = $view;
+        $this->data['username'] = $this->person->username;
+        $this->data['acl'] = $acl;
+        $this->data['baseUrl'] = base_url();
+        $this->data['host'] = $host;
+        $this->data['view'] = $view;
 
-        if ($view == 'trash')
+        if ($view == 'trash' || $view == "features")
             $aclSection = 'guides';
 
-		if(isset($acl[$aclSection]['read']) && $acl[$aclSection]['read']){
-			$this->load->view( $view. '_view', $this->data);
-		}else{
-			//No Access!
-			$this->load->view('noaccess_view', $this->data);
-		}
-	}
+        if(isset($acl[$aclSection]['read']) && $acl[$aclSection]['read']){
+            $this->load->view( $view. '_view', $this->data);
+        }else{
+            //No Access!
+            $this->load->view('noaccess_view', $this->data);
+        }
+    }
 
-	/**
-	 * Sub section views
-	 * @param string $host
-	 * @param string $sub
-	 * @param string $view
-	 */
-	public function subsection($host, $sub, $view)
-	{
-		$host = urldecode($host);
-		$this->load->library('person', array('host' => $host));
-		$acl = $this->person->acl;
-		$aclSection = $view;
+    /**
+     * Sub section views
+     * @param string $host
+     * @param string $sub
+     * @param string $view
+     */
+    public function subsection($host, $sub, $view)
+    {
+        $host = urldecode($host);
+        $this->load->library('person', array('host' => $host));
+        $acl = $this->person->acl;
+        $aclSection = $view;
 
-		//Permissions
-		$this->data['username'] = $this->person->username;
-		$this->data['acl'] = $acl;
-		$this->data['baseUrl'] = base_url();
-		$this->data['host'] = $host;
-		$this->data['view'] = $view;
-		$this->data['id'] = urldecode($sub);
+        //Permissions
+        $this->data['username'] = $this->person->username;
+        $this->data['acl'] = $acl;
+        $this->data['baseUrl'] = base_url();
+        $this->data['host'] = $host;
+        $this->data['view'] = $view;
+        $this->data['id'] = urldecode($sub);
 
-		if($view == "rolemap")
-		{
-			$host = str_replace('.', '_', $host);
-			$host = str_replace('://', '_', $host);
+        if($view == "rolemap")
+        {
+            $host = str_replace('.', '_', $host);
+            $host = str_replace('://', '_', $host);
 
-			$aclSection = "roles";
-			$this->load->model('role_model', '', FALSE, $host);
-			$role = $this->role_model->get_by_title(urldecode($sub), true);
+            $aclSection = "roles";
+            $this->load->model('role_model', '', FALSE, $host);
+            $role = $this->role_model->get_by_title(urldecode($sub), true);
 
-			//ID and description
-			$this->data['permissions'] = $role;
-			$this->data['objid'] = $role['id'];
-			$this->data['objdesc'] = $role['description'];
-		}
-		else if($view == "pathwaymap")
-		{
-			$aclSection = "pathways";
-		}
+            //ID and description
+            $this->data['permissions'] = $role;
+            $this->data['objid'] = $role['id'];
+            $this->data['objdesc'] = $role['description'];
+        }
+        else if($view == "pathwaymap")
+        {
+            $aclSection = "pathways";
+        }
         else if($view == "versions")
         {
             $aclSection = "guides";
         }
+        else if($view == "pages")
+        {
+            $aclSection = "guides";
 
-		if(isset($acl[$aclSection]['read']) && $acl[$aclSection]['read']){
-			$this->load->view( $view. '_view', $this->data);
-		}else{
-			//No Access!
-			$this->load->view('noaccess_view', $this->data);
-		}
-	}
+            $this->load->model('feature_model', '', FALSE, $host);
+            $feature = $this->feature_model->get_by_title(urldecode($sub));
+            $this->data['featureid'] = $feature['id'];
+        }
+
+        if(isset($acl[$aclSection]['read']) && $acl[$aclSection]['read']){
+            $this->load->view( $view. '_view', $this->data);
+        }else{
+            //No Access!
+            $this->load->view('noaccess_view', $this->data);
+        }
+    }
 }
 
 /* End of file welcome.php */
