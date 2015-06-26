@@ -60,9 +60,7 @@ class Apps extends REST_Controller
 		$app = $this->request->body;
 
 		$success = $this->app_model->update_by_id($app['id'], $app);
-
-		$response_code = $success ? 200 : 200;
-    	$this->response($success, $response_code);
+    	$this->response($success, 200);
 	}
 
 	/**
