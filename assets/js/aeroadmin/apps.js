@@ -181,6 +181,19 @@ App.view = {
 
 	},
 
+    /**
+     *  Render model issues
+     */
+    renderIssue : function(){
+
+        Aero.confirm({
+            ok : "Ok",
+            title : "Domain Exists",
+            msg : "You tried to save an application with a domain that already exists. Please select another domain.",
+            onConfirm : function(){ return false; }
+        });
+    },
+
 	/**
 	 *  Setup all event triggers
 	 */
@@ -346,13 +359,19 @@ App.api = {
 
 		//Call
 		Aero.send(App.model.url, data, function(r){
-			data.id = r;
-			App.view.updateCard(data);
-			Utils.card.flip($q('.saving form'), true, function(){
-				$q('.saving form').remove();
-				$q('.saving').removeClass('saving');
-				if(callback) callback(r);
-			});
+
+            if(r) {
+                data.id = r;
+                App.view.updateCard(data);
+                Utils.card.flip($q('.saving form'), true, function(){
+                    $q('.saving form').remove();
+                    $q('.saving').removeClass('saving');
+                    if(callback) callback(r);
+                });
+            }else{
+                App.view.renderIssue();
+            }
+
 		}, "POST");
 	},
 
@@ -375,12 +394,7 @@ App.api = {
                     if (callback) callback(r);
                 });
             }else{
-                Aero.confirm({
-                    ok : "Ok",
-                    title : "Domain Exists",
-                    msg : "You tried to save an application with a domain that already exists. Please select another domain.",
-                    onConfirm : function(){ return false; }
-                });
+                App.view.renderIssue();
             }
 
 		}, "PUT");

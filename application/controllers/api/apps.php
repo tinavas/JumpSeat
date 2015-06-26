@@ -48,8 +48,7 @@ class Apps extends REST_Controller
 		$app = $this->request->body;
 		$id = $this->app_model->create($app);
 
-		$response_code = $id ? 200 : 400;
-    	$this->response($id, $response_code);
+    	$this->response($id, 200);
 	}
 
 	/**
