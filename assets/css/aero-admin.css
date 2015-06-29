@@ -181,7 +181,7 @@ input[type=text], select, textarea {
 *  Forms inputs
 */
 #form-wrapper input[type=text], #form-wrapper textarea, #form-wrapper select, .dataTables_filter input,
-.aero-modal input[type=text], .aero-modal  textarea, .aero-modal  select {
+.aero-modal input[type=text], .aero-modal input[type=password], .aero-modal  textarea, .aero-modal  select {
 	background-color: #fff;
 	border: 1px solid #E1E1E1;
 	font-size: 15px;

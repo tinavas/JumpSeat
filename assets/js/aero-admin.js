@@ -830,7 +830,8 @@ Aero.picker = {
 		var self = this;
 		var $el = self.getElementByPos(e.pageX, e.pageY);
 
-        return $el.getSelector().join("\n");
+        //@todo display different path options in location
+        return $el.getSelector()[0];
 	},
 
 	/**
