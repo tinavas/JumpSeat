@@ -10,7 +10,7 @@ Please note that the open-source version is unsupported. Use at your own risk. I
 visit our website http://jumpseat.io for pricing.
 
 ####DOCUMENTATION
-All administrative and installation documentation is available @ http://wiki.jumpseat.io. Once you have installed JumpSeat
+All administrative and installation documentation are available @ http://wiki.jumpseat.io. Once you have installed JumpSeat
 you will need to use either the browser extension or JavaScript snippet to start creating guides on your chosen apps (see wiki for details).
 
 ###BROWSER SUPPORT
