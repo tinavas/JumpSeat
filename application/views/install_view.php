@@ -11,7 +11,7 @@
 	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <style type="text/css">
         .names {}
-        .names input { float:left; width:206px; }
+        .names input { float:left; width:214px; }
         .names input:first-child { margin-right:10px; }
     </style>
 </head>
