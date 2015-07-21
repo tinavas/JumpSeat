@@ -9,11 +9,6 @@
 	<script src="<?= $baseUrl; ?>assets/lib/foundation/js/vendor/modernizr.js"></script>
 	<link rel="shortcut icon" href="/assets/images/favicon.ico" />
 	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-    <style type="text/css">
-        .names {}
-        .names input { float:left; width:214px; }
-        .names input:first-child { margin-right:10px; }
-    </style>
 </head>
 <body>
 <div class="jumbo-wrapper">
@@ -38,9 +33,13 @@
             <form class="login install">
                 <p>To get started, you will first need an administrator JumpSeat account: Enter an email address and password and we will create your first user:</p>
 
-                <div class="clearfix names">
-                    <input type="text" class="aero-required" value="" name="firstname" placeholder="First Name" />
-                    <input type="text" class="aero-required" value="" name="lastname" placeholder="Last Name" />
+                <div class="row">
+                    <div class="large-6 columns">
+                        <input type="text" class="aero-required" value="" name="firstname" placeholder="First Name" />
+                    </div>
+                    <div class="large-6 columns">
+                        <input type="text" class="aero-required" value="" name="lastname" placeholder="Last Name" />
+                    </div>
                 </div>
 
                 <input type="text" class="aero-required" value="" name="email" placeholder="Email Address" />
