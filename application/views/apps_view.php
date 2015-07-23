@@ -11,6 +11,9 @@
 	<script src="<?= $baseUrl; ?>assets/lib/foundation/js/vendor/modernizr.js"></script>
 	<link rel="shortcut icon" href="/assets/images/favicon.ico" />
 	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+	<script type="application/javascript">
+		var IAPP = "<?= IAPP; ?>";
+	</script>
 </head>
 <body id="app">
 <? include 'inc/header.php'; ?>

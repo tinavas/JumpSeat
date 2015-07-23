@@ -5,7 +5,7 @@
 			<div class="panel-bar large-12 columns">
 				<? if($is_admin){ ?><div class="tools" style="float:right;"><a class="edit"><%= AeroStep.lang.edit %> <i class="ss-icon">&#x2699</i></a></div><? } ?>
 				<span class="app-title"><a class="title link-guide" href="/app/<%= app.hostLink %>/analytics"><%= app.title %></a></span>
-				<span class="host"><a target="_blank" href="<%= app.host %>"><%= app.host %></a></span>
+				<span class="host"><a target="_blank" href="<%= (IAPP != app.host) ? app.host : '/iapp/welcome/home' %>"><%= app.host %></a></span>
 			</div>
 			<div class="panel-body clearfix">
 				<div class="avatar large-5">

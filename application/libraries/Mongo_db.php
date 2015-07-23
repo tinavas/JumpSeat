@@ -137,6 +137,9 @@ class Mongo_db
 		if (!class_exists('Mongo'))
 		{
 			// @codeCoverageIgnoreStart
+			show_error('The MongoDB PECL extension has not been
+             installed or enabled', 500);
+
 			throw new Exception('The MongoDB PECL extension has not been
              installed or enabled');
 			// @codeCoverageIgnoreEnd
@@ -192,6 +195,7 @@ class Mongo_db
 		}
 		else
 		{
+			show_error('MongoDB Error: No config variables passed', 500);
 			throw new Exception('No config variables passed');
 		}
 
@@ -1563,6 +1567,7 @@ class Mongo_db
 		// @codeCoverageIgnoreStart
 		catch (MongoConnectionException $Exception)
 		{
+			show_error('Sorry, JumpSeat was not able to connect to your Mongo Database', 500);
 			throw new Exception('Unable to connect to MongoDB: ' . $Exception->getMessage());
 			// @codeCoverageIgnoreEnd
 		}
@@ -1579,6 +1584,7 @@ class Mongo_db
 
 		if (empty($this->_dsn))
 		{
+			show_error('JumpSeat was not able to connect to your Mongo Database: The DNS is empty', 500);
 			throw new Exception('The DSN is empty');
 		}
 
@@ -1591,6 +1597,7 @@ class Mongo_db
 
 		if (!isset($parts['path']) or str_replace('/', '', $parts['path']) === '')
 		{
+			show_error('The database name must be set in your Mongo configuration file.', 500);
 			throw new Exception('The database name must be set in the DSN string');
 		}
 
