@@ -13,7 +13,7 @@ visit our website http://jumpseat.io for pricing.
 All administrative and installation documentation are available @ http://wiki.jumpseat.io. Once you have installed JumpSeat
 you will need to use either the browser extension or JavaScript snippet to start creating guides on your chosen apps (see wiki for details).
 
-####FRAMEWORKS USED
+####FRAMEWORKS
  1. CodeIgniter
  2. jQuery
  3. Foundation
