@@ -102,7 +102,6 @@ require(['api/trash'], function() {
 		}
 	};
 
-	$q(function () {
-		Trash.view.init();
-	});
+	//Start
+    $q(function () { Trash.view.init(); });
 });
