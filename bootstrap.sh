@@ -3,7 +3,6 @@
 # Get root up in here
 sudo su
 
-
 # Just a simple way of checking if we need to install everything
 if [ ! -d "/var/www" ]
 then
@@ -38,5 +37,4 @@ then
 
     # Victory!
     echo "You're all done!"
-
 fi
