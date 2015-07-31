@@ -26,7 +26,7 @@
             <div class="large-9 center">
                 <p>Revolutionizing how <strong>you</strong> onboard, support and educate your users</p>
             </div>
-        </div> 
+        </div>
      </div>
      <div class="row">
          <div class="login-form small-offset-1 small-10 medium-offset-2 medium-8 large-offset-4 large-4 columns form">
@@ -54,7 +54,7 @@
 <script src="<?= $baseUrl; ?>assets/js/third_party/underscore.js"></script>
 <script src="<?= $baseUrl; ?>assets/lib/foundation/js/vendor/placeholder.js"></script>
 <script src="<?= $baseUrl; ?>assets/lib/foundation/js/foundation.min.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/login<?= MIN ?>.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/login<?= MIN ?>.js"></script>
 <script>
 	$q(document).foundation();
 	$q('input, textarea, select').placeholder();

@@ -5,7 +5,7 @@
 | Version number
 |--------------------------------------------------------------------------
 */
-$config['version']			= "1.1.0.8";
+$config['version']			= "1.1.0.9";
 
 
 /*
@@ -347,7 +347,7 @@ $config['csrf_expire'] = 7200;
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-$config['compress_output'] = TRUE;
+$config['compress_output'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------

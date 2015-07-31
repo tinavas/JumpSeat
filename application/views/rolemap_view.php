@@ -44,15 +44,8 @@
     </div>
 </div>
 <? include 'inc/footer.php'; ?>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/role<?= MIN ?>.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/pathway<?= MIN ?>.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/rolemappathway<?= MIN ?>.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/rolemap<?= MIN ?>.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/roleusermap<?= MIN ?>.js"></script>
-
-
-<!-- NEED THIS EXTRA JQUERY :S -->
-<script src="<?= $baseUrl; ?>assets/js/third_party/jquery-10.2.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/third_party/datatable/datatable.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/rolemap<?= MIN ?>.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/rolemappathway<?= MIN ?>.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/roleusermap<?= MIN ?>.js"></script>
 </body>
 </html>

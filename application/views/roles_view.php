@@ -37,7 +37,6 @@
     </div>
 </div>
 <? include 'inc/footer.php'; ?>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/role<?= MIN ?>.js"></script>
-<script> $q(function(){ Roles.init(); }); </script>
+<script src="<?= $baseUrl; ?>assets/js/views/role<?= MIN ?>.js"></script>
 </body>
 </html>

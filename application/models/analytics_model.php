@@ -65,6 +65,36 @@ class Analytics_Model extends CI_Model
 
 
 	/**
+	 * Get all guides and the total times taken
+	 * @return array of stats for each guide
+	 */
+	function user_stats($username)
+	{
+		$report = array();
+		$guides = $this->guide_model->get_all(array('title'));
+
+		//Collect report on all guides
+		foreach($guides as $guide)
+		{
+
+			if(isset($started[$guide['id']])){
+				array_push($report, array(
+					'title' => $guide['title'],
+					'stats' => array('started' => $started[$guide['id']], 'completed' => $this->_guides_completed($guide['id']))
+				));
+			}else{
+				array_push($report, array(
+					'title' => $guide['title'],
+					'stats' => array('started' => 0, 'completed' => 0)
+				));
+			}
+		}
+
+		return $report;
+	}
+
+
+	/**
 	 * Returns number of unique users for this app
 	 */
 	function get_user_count()

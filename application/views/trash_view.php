@@ -57,7 +57,7 @@
 </div>
 <? include 'inc/footer.php'; ?>
 <script src="<?= $baseUrl; ?>assets/js/third_party/uploadify/jquery.uploadify.min.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/trash<?= MIN ?>.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/trash<?= MIN ?>.js"></script>
 
 <!-- NEED THIS EXTRA JQUERY :S -->
 <script src="<?= $baseUrl; ?>assets/js/third_party/jquery-10.2.js"></script>

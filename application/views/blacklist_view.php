@@ -56,10 +56,6 @@
     </div>
 </div>
 <? include 'inc/footer.php'; ?>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/blacklist<?= MIN ?>.js"></script>
-
-<!-- NEED THIS EXTRA JQUERY :S -->
-<script src="<?= $baseUrl; ?>assets/js/third_party/jquery-10.2.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/third_party/datatable/datatable.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/blacklist<?= MIN ?>.js"></script>
 </body>
 </html>

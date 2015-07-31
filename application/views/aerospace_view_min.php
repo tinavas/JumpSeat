@@ -70,8 +70,8 @@ config : {
     "paths": {
         "jquery": "assets/js/third_party/jquery",
         "underscore": "assets/js/third_party/underscore",
-        "aero" : "assets/js/jumpseat.min"
-        <? if($admin){ ?>,"aero-admin" : "assets/js/jumpseat-auth.min","aero-editor" : "assets/js/third_party/editor/aero-editor"<? } ?>
+        "aero" : "assets/js/aero/jumpseat.min"
+        <? if($admin){ ?>,"aero-admin" : "assets/js/aero/jumpseat-auth.min","aero-editor" : "assets/js/third_party/editor/aero-editor"<? } ?>
     },
     "shim": {
         "jquery": {			"exports": "$q" },

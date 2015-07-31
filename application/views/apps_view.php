@@ -36,6 +36,6 @@
     <div id="apps" class="row"><ul class="clearfix"></ul></div>
 </div>
 <? include 'inc/footer.php'; ?>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/apps<?= MIN ?>.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/apps<?= MIN ?>.js"></script>
 </body>
 </html>

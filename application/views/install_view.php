@@ -57,7 +57,7 @@
 <script src="<?= $baseUrl; ?>assets/js/third_party/underscore.js"></script>
 <script src="<?= $baseUrl; ?>assets/lib/foundation/js/vendor/placeholder.js"></script>
 <script src="<?= $baseUrl; ?>assets/lib/foundation/js/foundation.min.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/install<?= MIN ?>.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/install<?= MIN ?>.js"></script>
 <script src="/assets/js/third_party/password.js"></script>
 <script>
 	$q(document).foundation();

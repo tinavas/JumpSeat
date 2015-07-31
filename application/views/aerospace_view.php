@@ -70,14 +70,14 @@ if(!AeroStep){
 			"paths": {
 				"jquery": "assets/js/third_party/jquery",
 				"underscore": "assets/js/third_party/underscore",
-				"aero" : "assets/js/aero",
-				"aero-guide" : "assets/js/aero-guide",
-				"aero-pathway" : "assets/js/aero-pathway",
-				"aero-step" : "assets/js/aero-step",
-				"aero-tip" : "assets/js/aero-tip",
-				"aero-audit" : "assets/js/aero-audit"
-				<? if($admin){ ?>,"aero-admin" : "assets/js/aero-admin","aero-editor" : "assets/js/third_party/editor/aero-editor"<? } ?>
-				<? if($debug){ ?>,"aero-test" : "assets/js/test/services"<? } ?>
+				"aero" : "assets/js/aero/aero",
+				"aero-guide" : "assets/js/aero/aero-guide",
+				"aero-pathway" : "assets/js/aero/aero-pathway",
+				"aero-step" : "assets/js/aero/aero-step",
+				"aero-tip" : "assets/js/aero/aero-tip",
+				"aero-audit" : "assets/js/aero/aero-audit"
+				<? if($admin){ ?>,"aero-admin" : "assets/js/aero/aero-admin","aero-editor" : "assets/js/third_party/editor/aero-editor"<? } ?>
+				<? if($debug){ ?>,"aero-test" : "assets/js/_test/services"<? } ?>
 			},
 			"shim": {
 				"jquery": {			"exports": "$q" },

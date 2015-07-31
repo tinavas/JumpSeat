@@ -1,0 +1,162 @@
+"use strict";
+
+/**
+ * @class App
+ * Start admin namespace
+ */
+var App = {
+
+    //Id used for edit
+    id: null
+};
+
+
+/**
+ *  @namespace App
+ *  @class App.model
+ *  Model for App Object
+ */
+App.model = {
+
+    url: "api/apps",
+
+    defaults: function () {
+        return {
+            title: "",
+            description: "",
+            active: true
+        }
+    },
+
+    validate: function () {
+
+        //Check for required
+        var valid = $q('.saving form').isFormValid();
+        var $host = $q('.saving input[name="host"]');
+
+        //Validate URL
+        var validUrl = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test($host.val());
+
+        if ($host.val() != IAPP && !validUrl) {
+            valid = false;
+            $host.addClass('aero-require-error');
+        }
+
+        return valid;
+    },
+
+    save: function ($el) {
+
+        var $form = $el.parents('.card').find('form');
+        //Get form data
+        var data = $form.aeroSerialize();
+        data.active = (data.active) ? true : false;
+        data.aliases = [];
+
+        //Remove trailing slash
+        data.host = data.host.replace(/\/$/, '');
+
+        $q('.alias-input').each(function () {
+            var alias = $q(this).val();
+            if (alias) {
+                alias = alias.replace(/\/$/, '');
+                data.aliases.push(alias);
+            }
+        });
+
+        //Create or update
+        if (App.model.validate()) {
+            if (App.id) {
+                App.api.update(data, App.id);
+            } else {
+                App.api.create(data);
+            }
+        }
+    }
+};
+
+
+/**
+ *  @namespace App
+ *  @class App.api
+ *  API REST Services
+ */
+App.api = {
+
+    /**
+     *  Get all or by id
+     *  @param function callback
+     *  @param id
+     */
+    get: function (callback, id) {
+        //Get by id?
+        var data = {};
+        if (id) data = {id: id};
+
+        Aero.send(App.model.url, data, function (r) {
+            if (callback) callback(r);
+        }, "GET");
+    },
+
+    /**
+     *  Create new app
+     *  @param function callback
+     *  @param id
+     */
+    create: function (data, callback) {
+
+        //Call
+        Aero.send(App.model.url, data, function (r) {
+
+            if (r) {
+                data.id = r;
+                App.view.updateCard(data);
+                Utils.card.flip($q('.saving form'), true, function () {
+                    $q('.saving form').remove();
+                    $q('.saving').removeClass('saving');
+                    if (callback) callback(r);
+                });
+            } else {
+                App.view.renderIssue();
+            }
+
+        }, "POST");
+    },
+
+    /**
+     *  Update app data
+     *  @param string[] data
+     *  @param function callback
+     */
+    update: function (data, id, callback) {
+
+        data.id = id;
+
+        //Call
+        Aero.send(App.model.url, data, function (r) {
+
+            if (r) {
+                App.view.updateCard(r);
+                Utils.card.flip($q('.saving form'), true, function () {
+                    $q('.saving').removeClass('saving');
+                    if (callback) callback(r);
+                });
+            } else {
+                App.view.renderIssue();
+            }
+
+        }, "PUT");
+    },
+
+    /**
+     *  Delete app
+     *  @param string id
+     */
+    del: function (id) {
+        //Call
+        Aero.send(App.model.url, {id: id}, function (r) {
+            Utils.card.remove($q('.deleting'));
+        }, "DELETE");
+    }
+};
+

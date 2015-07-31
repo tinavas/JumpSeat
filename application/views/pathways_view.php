@@ -37,7 +37,6 @@
     </div>
 </div>
 <? include 'inc/footer.php'; ?>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/pathway<?= MIN ?>.js"></script>
-<script>$q(function(){ Pathway.init(); });</script>
+<script src="<?= $baseUrl; ?>assets/js/views/pathway<?= MIN ?>.js"></script>
 </body>
 </html>

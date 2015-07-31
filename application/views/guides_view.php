@@ -66,12 +66,7 @@
     </div>
 </div>
 <? include 'inc/footer.php'; ?>
-<script src="<?= $baseUrl; ?>assets/js/third_party/uploadify/jquery.uploadify.min.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/guides<?= MIN ?>.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/aeroadmin/export<?= MIN ?>.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/guides<?= MIN ?>.js"></script>
 
-<!-- NEED THIS EXTRA JQUERY :S -->
-<script src="<?= $baseUrl; ?>assets/js/third_party/jquery-10.2.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/third_party/datatable/datatable.js"></script>
 </body>
 </html>
