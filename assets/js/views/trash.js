@@ -72,12 +72,10 @@ require(['api/trash'], function() {
 
 			//Delete
 			$q('body').off("click.pathd").on("click.pathd", ".delete", function () {
-				console.log('Delete');
-				console.log(this);
+
 				var id = $q(this).parents('div:eq(0)').data('id');
 				var name = $q(this).parents('tr').find('td:eq(1)').text();
-				console.log(id);
-				console.log(name);
+
 				//Confirm
 				Aero.confirm({
 					ok: "Delete",
@@ -92,10 +90,8 @@ require(['api/trash'], function() {
 
 			//Restore
 			$q('body').off("click.pathe").on("click.pathr", ".restore", function () {
-				console.log('Edit');
-				console.log(this);
+
 				var id = $q(this).parents('div:eq(0)').data('id');
-				console.log(id);
 
 				Trash.api.restore(id);
 				//function(r){
