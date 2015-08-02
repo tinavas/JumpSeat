@@ -660,10 +660,7 @@ table .tools { display:inline-block;}
 /**
 *	 Analytics | .analytics-x
 */
-#analyticsView a, #analyticsView .tabs .tab-title > a {
-	color:#FE7B7B; width:100%; text-align:center;
-}
-#analyticsView .tabs .tab-title { width:25%; }
+#analyticsView a, #analyticsView .tabs .tab-title > a {  color:#FE7B7B; width:100%; text-align:center; }
 #analyticsView .tabs .tab-title.active > a { color:#25303F; }
 #analyticTabs { margin-bottom:0; }
 #analyticTabs .content { padding:20px 0; padding-bottom:0; }

@@ -37,8 +37,7 @@ requirejs.config({
         'utils/tween': 'third_party/gsap/TweenMax.min',
         'utils/placeholder': 'third_party/foundation/js/vendor/placeholder',
         'utils/foundation-dropdown': 'third_party/foundation/js/foundation/foundation.dropdown',
-        'utils/semantic-dropdown': 'third_party/semantic/dropdowns/dropdown' + AeroStep.min,
-        'utils/semantic-transition': 'third_party/semantic/transitions/transition' + AeroStep.min,
+        'utils/dropdown': 'views/util.dropdown' + AeroStep.min,
 
         //Libraries
         'lib/charts' : 'third_party/Chart.min',
@@ -74,8 +73,7 @@ requirejs.config({
         'utils/tween': {'deps': juf },
         'utils/placeholder': {'deps': juf },
         'utils/foundation-dropdown': {'deps': juf },
-        'utils/semantic-dropdown': {'deps': juf },
-        'utils/semantic-transition': {'deps': juf },
+        'utils/dropdown': {'deps': juf },
 
         //Libraries
         'lib/charts' : {'deps': [] },
