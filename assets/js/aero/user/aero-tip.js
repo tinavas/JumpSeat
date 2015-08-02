@@ -1,11 +1,9 @@
-/**
- *  @class Tip object
- *  @author Mike Priest
- */
 "use strict";
 
 /**
- *  Global namespace
+ * ToolTip Object
+ * @author Mike Priest
+ * @type {{options: {labels: {end: *, next: *, prev: *}, template: Function}, setGuide: Function, setStep: Function, redirect: Function, start: Function, stop: Function, next: Function, prev: Function, jumpTo: Function, findStep: Function, findStepTimeout: Function, observe: Function, beforeShow: Function, show: Function, hide: Function, buildNav: Function, setPosition: Function, containIn: Function, scrollToElement: Function, isReturnBranch: Function, renderBranch: Function, renderException: Function, setNav: Function, sayCongrats: Function, setEvents: Function}}
  */
 Aero.tip = {
 

@@ -14,7 +14,7 @@ requirejs.config({
         'jquery-ui': 'third_party/jquery-ui',
         'underscore': 'third_party/underscore',
         'foundation': 'third_party/foundation/js/foundation.min',
-        'aero': 'aero/aero' + AeroStep.min,
+        'aero': 'aero/user/aero' + AeroStep.min,
 
         //APIs
         'api/apps' : 'api/app.api' + AeroStep.min,

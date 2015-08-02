@@ -1,11 +1,9 @@
-/**
- *  @class Step object
- *  @author Mike Priest
- */
 "use strict";
 
 /**
- *  Model definition
+ * Pathway Model
+ * @author Mike Priest
+ * @type {{url: string}}
  */
 Aero.model.pathway = {
 
@@ -16,7 +14,9 @@ Aero.model.pathway = {
 };
 
 /**
- *  View definition
+ * Pathway View
+ * @author Mike Priest
+ * @type {{render: Function, setEvents: Function}}
  */
 Aero.view.pathway = {
 
@@ -81,7 +81,9 @@ Aero.view.pathway = {
 };
 
 /**
- *  View definition
+ * Pathway Object
+ * @author Mike Priest
+ * @type {{init: Function, get: Function, getGuides: Function}}
  */
 Aero.pathway = {
 
@@ -140,4 +142,4 @@ Aero.pathway = {
 	}
 };
 
-Aero.pathway.init();
+

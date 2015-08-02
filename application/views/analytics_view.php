@@ -51,10 +51,10 @@
 			</div>
 
 			<ul class="tabs" data-tab>
-<!--				  <li class="tab-title active"><a href="#panel1">--><?//= $lang->reportusers; ?><!--</a></li>-->
-<!--				  <li class="tab-title"><a href="#panel2">--><?//= $lang->user; ?><!-- Progress</a></li>-->
-<!--				  <li class="tab-title"><a href="#panel3">--><?//= $lang->reporttaken; ?><!--</a></li>-->
-<!--				  <li class="tab-title"><a href="#panel4">--><?//= $lang->reporttime; ?><!--</a></li>-->
+				  <li class="tab-title active"><a href="#panel1"><?= $lang->reportusers; ?></a></li>
+				  <li class="tab-title"><a href="#panel2"><?= $lang->user; ?> Progress</a></li>
+				  <li class="tab-title"><a href="#panel3"><?= $lang->reporttaken; ?></a></li>
+				  <li class="tab-title"><a href="#panel4"><?= $lang->reporttime; ?></a></li>
 			</ul>
 
 			<div id="analyticTabs" class="tabs-content">

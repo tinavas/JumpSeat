@@ -1,11 +1,9 @@
-/**
- *  @class Step object
- *  @author Mike Priest
- */
 "use strict";
 
 /**
- *  Model definition
+ * Step Model
+ * @author Mike Priest
+ * @type {{url: string, defaults: Function, update: Function, validate: Function}}
  */
 Aero.model.step = {
 
@@ -64,6 +62,12 @@ Aero.model.step = {
 		//Add messaging
 		if(!valid){
 			$q('#aeroSection0 p:first').after('<div class="aero-error-box">'+AeroStep.lang.requirede+'</div>');
+
+			//Switch Tab?
+			var $tabC = $q('.aero-require-error:eq(0)').parents('.aero-tab-content:eq(0)');
+			if($tabC){
+				$tabC.parent().find('a[href="#' + $tabC.attr('id') + '"]').click();
+			}
 		}
 
 		return valid;
@@ -71,7 +75,9 @@ Aero.model.step = {
 };
 
 /**
- *  View definition
+ * Step View
+ * @author Mike Priest
+ * @type {{render: Function, renderShare: Function, setState: Function, setEvents: Function}}
  */
 Aero.view.step = {
 
@@ -161,7 +167,9 @@ Aero.view.step = {
 };
 
 /**
- *  @class Step object
+ * Step Object
+ * @author Mike Priest
+ * @type {{get: Function, add: Function, update: Function, moveIndex: Function, destroy: Function}}
  */
 Aero.step = {
 

@@ -8,13 +8,13 @@
 }
 
 ::-moz-selection { /* Code for Firefox */
-    color: red;
-    background:#fff!important;
+    color: #000;
+    background: #CCC!important
 }
 
 ::selection {
-    color: red;
-    background:#fff!important;
+    color: #000;
+    background: #CCC!important
 }
 
 [class^="aero"], [class^="aero"] a, [class^="aero"] p {
@@ -393,6 +393,53 @@ li.aero-helper-dropable {
     background-color: inherit!important;
 }
 
+
+/* Content Tabs */
+.aero-admin-wrapper ul.aero-tab, ul.aero-tab li {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.aero-admin-wrapper ul.aero-tab {
+    margin-bottom:2em;
+}
+
+.aero-admin-wrapper .aero-tab li {
+    float:left;
+}
+.aero-admin-wrapper .aero-tab.aero-three li {
+    width: 33%;
+}
+.aero-admin-wrapper .aero-tab.aero-two li {
+    width: 50%;
+}
+
+.aero-admin-wrapper .aero-tab li a {
+    padding: .5em 0em;
+    border-left: 0;
+    border-bottom: 3px solid #ccc;
+    text-transform: uppercase;
+    color:#666666;
+    font-weight:600;
+    font-size:0.95em;
+
+}
+.aero-admin-wrapper .aero-tab li a:hover, .aero-admin-wrapper .aero-tab li a.aero-tab-active {
+    border-left: 0;
+    border-bottom: 3px solid rgb(253, 165, 165);
+    color:#333;
+}
+
+.aero-admin-wrapper .aero-tab li a.aero-tab-active {
+    border-bottom: 3px solid rgb(219, 80, 82);
+}
+.aero-admin-wrapper .aero-tab-content {
+    display:none;
+}
+.aero-admin-wrapper .aero-tab-content.aero-tab-active {
+    display:block;
+}
+
 /*
 * 	Tooltip Styles | .aero-tip
 */
@@ -415,9 +462,6 @@ li.aero-helper-dropable {
 .aero-tip-right { margin-left:12px; }
 .aero-tip-left { margin-right:12px; }
 .aero-tip-orphan { position:fixed; }
-
-
-
 
 .arrow_box:after,
 .arrow_box:before {
@@ -784,7 +828,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 	font-size:18px;
 	color:#DB5052;
 	font-family:'Source Sans Pro';
-	font-weight: normal;
+	font-weight: 600;
 }
 
 .aero-admin-wrapper p {
@@ -1038,6 +1082,43 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 
 .auto-wrapper > div:first-child {
     border:0; padding:0;
+}
+
+/**
+*   Quizing | .quiz
+*/
+.aero-tab-content .aero-quiz-search input {
+    width: 305px!important;
+}
+.aero-tab-content .aero-quiz-search a {
+    padding: 11px!important;
+}
+.aero-tab-content a.aero-answer-delete {
+    border-left: 1px solid #ccc;
+}
+.aero-tab-content a.aero-answer-delete:hover {
+    border-left: 1px solid #ccc;
+}
+.aero-answer-list i {
+    width:15px;
+}
+.aero-checked {
+    transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s;
+}
+.aero-checked, .aero-checked:hover {
+    background:#B4F5BC;
+}
+
+/**
+*	Utils
+*/
+.aerou-right {
+	float:right;
+}
+.aerou-left {
+	float:left;
 }
 
 /* ESP */

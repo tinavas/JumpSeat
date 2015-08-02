@@ -18,13 +18,68 @@
 			<input type="hidden" class="aero-step-index" value="<%= model.index %>" />
 	    	<div id="aeroSection0" class="aero-section open">
 		    	<h1><%= AeroStep.lang.contente %></h1>
-		    	<p><%= AeroStep.lang.contentd %></p>
 
-				<label><%= AeroStep.lang.title %></label>
-				<input type="text" name="aero_title" class="aero-required" value="<%= model.title %>" />
+				<ul class="aero-tab aero-three clearfix">
+					<li><a class="aero-tab-active" href="#aero-tab-1">Content</a></li>
+					<li><a href="#aero-tab-2">Rich Media</a></li>
+					<li><a id="aero-section-quiz" href="#aero-tab-3">Quizzing</a></li>
+				</ul>
 
-				<label><%= AeroStep.lang.content %></label>
-				<textarea id="aeroEditor" name="aero_body" style="height:150px"><%= model.body %></textarea>
+				<!-- BASIC CONTENT -->
+				<div id="aero-tab-1" class="aero-tab-content aero-tab-active">
+					<p><%= AeroStep.lang.contentd %></p>
+
+					<label><%= AeroStep.lang.title %></label>
+					<input type="text" name="aero_title" class="aero-required" value="<%= model.title %>" />
+
+					<label><%= AeroStep.lang.content %></label>
+					<textarea id="aeroEditor" name="aero_body" style="height:150px"><%= model.body %></textarea>
+				</div>
+
+				<!-- RICH MEDIA TYPES -->
+				<div id="aero-tab-2" class="aero-tab-content">
+					<p><%= AeroStep.lang.contentd %></p>
+
+                    <label>Youtube URL</label>
+                    <input type="text" name="aero_youtube" value="<%= model.youtube %>" />
+
+					<label>Embed</label>
+					<textarea name="aero_embed" style="height:150px"><%= model.embed %></textarea>
+				</div>
+
+				<!-- QUIZ -->
+				<div id="aero-tab-3" class="aero-tab-content">
+					<p><%= AeroStep.lang.quizd %></p>
+
+                    <label><%= AeroStep.lang.chooselay %></label>
+                    <select type="text" name="aero_quizsize">
+                        <option value="" <%= (model.quizsize == "" ? "selected":"") %>>1 column (default)</option>
+                        <option value="two" <%= (model.quizsize == "two" ? "selected":"") %>>2 column</option>
+                        <option value="three" <%= (model.quizsize == "three" ? "selected":"") %>>3 column</option>
+                        <option value="four" <%= (model.quizsize == "four" ? "selected":"") %>>4 column</option>
+                    </select>
+
+					<label><%= AeroStep.lang.question %></label>
+					<input id="aero-question" type="text" name="aero_question" value="<%= model.question %>" />
+
+                    <!-- Answers -->
+					<label><%= AeroStep.lang.answers %></label>
+                    <p><%= AeroStep.lang.quizad %></p>
+
+					<div class="aero-quiz-search clearfix">
+						<a class="aero-btn-grey aero-answer-add aerou-right"><i class="fa fa-plus-circle"></i> <%= AeroStep.lang.add %></a>
+						<input type="text" class="aero-answer" value="" />
+					</div>
+
+                    <div class="aero-assoc aero-answer-list">
+						<ul>
+							<% for(var j in model.answers) { %>
+                                <%= Aero.view.step.admin.quiz.renderAnswer(model.answers[j], true) %>
+                            <% } %>
+						</ul>
+					</div>
+				</div>
+
 				<div style="margin-top:15px;"><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
 			<div id="aeroSection1" class="aero-section">
@@ -227,19 +282,34 @@
 			</div>
 			<div id="aeroSection6" class="aero-section">
 		    	<h1><%= AeroStep.lang.codee %></h1>
-		    	<p><%= AeroStep.lang.coded %></p>
 
-				<label><%= AeroStep.lang.bs %></label>
-				<textarea name="aero_beforeCode" style="height:90px"><%= model.beforeCode %></textarea>
+                <ul class="aero-tab aero-two clearfix">
+                    <li><a class="aero-tab-active" href="#aero-tab-1"><%= AeroStep.lang.before %></a></li>
+                    <li><a href="#aero-tab-2"><%= AeroStep.lang.after %></a></li>
+                </ul>
 
-				<label><%= AeroStep.lang.os %></label>
-				<textarea name="aero_onCode" style="height:90px"><%= model.onCode %></textarea>
+                <!-- BASIC CONTENT -->
+                <div id="aero-tab-1" class="aero-tab-content aero-tab-active">
+                    <p><%= AeroStep.lang.coded %></p>
 
-				<label><%= AeroStep.lang.bh %></label>
-				<textarea name="aero_afterCode" style="height:90px"><%= model.afterCode %></textarea>
+                    <label><%= AeroStep.lang.bs %></label>
+                    <textarea name="aero_beforeCode" style="height:150px"><%= model.beforeCode %></textarea>
 
-				<label><%= AeroStep.lang.oh %></label>
-				<textarea name="aero_offCode" style="height:90px"><%= model.offCode %></textarea>
+                    <label><%= AeroStep.lang.bh %></label>
+                    <textarea name="aero_afterCode" style="height:150px"><%= model.afterCode %></textarea>
+                </div>
+
+                <!-- BASIC CONTENT -->
+                <div id="aero-tab-2" class="aero-tab-content">
+                    <p><%= AeroStep.lang.coded %></p>
+
+                    <label><%= AeroStep.lang.os %></label>
+                    <textarea name="aero_onCode" style="height:150px"><%= model.onCode %></textarea>
+
+                    <label><%= AeroStep.lang.oh %></label>
+                    <textarea name="aero_offCode" style="height:150px"><%= model.offCode %></textarea>
+                </div>
+
 				<%= asSaveButton %><%= asCancelButton %>
 			</div>
 		</form>

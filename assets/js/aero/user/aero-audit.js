@@ -1,11 +1,9 @@
-/**
- *  @class Audit object
- *  @author Trevor Dell
- */
 "use strict";
 
 /**
- *  Model to interact with local storage
+ * Audit Object
+ * @author Trevor Dell
+ * @type {{key: string, defaults: Function, get: Function, update: Function, getTime: Function, padZero: Function}}
  */
 Aero.model.audit = {
 

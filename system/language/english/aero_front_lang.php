@@ -124,8 +124,19 @@ $lang['bh']    		= "Before step is hidden";
 $lang['oh']    		= "Once step is hidden";
 $lang['exce']    	= "Manage Exceptions";
 $lang['excd']    	= "Steps may not be visible for a number reasons (incorrect permissions, setup required etc.). You can decide what to do when we find a missing step.";
-$lang['codee']    	= "Custom code (javascript)";
-$lang['coded']    	= "This section is for advanced users only.";
+$lang['codee']    	= "Custom code";
+$lang['coded']    	= "Use JavaScript to tailor your steps as needed - this section is for advanced users only.";
+$lang['before']     = "Before";
+$lang['after']      = "After";
+
+//Quiz
+$lang['quizd']  = "The quiz feature allows you to track if learners are retaining information. To create a quiz, simply click the text you want to change, add new answers, and check the correct answers like your learners would.";
+$lang['quizad']  = "Type an answer and hit enter, or click the add button. To select the correct answers check the checkbox next to the delete button.";
+$lang['quizcontent']  = "Quiz Content";
+$lang['question']  = "Question";
+$lang['answers']  = "Answers";
+$lang['answera']  = "Add Answer";
+$lang['chooselay']  = "Choose Layout";
 
 $lang['start']   = "Starting a Guide";
 $lang['startd']   = "Guides can always be started by the use of the guide sidebar. However, sometimes it's important to start guides through other means.";

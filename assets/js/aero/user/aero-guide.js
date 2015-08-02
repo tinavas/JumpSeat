@@ -1,11 +1,9 @@
-/**
- *  @class Guide object
- *  @author Mike Priest
- */
 "use strict";
 
 /**
- *  @namespace Aero.model for guide
+ * Guide Model
+ * @author Mike Priest
+ * @type {{url: string, urlSearch: string, defaults: Function, byId: Function, update: Function, validate: Function}}
  */
 Aero.model.guide = {
 
@@ -77,7 +75,8 @@ Aero.model.guide = {
 };
 
 /**
- *  @namespace Aero.view for guide
+ * Guide Views
+ * @type {{render: Function, renderRestrict: Function, positionRestrict: Function, search: Function, clearSearch: Function, setEvents: Function}}
  */
 Aero.view.guide = {
 
@@ -277,8 +276,9 @@ Aero.view.guide = {
 };
 
 /**
- * @namespace Aero.guide
- * Guide object
+ * Guide Object
+ * @author Mike Priest
+ * @type {{init: Function, autoStart: Function, updateCache: Function, getAll: Function, get: Function, getByTerm: Function, create: Function, update: Function, destroy: Function}}
  */
 Aero.guide = {
 
@@ -459,6 +459,8 @@ Aero.guide = {
 
 /**
  * Controls events for the guides and steps sidebars
+ * @author Mike Priest
+ * @type {{setScrollable: Function, show: Function, hide: Function, notify: Function, setEvents: Function}}
  */
 Aero.view.sidebar = {
 
@@ -569,6 +571,3 @@ Aero.view.sidebar = {
 		});
 	}
 };
-
-//Start the crazies
-$q(function(){ Aero.guide.init(); });
