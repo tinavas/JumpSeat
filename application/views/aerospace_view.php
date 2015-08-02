@@ -74,6 +74,8 @@ if(!AeroStep){
                 "aero-main" : "assets/js/aero/user/_main",
                 "aero-guide" : "assets/js/aero/user/aero-guide",
 				"aero-pathway" : "assets/js/aero/user/aero-pathway",
+                "aero-quiz" : "assets/js/aero/user/aero-quiz",
+				"aero-media" : "assets/js/aero/user/aero-media",
 				"aero-step" : "assets/js/aero/user/aero-step",
 				"aero-tip" : "assets/js/aero/user/aero-tip",
 				"aero-audit" : "assets/js/aero/user/aero-audit"
@@ -83,6 +85,7 @@ if(!AeroStep){
                     ,"aero-admin-guide" : "assets/js/aero/admin/aero-guide"
                     ,"aero-admin-step" : "assets/js/aero/admin/aero-step"
                     ,"aero-admin-pathway" : "assets/js/aero/admin/aero-pathway"
+                    ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
                     ,"aero-admin-role" : "assets/js/aero/admin/aero-role"
                     ,"aero-admin-picker" : "assets/js/aero/admin/aero-picker"
                     ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
@@ -97,6 +100,8 @@ if(!AeroStep){
                 ,"aero-main" : {     	"deps" : ["aero", "aero-tip", "aero-pathway", "aero-guide"] }
                 ,"aero-guide" : {		"deps" : ["aero", "aero-tip", "aero-pathway"] }
                 ,"aero-pathway" : { 	"deps" : ["aero"] }
+                ,"aero-quiz" : { 	    "deps" : ["aero"] }
+				,"aero-media" : { 	    "deps" : ["aero"] }
                 ,"aero-step" : {    	"deps" : ["aero"] }
                 ,"aero-audit" : {    	"deps" : ["aero"] }
 				,"aero-admin-quiz" : {  "deps" : ["aero", "aero-admin", "aero-admin-step"] }
@@ -111,13 +116,13 @@ if(!AeroStep){
                 ,"aero-admin-pathway" :{"deps": ["aero", "aero-admin"] }
                 ,"aero-admin-role" : { 	"deps": ["aero", "aero-admin"] }
                 ,"aero-admin-picker" : {"deps": ["aero", "aero-admin"] }
-                ,"aero-admin-quiz" : { 	"deps": ["aero", "aero-admin"] }
+                ,"aero-admin-quiz" : { 	"deps": ["aero", "aero-admin", "aero-admin-guide", "aero-admin-step"] }
                 ,"aero-admin-main": { 	"deps": ["aero", "aero-step", "aero-guide", "aero-admin-guide","aero-admin-step","aero-admin-pathway","aero-admin-role","aero-admin-picker","aero-admin-quiz"] }
                 ,"aero-editor": { 		"deps": ["jquery"] }
             <? } ?>
 			},
 			"lib_list" : [
-				"jquery", "underscore", "aero", "aero-main", "aero-guide", "aero-pathway", "aero-step", "aero-tip", "aero-audit"
+				"jquery", "underscore", "aero", "aero-main", "aero-guide", "aero-pathway", "aero-step", "aero-tip", "aero-audit", "aero-quiz", "aero-media"
                 <? if($debug){ ?>,"aero-test"<? } ?>
                 <? if($admin){ ?>,"aero-admin","aero-admin-guide","aero-admin-step","aero-admin-pathway","aero-admin-role","aero-admin-picker","aero-admin-quiz","aero-admin-main","aero-editor"<? } ?>
 			],

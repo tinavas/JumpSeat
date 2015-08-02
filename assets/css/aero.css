@@ -1111,6 +1111,38 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
     background:#B4F5BC;
 }
 
+/* Front */
+.aero-quiz { margin-top:10px;}
+.aero-quiz ul, .aero-quiz ul li { margin:0; padding:0; list-style: none; }
+.aero-quiz ul li { float:left; line-height: 25px; width: 100%;}
+.aero-quiz li input { float:right; margin:7px 15px 0 0; }
+.aero-quiz.aero-quiz-two ul li { width: 50%;}
+.aero-quiz.aero-quiz-three ul li { width: 33.33%;}
+.aero-quiz.aero-quiz-four ul li { width: 25%; }
+.aero-tip-body iframe { margin-top:20px; display:block;}
+.aero-tip-med .aero-tip-body iframe { height:200px; }
+.aero-tip-lrg .aero-tip-body iframe { height:250px; }
+.aero-section textarea.aero_embed_val { height: 80px;line-height: 1.2em; }
+
+/**
+*   Notification | .aero-not-x
+*/
+.aero-msg {
+    padding: 15px 25px;
+    margin: -25px;
+    margin-bottom: 15px;
+	font-weight:600;
+}
+.aero-msg.aero-success {
+    background-color: #65DB50;
+}
+.aero-msg.aero-warn {
+    background-color: #DB5052;
+}
+.aero-msg i {
+	margin-right:15px;
+}
+
 /**
 *	Utils
 */

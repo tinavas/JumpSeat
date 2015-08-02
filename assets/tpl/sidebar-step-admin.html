@@ -44,7 +44,7 @@
                     <input type="text" name="aero_youtube" value="<%= model.youtube %>" />
 
 					<label>Embed</label>
-					<textarea name="aero_embed" style="height:150px"><%= model.embed %></textarea>
+					<textarea class="aero_embed_val" name="aero_embed"><%= model.embed %></textarea>
 				</div>
 
 				<!-- QUIZ -->
@@ -58,9 +58,6 @@
                         <option value="three" <%= (model.quizsize == "three" ? "selected":"") %>>3 column</option>
                         <option value="four" <%= (model.quizsize == "four" ? "selected":"") %>>4 column</option>
                     </select>
-
-					<label><%= AeroStep.lang.question %></label>
-					<input id="aero-question" type="text" name="aero_question" value="<%= model.question %>" />
 
                     <!-- Answers -->
 					<label><%= AeroStep.lang.answers %></label>

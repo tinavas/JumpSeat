@@ -130,7 +130,7 @@ $lang['before']     = "Before";
 $lang['after']      = "After";
 
 //Quiz
-$lang['quizd']  = "The quiz feature allows you to track if learners are retaining information. To create a quiz, simply click the text you want to change, add new answers, and check the correct answers like your learners would.";
+$lang['quizd']  = "The quiz feature allows you to track if learners are retaining information. To create a quiz, simply use the tip content to enter your question, then add answers and select the correct answers here.";
 $lang['quizad']  = "Type an answer and hit enter, or click the add button. To select the correct answers check the checkbox next to the delete button.";
 $lang['quizcontent']  = "Quiz Content";
 $lang['question']  = "Question";

@@ -221,7 +221,7 @@ Aero.confirm = function(options){
 Aero.tpl = {
 	templates: {},
 	get: function(name, callback) {
-	    var self = this;
+        var self = this;
 	    var path = "api/template";
 	    var data = {
 	    	name: name,

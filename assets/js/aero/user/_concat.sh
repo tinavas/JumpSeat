@@ -14,12 +14,13 @@ INPUTS="
 $ROOT/aero.min.js
 $ROOT/aero-audit.min.js
 $ROOT/aero-pathway.min.js
+$ROOT/aero-quiz.min.js
+$ROOT/aero-media.min.js
 $ROOT/aero-step.min.js
 $ROOT/aero-tip.min.js
 $ROOT/aero-guide.min.js
 $ROOT/_main.min.js
 "
-
 
 # Output Concat File
 OUTPUT="$ROOT/jumpseat.min.js"

@@ -20,7 +20,9 @@ Aero.tip = {
 		},
 		template: function(step){
 			var size = "",
-				title = "";
+				title = "",
+				quiz = "",
+                media = "";
 			var pos = step.position ? step.position : "top";
 			var now = Aero.tip._current + 1;
 			var total = Aero.tip._guide.step.length;
@@ -35,9 +37,19 @@ Aero.tip = {
 			if(step.showTitle) title = '<div class="aero-tip-title">'+step.title+'</div>';
 			var progress = step.multi ? "" : "<div class='aero-tip-nav clearfix'><div class='aero-progress'><span>" + now +" of "+total+"</span><span class='aero-needle'><span style='width:"+pec+"%'></span></span></div></div>";
 
+			//Does it have a Quiz?
+			if(step.answers && step.answers.length > 0){
+				quiz = Aero.view.quiz.render(step.answers, step.quizsize);
+			}
+
+			//Does it have media?
+            if(step.embed || step.youtube){
+                media = Aero.view.media.render(step);
+            }
+
 			return "<div id='"+step.id +"' class='aero-tip aero-tip-"+pos+size+"' style='display:none'>" +
 					"<div class='aero-tip-arrow'></div>" +
-					"<div class='aero-tip-body'>"+title+step.body+"</div>" +
+					"<div class='aero-tip-body'>"+title+step.body+quiz+media+"</div>" +
 					progress +
 	    	  "</div>";
 		}
@@ -139,6 +151,19 @@ Aero.tip = {
 		return false;
 	},
 
+    /**
+     *  @function Validate if the user can move on
+     */
+    validate : function(){
+
+        var valid = true;
+
+        //Check for Quiz
+        var step = Aero.step.get(this._current);
+        if(step.answers && step.answers.length > 0) valid = Aero.view.quiz.validate(step);
+
+        return valid;
+    },
 
 	/**
 	 * @function Start a guide
@@ -168,6 +193,9 @@ Aero.tip = {
 	 */
 	stop : function(){
 
+        //Validate
+        if(!this.validate()) return;
+
         //@todo clear on restrict and auto only
         localStorage.setItem('aero:cache', 0);
 
@@ -194,6 +222,9 @@ Aero.tip = {
      * @returns {void}
 	 */
 	next : function(){
+
+        //Validate
+        if(!this.validate()) return;
 
 		var step = Aero.step.get(this._current);
 
@@ -231,7 +262,8 @@ Aero.tip = {
      * @returns {void}
 	 */
 	jumpTo : function(i){
-		var step = Aero.step.get(i);
+
+        var step = Aero.step.get(i);
 		this._forward = true;
 		clearInterval(this.ob);
 		Aero.jump = true;

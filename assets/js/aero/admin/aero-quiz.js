@@ -50,11 +50,7 @@ Aero.view.step.admin.quiz = {
             };
 
             answers.push(answer);
-
-            console.log($q(this).find('.aero-answer-check'));
         });
-
-        console.log(answers);
 
         return answers;
     },
