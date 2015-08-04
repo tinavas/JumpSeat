@@ -58,5 +58,12 @@ $route['app/(:any)/analytics'] = "analytics/index/$1";
 $route['app/(:any)/versions/(:any)'] = "app/subsection/$1/$2/versions";
 $route['app/(:any)/trash'] = "app/section/$1/trash";
 
+//Custom for screenshot apps
+$route['app/(:any)/features'] = "app/section/$1/features";
+$route['app/(:any)/features/(:any)'] = "app/subsection/$1/$2/pages";
+
+//Screenshot app
+$route['iapp/(:any)'] = "iapp/feature/$1/$2";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

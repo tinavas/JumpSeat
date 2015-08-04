@@ -47,3 +47,7 @@ DEFINE("PAGEDATA", "pagedata");
 DEFINE("URLS", "urls");
 DEFINE("BLACKLIST", "blacklist");
 DEFINE("AUDIT", "audit");
+DEFINE("FEATURES", "features");
+DEFINE("PAGES", "pages");
+
+DEFINE("IAPP", "revolution");
