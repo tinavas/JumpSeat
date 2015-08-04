@@ -19,7 +19,7 @@
 <script src="<?= $baseUrl; ?>assets/js/third_party/jquery-10.2.js"></script>
 <script src="<?= $baseUrl; ?>assets/js/third_party/datatable/datatable.js"></script>
 <script src="<?= $baseUrl; ?>assets/js/third_party/require/require.min.js"></script>
-<script src="<?= $baseUrl; ?>assets/js/views/aero-require<?= MIN ?>.js"></script>
+<script src="<?= $baseUrl; ?>assets/js/views/_require<?= MIN ?>.js"></script>
 <script type="application/javascript">
     // Add any foundation modules you require to the end of this line.
     require(['utils/tween', 'jquery', 'jquery-ui', 'underscore', 'foundation', 'utils/foundation-dropdown', 'utils/placeholder', 'utils/aero', 'aero'], function() {

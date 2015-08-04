@@ -71,23 +71,42 @@ class Analytics_Model extends CI_Model
 	function user_stats($username)
 	{
 		$report = array();
-		$guides = $this->guide_model->get_all(array('title'));
+		$all_guides = $this->guide_model->get_all(array('title'));
 
 		//Collect report on all guides
-		foreach($guides as $guide)
+		foreach($all_guides as $a_guide)
 		{
+            //@todo move into aggregate & mapReduce to join
 
-			if(isset($started[$guide['id']])){
-				array_push($report, array(
-					'title' => $guide['title'],
-					'stats' => array('started' => $started[$guide['id']], 'completed' => $this->_guides_completed($guide['id']))
-				));
-			}else{
-				array_push($report, array(
-					'title' => $guide['title'],
-					'stats' => array('started' => 0, 'completed' => 0)
-				));
-			}
+            // Get only taken guides for user
+            $where = array(
+                'user' => $username,
+                'guideid' => $a_guide['id']
+            );
+
+            //Get the Guide
+            $guide_report = $this->mongo_db
+                ->select(array('guideid', 'perc'))
+                ->where($where)
+                ->orderBy(array('perc' => -1 ))
+                ->limit(1)
+                ->get($this->collection);
+
+            //Get Guide Information
+            $guide_data = $this->guide_model->get_by_id($a_guide['id']);
+
+            //Results?
+            if(sizeof($guide_report) > 0) {
+                array_push($report, array(
+                    'y' => $guide_data['title'],
+                    'x' => $guide_report[0]['perc']
+                ));
+            }else{
+                array_push($report, array(
+                    'y' => $guide_data['title'],
+                    'x' => 0
+                ));
+            }
 		}
 
 		return $report;

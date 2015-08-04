@@ -179,11 +179,11 @@ $lang['emailuser']	= "Email user";
 $lang['reportusers'] 	= "Started vs Completed";
 $lang['reportusersd'] 	= "Difference between users starting and completing guides";
 
-$lang['reporttaken'] 	= "Processes with high support";
-$lang['reporttakend'] 	= "A graph to show which guides people keep coming back to";
+$lang['reportprogress'] 	= "User Progress";
+$lang['reportprogressd'] 	= "A graph to show user progress across all guides";
 
-$lang['reporttime']	= "Time to complete";
-$lang['reporttimed']	= "A graph to show how long it is taking everyone to complete the guides";
+$lang['filteruser'] 	    = "Report By User";
+$lang['nouser'] 	        = "No User Selected";
 
 /**
  *  Features

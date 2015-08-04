@@ -40,7 +40,12 @@ class Analytics extends REST_Controller
 	{
 		$this->response($this->analytics_model->completed_started(), 200);
 	}
-	
+
+	function user_stats_get()
+	{
+		$this->response($this->analytics_model->user_stats($this->input->get('user')), 200);
+	}
+
 	function times_taken_get()
 	{
 		$this->response($this->analytics_model->times_taken(), 200);

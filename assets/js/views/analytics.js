@@ -1,5 +1,6 @@
 "use strict";
 
+
 /**
  *  Start the analytics app
  */
@@ -134,7 +135,6 @@ require([ 'api/users', 'lib/charts', 'utils/dropdown' ], function() {
 		init : function(){
 			Analytics.view.setEvents();
 			Analytics.view.renderChart1();
-
 		}
 	};
 
@@ -159,12 +159,15 @@ require([ 'api/users', 'lib/charts', 'utils/dropdown' ], function() {
 		},
 
 		/**
-		 *  Get times taken
+		 *  Get user
 		 */
-		getChart2 : function(callback){
+        getUserStats : function(username, callback){
 			var _this = this;
-			Aero.send(Analytics.model.url + '/times_taken', {}, function(r){
-				callback(_this.etl2(r));
+
+			Aero.send(Analytics.model.url + '/user_stats', { user : username }, function(r){
+
+                console.log(r);
+                callback(_this.etl2(r));
 			}, "GET");
 		},
 
@@ -204,8 +207,8 @@ require([ 'api/users', 'lib/charts', 'utils/dropdown' ], function() {
 			};
 
 			for (var i = 0; i < data.length; i++) {
-				results.labels.push(data[i]['title']);
-				results.datasets[0].data.push(data[i].stats.started);
+				results.labels.push(data[i].y);
+				results.datasets[0].data.push(data[i].x);
 
 				results.datasets[0].fillColor = "rgb(214,225,229)";
 				results.datasets[0].strokeColor = "rgb(168, 184, 190)";
@@ -234,10 +237,10 @@ require([ 'api/users', 'lib/charts', 'utils/dropdown' ], function() {
 		},
 
 		/**
-		 *  Times taken
+		 *  User Stats
 		 */
-		renderChart2 : function(){
-			Analytics.model.getChart2(function(data){
+        renderUserStat : function(username){
+			Analytics.model.getUserStats(username, function(data){
 				var ctx = document.getElementById("chart-2").getContext("2d");
 				new Chart(ctx).Bar(data);
 			});
@@ -248,9 +251,15 @@ require([ 'api/users', 'lib/charts', 'utils/dropdown' ], function() {
 		 */
 		setEvents : function(){
 
-            //@todo render chart for user data
-			$q('a[href=#panel2]').on('click', function(){
-			});
+            $q('#userSearch')
+                .searchable()
+                .on('change', function(){
+
+                    var tpl = '<h5>'+AeroStep.lang.reportprogressd+'</h5><div class="chart"><canvas id="chart-2" width="800" height="500"></canvas></div>';
+                    $q('#changeableReport2').html(tpl);
+
+                    Analytics.view.renderUserStat($q(this).val());
+                });
 		}
 	};
 

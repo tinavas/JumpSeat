@@ -31,13 +31,13 @@ requirejs.config({
         'api/rolemap-user' : 'api/rolemap-user.api' + AeroStep.min,
 
         //Utils
-        'utils/aero': 'views/utils' + AeroStep.min,
-        'utils/export' : 'views/export' + AeroStep.min,
+        'utils/aero': 'utils/util.common' + AeroStep.min,
+        'utils/export' : 'utils/util.export' + AeroStep.min,
+        'utils/dropdown': 'utils/util.dropdown' + AeroStep.min,
         'utils/password' : 'third_party/password',
         'utils/tween': 'third_party/gsap/TweenMax.min',
         'utils/placeholder': 'third_party/foundation/js/vendor/placeholder',
         'utils/foundation-dropdown': 'third_party/foundation/js/foundation/foundation.dropdown',
-        'utils/dropdown': 'views/util.dropdown' + AeroStep.min,
 
         //Libraries
         'lib/charts' : 'third_party/Chart.min',

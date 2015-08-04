@@ -680,6 +680,12 @@ table .tools { display:inline-block;}
 	text-transform: uppercase;
 	font-weight:400;
 }
+.user-search label {
+	font-size: 0.9em;
+	text-transform: uppercase;
+	font-weight: 600;
+	padding-bottom: 0.5em;
+}
 
 /**
 *  Pathway Guides | .path-guide-x

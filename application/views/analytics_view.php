@@ -50,9 +50,9 @@
 				</div>
 			</div>
 
-			<ul class="tabs row" data-tab>
-<!--				  <li class="large-6 columns tab-title active"><a href="#panel1">--><?//= $lang->reportusers; ?><!--</a></li>-->
-<!--				  <li class="large-6 columns tab-title"><a href="#panel2">--><?//= $lang->user; ?><!-- Progress</a></li>-->
+			<ul class="tabs" data-tab>
+				  <li class="large-6 columns tab-title active"><a href="#panel1"><?= $lang->reportusers; ?></a></li>
+				  <li class="large-6 columns tab-title"><a href="#panel2"><?= $lang->reportprogress; ?></a></li>
 			</ul>
 
 			<div id="analyticTabs" class="tabs-content">
@@ -73,41 +73,16 @@
 					<div class="row">
 						<div class="columns large-12">
 							<div class="user-search large-4">
-								<label>Filter By Username:</label>
-								<input id="userSearch" type="text" name="user_list" value="" />
+								<label><?= $lang->filteruser; ?>:</label>
+								<select id="userSearch" name="user_list"></select>
 							</div>
-							<div class="analytics-count panel">
-								<h5><?= $lang->reporttakend; ?></h5>
-								<div class="chart">
-									<canvas id="chart-2" width="800" height="500"></canvas>
-								</div>
+							<div id="changeableReport2" class="analytics-count panel">
+                                <?= $lang->nouser; ?>
 							</div>
 						</div>
 					</div>
-			  	</div>
-
-			  	<div class="content" id="panel3">
-					<div class="row">
-						<div class="columns large-12">
-							<a data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">Select guide</a>
-							<ul id="guide-dropdown" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
-							</ul>
-							<div class="analytics-count panel">
-								<h5><?= $lang->reporttimed; ?></h5>
-								<div class="chart">
-									<canvas id="chart-3" width="800" height="500"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-			  	</div>
-
-				<div class="content" id="panel4">
-			    	<p>This is the fourth panel of the basic tab example. This is the fourth panel of the basic tab example.</p>
 			  	</div>
 			</div>
-
-
 		</div>
 	</div>
 </div>
