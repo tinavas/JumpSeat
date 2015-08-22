@@ -6,7 +6,7 @@ if(!AeroStep){
 var AeroStep = {
 cache : <?= $cache; ?>,
 lang : <?= $lang; ?>,
-debug : false,
+debug : <?= $debug ? "true":"false" ?>,
 admin : <?= $admin ? "true" : "false" ?>,
 baseUrl : "<?= base_url(); ?>",
 host : "<?= $app; ?>",
@@ -42,6 +42,19 @@ localStorage.setItem('aero:username', user);
 return user;
 }),
 
+
+/**
+*   Get URL Parameter Value
+*/
+getUrlParam : function(name){
+
+name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+results = regex.exec(location.search);
+return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+
+},
+
 /**
 *   Get the current URL with replacement
 */
@@ -50,11 +63,14 @@ if(!url) url = window.location.href;
 
 try {
 var urls = AeroStep.data;
-if(urls && urls.length > 0){
+
+if(urls){
 for(var i in urls){
 for(var j in urls[i]){
+if(urls[i][j]['regex']){
 var reg = new RegExp(urls[i][j]['regex'].replace(/\//g, '\/'), "i");
-url = url.replace(reg, encodeURIComponent(eval(urls[i][j]['value'])));
+url = url.replace(reg, (eval(urls[i][j]['value'])));
+}
 }
 }
 }
@@ -66,27 +82,71 @@ return url;
 },
 
 config : {
-    "baseUrl" : "<?= base_url(); ?>",
-    "paths": {
-        "jquery": "assets/js/third_party/jquery",
-        "underscore": "assets/js/third_party/underscore",
-        "aero" : "assets/js/aero/user/jumpseat.min"
-        <? if($admin){ ?>,"aero-admin" : "assets/js/aero/admin/jumpseat-auth.min","aero-editor" : "assets/js/third_party/editor/aero-editor"<? } ?>
-    },
-    "shim": {
-        "jquery": {			"exports": "$q" },
-        "underscore": {		"exports": "_q" },
-        "aero" : {			"deps" : ["jquery", "underscore"] }
-        <? if($admin){ ?>,"aero-admin": { "deps": ["aero"] },  "aero-editor": { "deps": ["jquery"] }<? } ?>
-    },
-    "lib_list" : [
-        "jquery", "underscore", "aero"<? if($admin){ ?>, "aero-admin", "aero-editor"<? } ?>
-    ],
-    "css": [
-        "assets/css/aero.min.css",
-        <? if($admin){ ?>"assets/js/third_party/editor/ui/trumbowyg.min.css",<? } ?>
-        "assets/css/font-awesome.min.css"
-    ]
+"baseUrl" : "<?= base_url(); ?>",
+"paths": {
+"jquery": "assets/js/third_party/jquery",
+"underscore": "assets/js/third_party/underscore",
+"aero" : "assets/js/aero/user/aero",
+"aero-main" : "assets/js/aero/user/_main",
+"aero-guide" : "assets/js/aero/user/aero-guide",
+"aero-pathway" : "assets/js/aero/user/aero-pathway",
+"aero-quiz" : "assets/js/aero/user/aero-quiz",
+"aero-media" : "assets/js/aero/user/aero-media",
+"aero-step" : "assets/js/aero/user/aero-step",
+"aero-tip" : "assets/js/aero/user/aero-tip",
+"aero-audit" : "assets/js/aero/user/aero-audit"
+<? if($admin){ ?>
+    ,"aero-admin-main" : "assets/js/aero/admin/_main"
+    ,"aero-admin" : "assets/js/aero/admin/aero-admin"
+    ,"aero-admin-guide" : "assets/js/aero/admin/aero-guide"
+    ,"aero-admin-step" : "assets/js/aero/admin/aero-step"
+    ,"aero-admin-pathway" : "assets/js/aero/admin/aero-pathway"
+    ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
+    ,"aero-admin-role" : "assets/js/aero/admin/aero-role"
+    ,"aero-admin-picker" : "assets/js/aero/admin/aero-picker"
+    ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
+    ,"aero-editor" : "assets/js/third_party/editor/aero-editor"
+<? } ?>
+<? if($debug){ ?>,"aero-test" : "assets/js/_test/services"<? } ?>
+},
+"shim": {
+"jquery": {				"exports": "$q" }
+,"underscore": {		"exports": "_q" }
+,"aero" : {			 	"deps" : ["jquery", "underscore"] }
+,"aero-main" : {     	"deps" : ["aero", "aero-tip", "aero-pathway", "aero-guide"] }
+,"aero-guide" : {		"deps" : ["aero", "aero-tip", "aero-pathway"] }
+,"aero-pathway" : { 	"deps" : ["aero"] }
+,"aero-quiz" : { 	    "deps" : ["aero"] }
+,"aero-media" : { 	    "deps" : ["aero"] }
+,"aero-step" : {    	"deps" : ["aero"] }
+,"aero-audit" : {    	"deps" : ["aero"] }
+,"aero-admin-quiz" : {  "deps" : ["aero", "aero-admin", "aero-admin-step"] }
+,"aero-tip": { 			"deps" : ["aero", "aero-step", "aero-audit"] }
+<? if($debug){ ?>
+    ,"aero-test": { "deps": ["aero"] }
+<? } ?>
+<? if($admin){ ?>
+    ,"aero-admin" : { 		"deps": ["aero"] }
+    ,"aero-admin-guide" : { "deps": ["aero", "aero-guide", "aero-admin"] }
+    ,"aero-admin-step" : {  "deps": ["aero", "aero-step", "aero-admin"] }
+    ,"aero-admin-pathway" :{"deps": ["aero", "aero-admin"] }
+    ,"aero-admin-role" : { 	"deps": ["aero", "aero-admin"] }
+    ,"aero-admin-picker" : {"deps": ["aero", "aero-admin"] }
+    ,"aero-admin-quiz" : { 	"deps": ["aero", "aero-admin", "aero-admin-guide", "aero-admin-step"] }
+    ,"aero-admin-main": { 	"deps": ["aero", "aero-step", "aero-guide", "aero-admin-guide","aero-admin-step","aero-admin-pathway","aero-admin-role","aero-admin-picker","aero-admin-quiz"] }
+    ,"aero-editor": { 		"deps": ["jquery"] }
+<? } ?>
+},
+"lib_list" : [
+"jquery", "underscore", "aero", "aero-main", "aero-guide", "aero-pathway", "aero-step", "aero-tip", "aero-audit", "aero-quiz", "aero-media"
+<? if($debug){ ?>,"aero-test"<? } ?>
+<? if($admin){ ?>,"aero-admin","aero-admin-guide","aero-admin-step","aero-admin-pathway","aero-admin-role","aero-admin-picker","aero-admin-quiz","aero-admin-main","aero-editor"<? } ?>
+],
+"css": [
+"assets/css/aero.css",
+<? if($admin){ ?>"assets/js/third_party/editor/ui/trumbowyg.min.css",<? } ?>
+"assets/css/font-awesome.min.css"
+]
 },
 
 require : function(callback){
@@ -131,6 +191,12 @@ AeroStep.data = {
 }
 }catch(err){
 console.log('%c Pagedata is broken: '+err, 'background: red; color: #fff');
+}
+
+try {
+<?= (isset($fire)) ? $fire : ""; ?>
+}catch(err){
+console.log('%c Fire is broken: '+err, 'background: red; color: #fff');
 }
 
 AeroStep.session = {

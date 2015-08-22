@@ -112,7 +112,7 @@ require([ 'api/pathways' ], function() {
 			var self = this;
 
 			//Init cards hover
-			Utils.card.setEvents(AeroStep.lang.cardr);
+			Utils.card.setEvents(AeroStep.lang.cardp);
 
 			//Save on enter
 			$q('input, textarea').off("keypress.k").on("keypress.k", function (e) {

@@ -55,6 +55,40 @@ Aero.tip = {
 		}
 	},
 
+    /**
+     * Create Spotlight Effect
+     * @param step
+     */
+    spotlight : function($tip, step){
+        return;
+
+        var $el, $tpl, sWidth, sHeight, offSet;
+
+        //Append Relative CSS
+        $el = $q(step.loc);
+        $el.addClass('ae-showElement ae-relativePosition');
+
+        //Add minus padding 10
+        sWidth = $el.outerWidth() + 10;
+        sHeight = $el.outerHeight() + 10;
+        offSet = $el.offset();
+
+        //Append Overlay
+        $tpl = $q('<div class="aero-remove ae-overlay" style="top: 0;bottom: 0; left: 0;right: 0;position: fixed;opacity: 0.8;"></div>');
+        $q('body').append($tpl);
+
+        //Append Spotlight
+        $tpl = $q('<div />')
+                .addClass('aero-remove ae-helperLayer')
+                .css({
+                width : sWidth,
+                height : sHeight,
+                top : offSet.top - 5,
+                left: offSet.left - 5
+            });
+        $q('body').append($tpl);
+    },
+
 	/**
 	 * @function Get step data
 	 * @param {integer} id unique guide id
@@ -436,6 +470,10 @@ Aero.tip = {
 			$q('body').append($tip);
 			Aero.view.step.setState(i);
 
+            //@todo finalize spotlight
+            if(true){
+                 this.spotlight($tip, step);
+            }
 			this.setPosition($el, $tip, step.position);
 			this.setEvents($el, step.nav, $tip, step.position);
 			this.scrollToElement($el);
@@ -494,8 +532,8 @@ Aero.tip = {
 	hide : function(i){
 		var step = Aero.step.get(i);
 
-		$q('.aero-active').removeClass('aero-active');
-		$q('.aero-tip').remove();
+		$q('.aero-active, .aero-showElement').removeClass('aero-active aero-showElement aero-relativePosition');
+		$q('.aero-tip, .aero-remove').remove();
 
 		if(step.afterCode){
 			try {
@@ -812,6 +850,17 @@ Aero.tip = {
                 switch(n) {
                     case "click":
                         $el.off('click.aeronav').on('click.aeronav', $el, function(){
+                            if(last){
+                                if(!AeroStep.admin) self.stop();
+                                return;
+                            }
+                            self.setStep(nav[n]);
+                            self.jumpTo(nav[n]);
+                        });
+                        break;
+
+                    case "mousedown":
+                        $el.off('mousedown.aeronav').on('mousedown.aeronav', $el, function(){
                             if(last){
                                 if(!AeroStep.admin) self.stop();
                                 return;

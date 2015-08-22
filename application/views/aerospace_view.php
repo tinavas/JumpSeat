@@ -42,6 +42,19 @@ if(!AeroStep){
 			return user;
 		}),
 
+
+        /**
+        *   Get URL Parameter Value
+        */
+        getUrlParam : function(name){
+
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+
+        },
+
 		/**
 		*   Get the current URL with replacement
 		*/
@@ -50,12 +63,15 @@ if(!AeroStep){
 
 			try {
 				var urls = AeroStep.data;
-				if(urls && urls.length > 0){
+
+				if(urls){
 					for(var i in urls){
-						for(var j in urls[i]){
-							var reg = new RegExp(urls[i][j]['regex'].replace(/\//g, '\/'), "i");
-							url = url.replace(reg, encodeURIComponent(eval(urls[i][j]['value'])));
-						}
+                        for(var j in urls[i]){
+                            if(urls[i][j]['regex']){
+                                var reg = new RegExp(urls[i][j]['regex'].replace(/\//g, '\/'), "i");
+                                url = url.replace(reg, (eval(urls[i][j]['value'])));
+                            }
+                        }
 					}
 				}
 			}catch(err){

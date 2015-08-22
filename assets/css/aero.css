@@ -1144,6 +1144,79 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 }
 
 /**
+*	Spotlight | .overlay
+*/
+.ae-overlay {
+    position: absolute;
+    z-index: 999999;
+    background-color: #000;
+    opacity: 0;
+    background: -moz-radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%);
+    background: -webkit-gradient(radial,center center,0px,center center,100%,color-stop(0%,rgba(0,0,0,0.4)),color-stop(100%,rgba(0,0,0,0.9)));
+    background: -webkit-radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%);
+    background: -o-radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%);
+    background: -ms-radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%);
+    background: radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#66000000',endColorstr='#e6000000',GradientType=1);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.ae-fixParent {
+    z-index: auto !important;
+    opacity: 1.0 !important;
+    position: absolute !important;
+    -webkit-transform: none !important;
+    -moz-transform: none !important;
+    -ms-transform: none !important;
+    -o-transform: none !important;
+    transform: none !important;
+}
+
+.ae-showElement,
+tr.ae-showElement > td,
+tr.ae-showElement > th {
+    z-index: 9999999 !important;
+}
+
+.ae-relativePosition,
+tr.ae-showElement > td,
+tr.ae-showElement > th {
+    position: relative;
+}
+
+.ae-helperLayer {
+    position: absolute;
+    z-index: 9999998;
+    background-color: #FFF;
+    background-color: rgba(255,255,255,.9);
+    border: 1px solid #777;
+    border: 1px solid rgba(0,0,0,.5);
+    border-radius: 4px;
+    box-shadow: 0 2px 15px rgba(0,0,0,.4);
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.ae-helperLayer *,
+.ae-helperLayer *:before,
+.ae-helperLayer *:after {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    -o-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+/**
 *	Utils
 */
 .aerou-right {
