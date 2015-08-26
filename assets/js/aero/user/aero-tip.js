@@ -345,8 +345,23 @@ Aero.tip = {
 				self.tries++;
 			}, 500);
 		}else{
-			Aero.view.step.setState(i, "missing");
-			self.show(i + 1);
+
+            //Finished Trying
+            var step = Aero.step.get(i);
+            Aero.view.step.setState(i, "missing");
+
+            if(step.miss == "alert"){
+                this.renderException(step.alert, step.alertContent, true);
+            }
+            else if(step.miss == "back"){
+                Aero.view.step.setState(i, "missing");
+                this.prev();
+            }
+            else if(step.miss == "skip"){
+                self.show(i + 1);
+            }else {
+                this.renderException("Step is Missing", "Sorry, we can't find that step - to fix this try: <ul><li>Using a more generic element</li><li>Use 'next item visible' for the navigation on your previous step</li><li>Increase the wait timer for finding this step</li></ul>");
+            }
 		}
 	},
 
@@ -467,30 +482,27 @@ Aero.tip = {
 				$tip = this.buildNav($tip, step);
 			}
 
-			$q('body').append($tip);
+            //Add Flag
+            $q('.ae-active-el').removeClass('ae-active-el');
+            $el.addClass('ae-active-el');
+
+            $q('body').append($tip);
 			Aero.view.step.setState(i);
 
-            //@todo finalize spotlight
-            if(true){
-                 this.spotlight($tip, step);
-            }
+            ////@todo finalize spotlight
+            //if(true){
+            //     this.spotlight($tip, step);
+            //}
 			this.setPosition($el, $tip, step.position);
 			this.setEvents($el, step.nav, $tip, step.position);
 			this.scrollToElement($el);
 
 		}else{
 			//Missing steps
-			if(step.alert){
-				this.renderException(step.alert, step.alertContent);
-			}
-			else if(step.miss == "back"){
-				Aero.view.step.setState(i, "missing");
-				this.prev();
-			}
-			else if(step.tries && step.tries > 0){
-				this.findStepTimeout(step.tries, i);
-				return;
-			}
+            if(step.tries && step.tries > 0){
+                this.findStepTimeout(step.tries, i);
+                return;
+            }
 			else{
 				if(!step.multi){
 					//Default skip
@@ -752,13 +764,19 @@ Aero.tip = {
      * @param {object} options for alert dialog
      * @returns {void}
 	 */
-	renderException : function(title, body){
+	renderException : function(title, body, goBack){
 		Aero.confirm({
 			ok : "End Guide",
+            cancel : goBack ? "Go Back" : "Ok",
 			title : title,
 			msg : body,
 			onConfirm : function(){
 				Aero.tip.stop();
+			},
+			onCancel : function(){
+                if(goBack){
+                    Aero.tip.prev();
+                }
 			}
 		});
 	},

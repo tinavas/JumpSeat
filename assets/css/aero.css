@@ -1039,7 +1039,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 .aero-modal-body { padding: 20px;line-height: 1.4em;font-size: 16px; }
 .aero-modal-foot { border-top: 2px solid #ECECEC; padding:20px; text-align: right; }
 .aero-modal-foot a.button { padding:1em; text-transform:uppercase; font-weight:600!important; }
-.aero-modal-foot a.button.small { margin:0!important; width:auto; }
+.aero-modal-foot a.button.small { margin:0!important; width:auto; height:auto; }
 .aero-modal-foot .aero-btn-red, .aero-modal-foot .aero-btn-grey { padding: 0.8em 1em!important; text-transform: uppercase;}
 .aero-branch a { color:#8893A3; font-size:16px; display:block; margin-top:1.5em; padding:1em; border:1px solid #384557; }
 .aero-branch a:hover { color:#fff; border:1px solid #9098A3; }
@@ -1057,6 +1057,8 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 .aero-modal-foot .button.success:hover, .aero-modal-foot .button.success:focus { background:#0fc7ff; }
 .aero-modal-foot .button.success:active { background:#009dcd; }
 
+.aero-modal-body ul li { list-style: circle; list-style-position: inside; margin-left: 15px; padding-bottom: 5px;}
+.aero-modal-body ul { padding-top: 15px; }
 .aero-loc-find {
 	width:49%;
 	float:left;

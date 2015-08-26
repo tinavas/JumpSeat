@@ -231,7 +231,8 @@
 
 				<label><%= AeroStep.lang.alerta %></label>
 				<select type="text" name="aero_miss">
-					<option value="" <%= (!model.miss ? "selected" : "") %>>Skip step (default)</option>
+					<option value="" <%= (!model.miss ? "selected" : "") %>>Alert (default)</option>
+					<option value="skip" <%= (model.miss == "skip" ? "selected":"") %>>Skip step</option>
 					<option value="back" <%= (model.miss == "back" ? "selected":"") %>>Move back to previous step</option>
 					<option value="alert" <%= (model.miss == "alert" ? "selected":"") %>>Display a message</option>
 				</select>
