@@ -1,5 +1,81 @@
 <? $debug = (ENVIRONMENT == "development") ? true : false; ?>
+
+"use strict";
+
+//Local Storage Cross Domain
+window.XdUtils=window.XdUtils||function(){function a(a,b){var c,d=b||{};for(c in a)a.hasOwnProperty(c)&&(d[c]=a[c]);return d}return{extend:a}}(),window.xdLocalStorage=window.xdLocalStorage||function(){function a(a){j[a.id]&&(j[a.id](a),delete j[a.id])}function b(b){var c;try{c=JSON.parse(b.data)}catch(d){}c&&c.namespace===g&&("iframe-ready"===c.id?(l=!0,h.initCallback()):a(c))}function c(a,b,c,d){i++,j[i]=d;var e={namespace:g,id:i,action:a,key:b,value:c};f.contentWindow.postMessage(JSON.stringify(e),"*")}function d(a){h=XdUtils.extend(a,h);var c=document.createElement("div");window.addEventListener?window.addEventListener("message",b,!1):window.attachEvent("onmessage",b),c.innerHTML='<iframe id="'+h.iframeId+'" src='+h.iframeUrl+' style="display: none;"></iframe>',document.body.appendChild(c),f=document.getElementById(h.iframeId)}function e(){return k?l?!0:(console.log("You must wait for iframe ready message before using the api."),!1):(console.log("You must call xdLocalStorage.init() before using it."),!1)}var f,g="cross-domain-local-message",h={iframeId:"cross-domain-iframe",iframeUrl:void 0,initCallback:function(){}},i=-1,j={},k=!1,l=!0;return{init:function(a){if(!a.iframeUrl)throw"You must specify iframeUrl";return k?void console.log("xdLocalStorage was already initialized!"):(k=!0,void("complete"===document.readyState?d(a):window.onload=function(){d(a)}))},setItem:function(a,b,d){e()&&c("set",a,b,d)},getItem:function(a,b){e()&&c("get",a,null,b)},removeItem:function(a,b){e()&&c("remove",a,null,b)},key:function(a,b){e()&&c("key",a,null,b)},clear:function(a){e()&&c("clear",null,null,a)},wasInit:function(){return k}}}();
+
 if(!AeroStep){
+
+    /**
+    *   Aero Storage Cross Domain
+    */
+    var aeroStorage = {
+
+        /**
+        *  Get local storage item
+        */
+        getItem : function(key, callback, cross){
+
+			if(cross){
+                xdLocalStorage.getItem(key, function(d){ callback(d.value); });
+                return true;
+            }
+
+            if(callback) callback(localStorage.getItem(key));
+            return localStorage.getItem(key);
+        },
+
+        /*
+        *  Set local storage item
+        */
+        setItem : function(key, value, callback, cross){
+
+            if(cross){
+                xdLocalStorage.setItem(key, value, function(d){ callback(d)});
+                return true;
+            }
+
+            localStorage.setItem(key, value);
+        },
+
+        /*
+        *  Set local storage item
+        */
+        removeItem : function(key, cross){
+            if(key == "all"){
+
+				xdLocalStorage.clear(function (data) { /* callback */ });
+
+                // Clear All
+                if(cross){
+                    xdLocalStorage.clear(function (data) { /* callback */ });
+                    return true;
+                }else{
+
+                    key = "aero:session";
+                    var reg = new RegExp("^" + key, "i");
+
+                    //Clear session
+                    Object.keys(localStorage)
+                        .forEach(function(key){
+                            if (reg.test(key)) {
+                                localStorage.removeItem(key);
+                        }
+                    });
+                    return true;
+                }
+            }
+
+            if(cross){
+                xdLocalStorage.removeItem(key, function (data) {});
+                return true;
+            }
+
+            localStorage.removeItem(key);
+        }
+    };
+
 	/**
 	*	Configuration
 	*/
@@ -29,7 +105,7 @@ if(!AeroStep){
 			if(AeroStep.data.username) user = AeroStep.data.username();
 
 			//Has session?
-			var ls = localStorage.getItem('aero:username');
+			var ls = aeroStorage.getItem('aero:username');
 
 			if(ls != user){
 				//Clear aero
@@ -37,7 +113,7 @@ if(!AeroStep){
 			}
 
 			//Save current user
-			localStorage.setItem('aero:username', user);
+            aeroStorage.setItem('aero:username', user);
 
 			return user;
 		}),
@@ -168,7 +244,7 @@ if(!AeroStep){
 		loadCss : function(){
 			var css_list = this.config.css;
 
-			for (i = 0; i < css_list.length; i++) {
+			for (var i = 0; i < css_list.length; i++) {
 				var link = document.createElement("link");
 				link.type = "text/css";
 				link.rel = "stylesheet";
@@ -204,16 +280,8 @@ if(!AeroStep){
 
 			if(Aero && Aero.audit && Aero.audit.enabled) Aero.audit.save();
 
-			if(!key) key = "aero:session";
-			var reg = new RegExp("^" + key, "i");
-
 			//Clear session
-			Object.keys(localStorage)
-		      .forEach(function(key){
-		           if (reg.test(key)) {
-		               localStorage.removeItem(key);
-		           }
-		       });
+            aeroStorage.removeItem("all");
 		 }
 	};
 
@@ -247,9 +315,13 @@ if(!AeroStep){
 	//Load on ready
 	AeroStep.ready(function(){
 		AeroStep.require(function(){
-			AeroStep.loadCss();
-			aerorequirejs.config(AeroStep.config);
-			aerorequirejs(AeroStep.config.lib_list);
+            AeroStep.loadCss();
+            xdLocalStorage.init({ iframeUrl: "<?= base_url(); ?>assets/tpl/crossdomain.html", initCallback: function (){
+
+                //Storage ready
+                aerorequirejs.config(AeroStep.config);
+                aerorequirejs(AeroStep.config.lib_list);
+            }});
 		});
 	}, AeroStep.required);
 }

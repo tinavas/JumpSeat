@@ -42,8 +42,8 @@ Aero.view.pathway = {
 				});
 			}
 
-			localStorage.setItem("aero:pathway", index);
-			localStorage.setItem("aero:pathway:name", title);
+			aeroStorage.setItem("aero:pathway", index);
+			aeroStorage.setItem("aero:pathway:name", title);
 
 			return true;
 		} catch(err){
@@ -64,7 +64,7 @@ Aero.view.pathway = {
 			Aero.pathway.get(function(r){
 
 				var id = null;
-				var ls = localStorage.getItem("aero:pathway");
+				var ls = aeroStorage.getItem("aero:pathway");
 				var size = r.length - 1;
 				var index = ls ? ls : 0;
 

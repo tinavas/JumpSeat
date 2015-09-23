@@ -34,18 +34,25 @@ Aero.model.step = {
 	update : function(guide){
 
 		//Update ls
-		var index = parseInt(localStorage.getItem('aero:session:index'));
-		var ls = JSON.parse(localStorage.getItem('aero:guides'));
+		aeroStorage.getItem('aero:session:index', function(index){
 
-		//Merge new object
-		ls[index] = guide;
+			var ls = JSON.parse(aeroStorage.getItem('aero:guides'));
 
-		//Update local storage
-		localStorage.setItem('aero:guides', JSON.stringify(ls));
+			//Index Int
+			index = parseInt(index);
 
-		//Set session
-		Aero.tip.setGuide(guide.id);
-		Aero.view.step.render(ls[index]);
+			//Merge new object
+			ls[index] = guide;
+
+			//Update local storage
+			aeroStorage.setItem('aero:guides', JSON.stringify(ls));
+            aeroStorage.setItem('aero:session', JSON.stringify(ls[index]), function(){}, true);
+
+			//Set session
+			Aero.tip.setGuide(guide.id);
+			Aero.view.step.render(ls[index]);
+
+		}, true);
 	},
 
 	validate : function(){
@@ -90,20 +97,20 @@ Aero.view.step = {
 
 		Aero.tpl.get("sidebar-steps.html", function(r){
 
-			var s = localStorage.getItem('aero:sidebar:open');
+			aeroStorage.getItem('aero:sidebar:open', function(s){
 
-			//Remove duplicates
-			$q('#aeroStepbar').remove();
+				//Remove duplicates
+				$q('#aeroStepbar').remove();
 
-			var tpl = _q.template(r);
-			$q('body').append( tpl( { sidebar: s, g : guide }));
-			$q('#aeroGuidebar').remove();
+				var tpl = _q.template(r);
+				$q('body').append( tpl( { sidebar: s, g : guide }));
+				$q('#aeroGuidebar').remove();
 
-			$q('#aero-tab').css("top", localStorage.getItem("aero:session:tab") + "px");
-			self.setEvents();
-			Aero.view.sidebar.setScrollable();
+				$q('#aero-tab').css("top", aeroStorage.getItem("aero:session:tab") + "px");
+				self.setEvents();
+				Aero.view.sidebar.setScrollable();
 
-			return false;
+			}, true);
 		});
 
 		Aero.view.sidebar.setEvents();
@@ -130,7 +137,7 @@ Aero.view.step = {
 
 			$li.addClass('aero-active');
 			$li.removeClass('aero-forward aero-missing');
-			localStorage.removeItem("aero:session:forward");
+			aeroStorage.removeItem("aero:session:forward", function(){}, true);
 		}
 	},
 
@@ -142,10 +149,10 @@ Aero.view.step = {
 		var self = this;
 
 		if(AeroStep.admin){
-			$q('body').off("click.sa").on("click.sa", ".aero-steps li > a", function(){
-				Aero.tip.jumpTo($q('.aero-steps li').index($q(this).parent()));
-			});
-		}
+            $q('body').off("click.sa").on("click.sa", ".aero-steps li > a", function(){
+                Aero.tip.jumpTo($q('.aero-steps li').index($q(this).parent()));
+            });
+        }
 
 		$q('body').off("click.sas").on("click.sas", "a.aero-stop", function(){
 			Aero.tip.stop();
@@ -206,7 +213,7 @@ Aero.step = {
 			Aero.model.step.update(r);
 
 			var next = Aero.tip._current + 1;
-			var jump = (next > Aero.tip._guide.step.length - 1) ? (Aero.tip._guide.step.length - 1) : next;
+			var jump = Aero.tip._guide.step.length == 0 ? 0 : next;
 
 			//Move to new step
 			Aero.tip.jumpTo(jump);

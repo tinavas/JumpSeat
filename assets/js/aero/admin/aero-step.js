@@ -32,6 +32,8 @@ Aero.view.step.admin = {
         data.body = $q('#aeroEditor').trumbowyg('html');
         data.nav = {};
 
+        if(Aero.host != location.protocol+'//'+window.location.host) data.cds = location.protocol+'//'+window.location.host;
+
         //Check for custom size and move into size prop
         if(data.size_custom != "" && !isNaN(data.size_custom + "")){
             data.size = data.size_custom + '';

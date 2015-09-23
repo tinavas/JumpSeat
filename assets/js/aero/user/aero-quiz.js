@@ -23,14 +23,16 @@ Aero.view.quiz = {
      * @returns {string}
      */
     render : function(answers, layout){
-        var quiz = "";
 
         layout = layout ? layout : "";
-        quiz = '<div class="aero-quiz aero-quiz-'+layout+'"><ul class="clearfix">';
+        var quiz = '<div class="aero-quiz aero-quiz-'+layout+'"><ul class="clearfix">';
 
         //Add Answers
-        for(var i in answers) quiz += this.tpl(answers[i]);
-
+        for(var i in answers){
+            if(!$q.isFunction(answers[i])) {
+                quiz += this.tpl(answers[i]);
+            }
+        }
         quiz += '</ul></div>';
 
         return quiz;

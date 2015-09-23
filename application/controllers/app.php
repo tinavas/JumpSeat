@@ -23,15 +23,14 @@ class App extends CI_Controller {
 	 *  Index for apps
 	 */
 	public function index()
-	{
-		$this->load->library('person', array('host' => ''));
+    {
+        $this->load->library('person', array('host' => ''));
 
-		$this->data['username'] = $this->person->username;
-		$this->data['is_admin'] = in_array($this->config->item("administrator"), $this->person->roles);
-		$this->data['baseUrl'] = base_url();
-		$this->load->view('apps_view', $this->data);
-	}
-
+        $this->data['username'] = $this->person->username;
+        $this->data['is_admin'] = in_array($this->config->item("administrator"), $this->person->roles);
+        $this->data['baseUrl'] = base_url();
+        $this->load->view('apps_view', $this->data);
+    }
 
 	/**
 	 *  User management

@@ -33,7 +33,7 @@ Aero.model.audit = {
 	 * Retrieve local storage
 	 */
 	get: function() {
-        return JSON.parse(localStorage.getItem(this.key));
+        return JSON.parse(aeroStorage.getItem(this.key));
 	},
 
 	/**
@@ -41,14 +41,14 @@ Aero.model.audit = {
 	 */
 	update: function(data) {
 
-        var old = JSON.parse(localStorage.getItem(this.key));
+        var old = JSON.parse(aeroStorage.getItem(this.key));
         if(old && old.id != "" && data.id == "") data.id = old.id;
 
 		// This function is called on beforeShow step
 		// Update local storage with new step activity
 		data.timeStamp = this.getTime();
 
-		localStorage.setItem(this.key, JSON.stringify(data));
+		aeroStorage.setItem(this.key, JSON.stringify(data));
 	},
 
 	/**
@@ -148,7 +148,7 @@ Aero.audit = {
 
 		Aero.view.audit.setEvents();
 
-		if (localStorage.getItem('aero:session:audit')) {
+		if (aeroStorage.getItem('aero:session:audit')) {
 			return;
 		}
 
@@ -164,7 +164,7 @@ Aero.audit = {
 		// This function is called only from init for new sessions not to be called if
 		// Create new audit log (row) in database
 		// Return auditid
-		// Create localStorage session with new auditid and defaults
+		// Create aeroStorage session with new auditid and defaults
 		var self = this;
 		var data = Aero.model.audit.defaults();
 			data.timeStart = data.timeStamp;

@@ -99,17 +99,28 @@ Aero.tip = {
 		var self = this;
 			self._guide = false;
 
-		//Get all the guides
-		Aero.model.guide.byId(id, function(guide){
-			//Set current
-			self._guide = guide;
+        aeroStorage.getItem('aero:session', function(ls){
 
-			//Set cookie
-			Aero.view.step.render(self._guide);
-			localStorage.setItem('aero:session', JSON.stringify(self._guide));
+            if(ls) {
+                //Start from session
+                self._guide = JSON.parse(ls);
+                Aero.view.step.render(self._guide);
+                if(callback) callback();
+            }else{
+                //Start without session
+                Aero.model.guide.byId(id, function (guide) {
 
-			if (callback) callback();
-		});
+                    //Set current
+                    self._guide = guide;
+
+                    //Set cookie
+                    Aero.view.step.render(self._guide);
+                    aeroStorage.setItem('aero:session', JSON.stringify(self._guide), function () {
+                        if (callback) callback();
+                    }, true);
+                });
+            }
+        }, true);
 	},
 
 	/**
@@ -118,7 +129,7 @@ Aero.tip = {
 	 */
 	setStep : function(i, skipStore) {
 		this._current = i;
-		if(!skipStore) localStorage.setItem('aero:session:current', i);
+		if(!skipStore) aeroStorage.setItem('aero:session:current', i, function(){}, true);
 	},
 
 
@@ -126,19 +137,18 @@ Aero.tip = {
 	 *  @function Redirect to correct page if needed
 	 *  @param {string} url for step
 	 */
-	redirect : function(url, ignore) {
+	redirect : function(url, ignore, cds) {
 
 		//Trailing hash
 		var skipTrim = false;
 		var an = /#$/;
 		var sl = /\/$/;
 		var curUrl = document.URL;
-		var full = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+		var full = cds ? cds : Aero.host;
 
 		if(url == "/#/") skipTrim = true;
-
 		if(!url) url = "";
-		url = full + url;
+        url = full + url;
 
 		if(!skipTrim){
 			//Remove trailing empty hash
@@ -161,11 +171,12 @@ Aero.tip = {
 			url = url.split('#')[0];
 		}
 
+        console.log(curUrl + ' ' + url);
 		if(curUrl != url){
-			var tried = localStorage.getItem('aero:session:404');
+			var tried = aeroStorage.getItem('aero:session:404');
 			var tries = (tried) ? (parseInt(tried) + 1) : 0;
 
-			localStorage.setItem('aero:session:404', tries);
+			aeroStorage.setItem('aero:session:404', tries);
 
 			if(tries > 1){
 				Aero.confirm({
@@ -206,19 +217,33 @@ Aero.tip = {
 	 */
 	start : function(id, step){
 		var s = step ? step : 0;
+        var self = this;
 
-		this._forward = true;
-		this.setGuide(id, function() {
-			if(Aero.constants.USERNAME) Aero.audit.init();
-		});
-		this.setNav();
-		this.setStep(s);
+        //Cross Domain
+        aeroStorage.getItem('aero:session:cds', function(cds){
 
-        //Remove restrictions
-        $q('.aero-restrict').remove();
+            if(!cds) {
+                //Cross Domain
+                aeroStorage.setItem('aero:session:cds', Aero.host, function () {
+                }, true);
+            }else{
+                Aero.host = cds;
+            }
 
-		step = Aero.step.get(this._current);
-		this.beforeShow(s, step);
+            self._forward = true;
+            self.setGuide(id, function() {
+                if(Aero.constants.USERNAME) Aero.audit.init();
+
+                self.setNav();
+                self.setStep(s);
+
+                //Remove restrictions
+                $q('.aero-restrict').remove();
+
+                //Start the tips!
+                self.beforeShow(s, Aero.step.get(self._current));
+            });
+        }, true);
 	},
 
 	/**
@@ -231,7 +256,7 @@ Aero.tip = {
         if(!this.validate()) return;
 
         //@todo clear on restrict and auto only
-        localStorage.setItem('aero:cache', 0);
+        aeroStorage.setItem('aero:cache', 0);
 
 		//Return to branch?
 		var isReturn = this.isReturnBranch();
@@ -265,7 +290,7 @@ Aero.tip = {
 		this._forward = true;
 		clearInterval(this.ob);
 
-		localStorage.removeItem('aero:session:fake');
+		aeroStorage.removeItem('aero:session:fake');
 
 		if(step.next != -1){
 			this.hide(this._current);
@@ -282,7 +307,7 @@ Aero.tip = {
 		this._forward = false;
 		clearInterval(this.ob);
 
-		localStorage.removeItem('aero:session:fake');
+		aeroStorage.removeItem('aero:session:fake');
 
 		if(step.prev != -1){
 			this.hide(this._current);
@@ -302,7 +327,7 @@ Aero.tip = {
 		clearInterval(this.ob);
 		Aero.jump = true;
 
-		localStorage.removeItem('aero:session:fake');
+		aeroStorage.removeItem('aero:session:fake');
 
 		if(step){
 			this.hide(this._current);
@@ -428,7 +453,7 @@ Aero.tip = {
 		//Default current step
 		if(typeof i == "undefined") i = this._current;
 		if(!Aero.tip._guide || i > Aero.tip._guide.step.length || i < 0) return;
-		localStorage.setItem("aero:session:forward", true);
+		aeroStorage.setItem("aero:session:forward", true);
 
 		//Get step data
 		step = Aero.step.get(i);
@@ -437,8 +462,9 @@ Aero.tip = {
 		if(step.sidebar){
 			Aero.view.sidebar.hide();
 		}else{
-			var s = localStorage.getItem('aero:sidebar:open');
-			if(!$q('.aero-sidebar').hasClass('open') && s == "1") Aero.view.sidebar.show();
+			aeroStorage.getItem('aero:sidebar:open', function(s){
+				if(!$q('.aero-sidebar').hasClass('open') && s == "1") Aero.view.sidebar.show();
+			}, true);
 		}
 
 		//Go find and set it
@@ -446,24 +472,26 @@ Aero.tip = {
 		this.setStep(i, skipStore);
 
 		//Check for redirect, admins don't need to
-		if(localStorage.getItem('aero:session:fake') && localStorage.getItem('aero:session:forwardUrl') !== document.URL){
-			Aero.view.step.setState(localStorage.getItem('aero:session:fake'), 'forward');
+		if(aeroStorage.getItem('aero:session:fake') && aeroStorage.getItem('aero:session:forwardUrl') !== document.URL){
+			Aero.view.step.setState(aeroStorage.getItem('aero:session:fake'), 'forward');
 			return;
 		}else{
-			if(this.redirect(step.url, step.noUrl)) return;
+			if(this.redirect(step.url, step.noUrl, step.cds)) return;
 		}
 
 		//Clear 404 watcher
-		localStorage.removeItem('aero:session:404');
+		aeroStorage.removeItem('aero:session:404');
 
 		//Found element?
 		if($el){
 			Aero.log('Found Step ' + i, 'success');
+
 			Aero.audit.update();
 
 			if(AeroStep.admin){
-				localStorage.setItem("aero:session:fake", i);
-				localStorage.setItem("aero:session:forwardUrl", document.URL);
+                aeroStorage.setItem('aero:sidebar:cdshost', i + "~" + window.location.host, function(){}, true);
+                aeroStorage.setItem("aero:session:fake", i);
+				aeroStorage.setItem("aero:session:forwardUrl", document.URL);
 			}
 
 			//Set branch defaults
@@ -679,12 +707,19 @@ Aero.tip = {
 		var r = pos.left + $tip.outerWidth();
 
 		if(r > (winW - 270)){
-			Aero.view.sidebar.hide();
-		}else if(localStorage.getItem('aero:sidebar:open') == "1"){
-			Aero.view.sidebar.show();
+            //Need: Timing issue with cross domain ls
+            aeroStorage.getItem('aero:sidebar:open', function(s){
+                Aero.view.sidebar.hide();
+            }, true);
+		}else {
+            aeroStorage.getItem('aero:sidebar:open', function(o){
+                if(o == "1"){
+                    Aero.view.sidebar.show();
+                }
+            }, true);
 
-			//Center in free space
-			if(position == "orphan") pos.left -= 115;
+            //Center in free space
+            if(position == "orphan") pos.left -= 115;
 		}
 
 		return pos;
@@ -719,12 +754,12 @@ Aero.tip = {
 	 */
 	isReturnBranch : function(){
 
-		var id = localStorage.getItem('aero:session:branch:returnid');
-		var to = localStorage.getItem('aero:session:branch:returnto');
+		var id = aeroStorage.getItem('aero:session:branch:returnid');
+		var to = aeroStorage.getItem('aero:session:branch:returnto');
 		if(!id) return false;
 
-		localStorage.removeItem('aero:session:branch:returnid');
-		localStorage.removeItem('aero:session:branch:returnto');
+		aeroStorage.removeItem('aero:session:branch:returnid');
+		aeroStorage.removeItem('aero:session:branch:returnto');
 
 		Aero.confirm({
 			ok : "Return",
@@ -806,19 +841,20 @@ Aero.tip = {
 	 *  @param {string} session
 	 */
 	sayCongrats : function(){
-		var ls = localStorage.getItem("aero:session");
-		var guide = JSON.parse(ls);
+		aeroStorage.getItem("aero:session", function(ls){
+			var guide = JSON.parse(ls);
 
-		if(!AeroStep.admin){
-			Aero.confirm({
-				ok : AeroStep.lang['done'],
-				title : AeroStep.lang['gfinished'],
-				msg : AeroStep.lang['congrats'] + guide.title,
-				onConfirm : function(){
-					AeroStep.session.destroy();
-				}
-			});
-		}
+			if(!AeroStep.admin){
+				Aero.confirm({
+					ok : AeroStep.lang['done'],
+					title : AeroStep.lang['gfinished'],
+					msg : AeroStep.lang['congrats'] + guide.title,
+					onConfirm : function(){
+						AeroStep.session.destroy();
+					}
+				});
+			}
+		}, true);
 	},
 
 	/**
@@ -840,9 +876,9 @@ Aero.tip = {
 		}, 250);
 
 		//Is last step?
-		localStorage.removeItem('aero:session:end');
+		aeroStorage.removeItem('aero:session:end');
 		if(Aero.tip._current == (Aero.tip._guide.step.length - 1)){
-			localStorage.setItem('aero:session:end', 1);
+			aeroStorage.setItem('aero:session:end', 1);
 			last = true;
 		}
 
@@ -854,8 +890,8 @@ Aero.tip = {
 		//Branch start
 		$q('body').off('click.branchs').on('click.branchs', '.aero-start', function(){
 
-			localStorage.setItem('aero:session:branch:returnid', $q(this).data('returnid'));
-			localStorage.setItem('aero:session:branch:returnto', $q(this).data('returnto'));
+			aeroStorage.setItem('aero:session:branch:returnid', $q(this).data('returnid'));
+			aeroStorage.setItem('aero:session:branch:returnto', $q(this).data('returnto'));
 
 			Aero.tip.hide();
 			Aero.tip.start($q(this).data('guideid'), 0);
