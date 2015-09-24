@@ -195,7 +195,7 @@ if(!AeroStep){
 				,"aero-media" : { 	    "deps" : ["aero"] }
                 ,"aero-step" : {    	"deps" : ["aero"] }
                 ,"aero-audit" : {    	"deps" : ["aero"] }
-				,"aero-quiz" : {  "deps" : ["aero", "aero-admin", "aero-admin-step"] }
+				//,"aero-admin-quiz" : {  "deps" : ["aero", "aero-admin", "aero-admin-step"] }
                 ,"aero-tip": { 			"deps" : ["aero", "aero-step", "aero-audit"] }
             <? if($debug){ ?>
                 ,"aero-test": { "deps": ["aero"] }
