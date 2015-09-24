@@ -255,7 +255,7 @@ Aero.tip = {
         //Validate
         if(!this.validate()) return;
 
-        //@todo clear on restrict and auto only
+        // @todo clear on restrict and auto only
         aeroStorage.setItem('aero:cache', 0);
 
 		//Return to branch?
@@ -517,7 +517,7 @@ Aero.tip = {
             $q('body').append($tip);
 			Aero.view.step.setState(i);
 
-            ////@todo finalize spotlight
+            //// @todo finalize spotlight
             //if(true){
             //     this.spotlight($tip, step);
             //}
@@ -548,7 +548,7 @@ Aero.tip = {
 			}
 		}
 
-		//@todo on page load try multi
+		// @todo on page load try multi
 		var d = (this._forward) ? 1 : -1;
 		var isMulti = false;
 

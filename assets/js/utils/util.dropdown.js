@@ -3,7 +3,7 @@
  */
 (function ( $q ) {
 
-    //@todo move into searchable dropdown
+    // @todo move into searchable dropdown
     $q.fn.searchable = function( options ) {
 
         var _this = this;
