@@ -24,13 +24,21 @@ class AeroSpace extends CI_Controller {
 		$data['lang'] = $this->language;
 		$data['cache'] = 0;
 
-		//Get the host name
-		$referer = parse_url($_SERVER['HTTP_REFERER']);
-		$www = $referer["scheme"] . "://" . $referer['host'];
+        //REFER is not reliable
+        if($this->input->get('ref')) {
+            //Get the host name
+            $referer = parse_url($this->input->get('ref'));
+        }else{
+            //Get the host name
+            $referer = parse_url($_SERVER['HTTP_REFERER']);
+        }
+
+        $www = $referer["scheme"] . "://" . $referer['host'];
+        $path = $referer['path'];
 
 		//Load app model and get app
 		$this->load->model("app_model");
-		$app = $this->app_model->test_url($www, $referer['path']);
+		$app = $this->app_model->test_url($www, $path);
 
 		if($app && $app['active']){
 
