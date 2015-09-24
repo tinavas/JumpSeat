@@ -39,9 +39,11 @@ class Audit extends REST_Controller
 	/**
 	 *  POST audit service call
 	 */
-	function index_post()
+	function create_get()
 	{
-		$entry = $this->request->body;
+
+        $entry = json_decode($this->get('data'));
+        //$entry = $this->request->body;
 		$id = $this->audit_model->create($entry);
 
 		$response_code = $id ? 200 : 400;
@@ -51,9 +53,10 @@ class Audit extends REST_Controller
 	/**
 	 *  POST audit service call
 	 */
-	function index_put()
+	function update_get()
 	{
-		$entry = $this->request->body;
+        $entry = json_decode($this->get('data'));
+        //$entry = $this->request->body;
 
 		$success = $this->audit_model->update_by_id($entry['id'], $entry);
 

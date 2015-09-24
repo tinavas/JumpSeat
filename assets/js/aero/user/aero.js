@@ -54,7 +54,7 @@ var Aero = {
 			type: type,
 			data: data,
 			dataType: 'json',
-			contentType: "application/json",
+			contentType: 'application/json',
 			url: url,
 			success: function(response) {
 				if (callback) callback(response);

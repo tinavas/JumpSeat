@@ -42,6 +42,7 @@ Aero.model.audit = {
 	update: function(data) {
 
         var old = JSON.parse(aeroStorage.getItem(this.key));
+
         if(old && old.id != "" && data.id == "") data.id = old.id;
 
 		// This function is called on beforeShow step
@@ -170,13 +171,13 @@ Aero.audit = {
 			data.timeStart = data.timeStamp;
 			data.timeTotal = Aero.view.audit.timeTotal;
 
-        Aero.send(this.url, data, function (r) {
+        Aero.send(this.url + '/create', { data : JSON.stringify(data) }, function (r) {
 
             self.id = r;
             data.id = r;
 
             Aero.model.audit.update(data);
-        }, 'POST');
+        }, 'GET');
 	},
 
     /**
@@ -219,9 +220,9 @@ Aero.audit = {
 			Aero.view.audit.removeEvents();
 
 			// Save local storage to server using the auditid
-			Aero.send(this.url, data, function(r) {
-				Aero.model.audit.update(r);
-			}, 'PUT');
+			Aero.send(this.url + '/create', { data : JSON.stringify(data) }, function(r) {
+				Aero.model.audit.update(data);
+			}, 'GET');
 		}
 		if (callback) callback();
 	}

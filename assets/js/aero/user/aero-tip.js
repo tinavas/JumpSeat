@@ -102,11 +102,13 @@ Aero.tip = {
         aeroStorage.getItem('aero:session', function(ls){
 
             if(ls) {
+
                 //Start from session
                 self._guide = JSON.parse(ls);
                 Aero.view.step.render(self._guide);
                 if(callback) callback();
             }else{
+
                 //Start without session
                 Aero.model.guide.byId(id, function (guide) {
 
@@ -115,6 +117,7 @@ Aero.tip = {
 
                     //Set cookie
                     Aero.view.step.render(self._guide);
+
                     aeroStorage.setItem('aero:session', JSON.stringify(self._guide), function () {
                         if (callback) callback();
                     }, true);

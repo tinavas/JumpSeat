@@ -12,7 +12,7 @@ if(!AeroStep){
     */
     var aeroStorage = {
 
-        override : false,
+        override : true,
 
         /**
         *  Get local storage item
@@ -22,10 +22,11 @@ if(!AeroStep){
 			if(cross && this.override){
                 xdLocalStorage.getItem(key, function(d){ callback(d.value); });
                 return true;
+            }else if(callback){
+                callback(localStorage.getItem(key));
+            }else{
+                return localStorage.getItem(key);
             }
-
-            if(callback) callback(localStorage.getItem(key));
-            return localStorage.getItem(key);
         },
 
         /*
@@ -35,22 +36,23 @@ if(!AeroStep){
 
             if(cross && this.override){
                 xdLocalStorage.setItem(key, value, function(d){ callback(d)});
-                return true;
-            }
+            }else {
+                localStorage.setItem(key, value);
 
-            localStorage.setItem(key, value);
+                if(callback) callback(value);
+            }
         },
 
         /*
         *  Set local storage item
         */
         removeItem : function(key, cross){
+
             if(key == "all"){
 
                 // Clear All
-                if(cross && this.override){
+                if(this.override){
                     xdLocalStorage.clear(function (data) { /* callback */ });
-                    return true;
                 }else{
 
                     key = "aero:session";
@@ -63,16 +65,14 @@ if(!AeroStep){
                                 localStorage.removeItem(key);
                         }
                     });
-                    return true;
+                }
+            }else {
+                if(cross && this.override){
+                    xdLocalStorage.removeItem(key, function (data) {});
+                }else {
+                    localStorage.removeItem(key);
                 }
             }
-
-            if(cross && this.override){
-                xdLocalStorage.removeItem(key, function (data) {});
-                return true;
-            }
-
-            localStorage.removeItem(key);
         }
     };
 
