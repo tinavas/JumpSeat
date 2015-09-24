@@ -55,7 +55,7 @@ class PathwayRoleMap extends REST_Controller
     	$acl = $this->person->acl;
 
     	//Build rows
-    	//@todo total guides
+    	// @todo total guides
     	foreach($guides as $guide)
     	{
     		$id = $guide['id'];

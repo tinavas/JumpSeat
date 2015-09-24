@@ -64,7 +64,7 @@ class Guide_Model extends CI_Model
 		//Default to Guest
 		if(sizeof($roles) == 0) return true;
 
-		//@todo clean this up with orWhere roleid && pathwayid
+		// @todo clean this up with orWhere roleid && pathwayid
 		foreach($roles as $role)
 		{
 			foreach($this->person->roleids as $roleid)
@@ -241,7 +241,7 @@ class Guide_Model extends CI_Model
             //Start off with version 1 when cloning
             $guide['version'] = 1;
 
-            //@todo this causes a bug is it even needed for cloning?
+            // @todo this causes a bug is it even needed for cloning?
             //$this->version_model->create($guide);
 
 			//Clone

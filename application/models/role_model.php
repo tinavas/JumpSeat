@@ -187,7 +187,7 @@ class Role_Model extends CI_Model
 				foreach($acl as $akey => $avalue){
 					foreach($types as $type)
 					{
-						//@todo cleanup assignGuide and Role
+						// @todo cleanup assignGuide and Role
 						if(!isset($acl[$akey][$type]) || $acl[$akey][$type] != true){
 							$acl[$akey][$type] = isset($role[$akey][$type]) && $role[$akey][$type] ? true : false;
 						}

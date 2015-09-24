@@ -27,7 +27,7 @@ class AeroSpace extends CI_Controller {
         //REFER is not reliable
         if($this->input->get('ref')) {
             //Get the host name
-            $referer = parse_url($this->input->get('ref'));
+            $referer = parse_url(urldecode($this->input->get('ref')));
         }else{
             //Get the host name
             $referer = parse_url($_SERVER['HTTP_REFERER']);

@@ -57,7 +57,7 @@ class Audit extends REST_Controller
 
 		$success = $this->audit_model->update_by_id($entry['id'], $entry);
 
-		//@todo fix 400 thrown
+		// @todo fix 400 thrown
 		//$response_code = $success ? 200 : 400;
     	$this->response($success, 200);
 	}

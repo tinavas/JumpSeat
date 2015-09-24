@@ -12,12 +12,14 @@ if(!AeroStep){
     */
     var aeroStorage = {
 
+        override : false,
+
         /**
         *  Get local storage item
         */
         getItem : function(key, callback, cross){
 
-			if(cross){
+			if(cross && this.override){
                 xdLocalStorage.getItem(key, function(d){ callback(d.value); });
                 return true;
             }
@@ -31,7 +33,7 @@ if(!AeroStep){
         */
         setItem : function(key, value, callback, cross){
 
-            if(cross){
+            if(cross && this.override){
                 xdLocalStorage.setItem(key, value, function(d){ callback(d)});
                 return true;
             }
@@ -45,10 +47,8 @@ if(!AeroStep){
         removeItem : function(key, cross){
             if(key == "all"){
 
-				xdLocalStorage.clear(function (data) { /* callback */ });
-
                 // Clear All
-                if(cross){
+                if(cross && this.override){
                     xdLocalStorage.clear(function (data) { /* callback */ });
                     return true;
                 }else{
@@ -67,7 +67,7 @@ if(!AeroStep){
                 }
             }
 
-            if(cross){
+            if(cross && this.override){
                 xdLocalStorage.removeItem(key, function (data) {});
                 return true;
             }

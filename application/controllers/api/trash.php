@@ -121,7 +121,7 @@ class Trash extends REST_Controller
             $created = implode(' at ', $created);
             $steps = sizeof($guide['step']);
 
-            //@todo USE ACTUAL HOST
+            // @todo USE ACTUAL HOST
             $first = str_replace("http_", "http://", $this->host);
             $second = str_replace("https_", "https://", $first);
             $host = str_replace("_", ".", $second);

@@ -76,7 +76,7 @@ class Analytics_Model extends CI_Model
 		//Collect report on all guides
 		foreach($all_guides as $a_guide)
 		{
-            //@todo move into aggregate & mapReduce to join
+            // @todo move into aggregate & mapReduce to join
 
             // Get only taken guides for user
             $where = array(

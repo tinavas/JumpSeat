@@ -72,7 +72,7 @@ class Step_Model extends CI_Model
 
 		$guide = $this->guide_model->get_by_id($this->id);
 
-        //@todo allow multiple restrict
+        // @todo allow multiple restrict
         $guide['restrict'] = array();
         if(isset($data['isRestrict']) && $data['isRestrict']) $guide['restrict']['s' . $index] = $data['restrictColor'];
 
