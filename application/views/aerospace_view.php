@@ -177,7 +177,6 @@ if(!AeroStep){
                     ,"aero-admin-guide" : "assets/js/aero/admin/aero-guide"
                     ,"aero-admin-step" : "assets/js/aero/admin/aero-step"
                     ,"aero-admin-pathway" : "assets/js/aero/admin/aero-pathway"
-                    ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
                     ,"aero-admin-role" : "assets/js/aero/admin/aero-role"
                     ,"aero-admin-picker" : "assets/js/aero/admin/aero-picker"
                     ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
