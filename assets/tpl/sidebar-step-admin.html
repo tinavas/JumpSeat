@@ -70,11 +70,16 @@
 
                     <div class="aero-assoc aero-answer-list">
 						<ul>
-							<% for(var j in model.answers) { %>
+							<% for(var j in model.answers) { if(!$q.isFunction(model.answers[j])) { %>
                                 <%= Aero.view.step.admin.quiz.renderAnswer(model.answers[j], true) %>
-                            <% } %>
+                            <% }} %>
 						</ul>
 					</div>
+
+					<label><%= AeroStep.lang.qerrmsg %></label>
+                    <p><%= AeroStep.lang.qerrmsgd %></p>
+
+					<textarea name="aero_errmsg"><%= model.errmsg %></textarea>
 				</div>
 
 				<div style="margin-top:15px;"><%= asSaveButton %><%= asCancelButton %></div>

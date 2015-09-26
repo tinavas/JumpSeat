@@ -868,6 +868,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 	box-shadow:inset 0 1px 0 rgba(0,0,0,0.1);
 	color:#1a74ba;
 	outline:none;
+	line-height: 19px;
 	-webkit-appearance: menu;
 }
 .aero-del-nav {
@@ -1139,7 +1140,15 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
     background-color: #65DB50;
 }
 .aero-msg.aero-warn {
+    background-color: #DB8A50;
+}
+.aero-msg.aero-err {
     background-color: #DB5052;
+}
+.aero-msg.aero-err div {
+    padding-top: 10px;
+    font-size: 12px;
+    line-height: 13px;
 }
 .aero-msg i {
 	margin-right:15px;

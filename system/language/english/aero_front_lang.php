@@ -130,13 +130,15 @@ $lang['before']     = "Before";
 $lang['after']      = "After";
 
 //Quiz
-$lang['quizd']  = "The quiz feature allows you to track if learners are retaining information. To create a quiz, simply use the tip content to enter your question, then add answers and select the correct answers here.";
+$lang['quizd']  = "To create a quiz, simply use the tip content to enter your question, then add answers and select the correct answers here.";
 $lang['quizad']  = "Type an answer and hit enter, or click the add button. To select the correct answers check the checkbox next to the delete button.";
 $lang['quizcontent']  = "Quiz Content";
 $lang['question']  = "Question";
 $lang['answers']  = "Answers";
 $lang['answera']  = "Add Answer";
 $lang['chooselay']  = "Choose Layout";
+$lang['qerrmsg']  = "Custom Error Message";
+$lang['qerrmsgd']  = "Add a custom message to tell the user why their answer is incorrect.";
 
 $lang['start']   = "Starting a Guide";
 $lang['startd']   = "Guides can always be started by the use of the guide sidebar. However, sometimes it's important to start guides through other means.";

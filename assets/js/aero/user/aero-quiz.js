@@ -42,9 +42,23 @@ Aero.view.quiz = {
      * Render a notification
      * @param type
      */
-    renderNotification : function($quiz, type){
+    renderNotification : function($quiz, err, type){
 
-        var msg = type == "warn" ? '<i class="fa fa fa-warning"></i>Incorrect Answer!' : '<i class="fa fa-check-square-o"></i> Correct!';
+        var msg = "";
+
+        switch(type) {
+            case "err":
+                msg = '<i class="fa fa fa-warning"></i>Incorrect Answer!';
+                if(err && err != "") msg += '<div>' + err + '</div>';
+                break;
+            case "warn":
+                msg = '<i class="fa fa fa-warning"></i>Please select an answer';
+                break;
+            case "success":
+                msg = '<i class="fa fa-check-square-o"></i> Correct!';
+                break;
+        }
+
         $q('.aero-msg').remove();
         $quiz.find('.aero-tip-body').prepend('<div class="aero-msg aero-'+ type +'">'+msg+'</div>');
     },
@@ -57,16 +71,21 @@ Aero.view.quiz = {
     validate : function(step){
 
         var valid = true;
+        var count = 0;
 
         //Check Answers
         $q('#' + step.id).find('input').each(function() {
+            if ($q(this).is(':checked')) count = count + 1;
             if ($q(this).data('ans') != $q(this).is(':checked')) valid = false;
         });
 
-        if(!valid) {
-            this.renderNotification($q('#' + step.id), 'warn');
+
+        if(count == 0){
+            this.renderNotification($q('#' + step.id), null, 'warn');
+        }else if(!valid) {
+            this.renderNotification($q('#' + step.id), step.errmsg, 'err');
         }else{
-            this.renderNotification($q('#' + step.id), 'success');
+            this.renderNotification($q('#' + step.id), null, 'success');
         }
 
         return valid;
