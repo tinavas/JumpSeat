@@ -52,7 +52,7 @@ Aero.view.quiz = {
                 if(err && err != "") msg += '<div>' + err + '</div>';
                 break;
             case "warn":
-                msg = '<i class="fa fa fa-warning"></i>Please select an answer';
+                msg = '<i class="fa fa fa-warning"></i>Please select an answer!';
                 break;
             case "success":
                 msg = '<i class="fa fa-check-square-o"></i> Correct!';
@@ -78,7 +78,6 @@ Aero.view.quiz = {
             if ($q(this).is(':checked')) count = count + 1;
             if ($q(this).data('ans') != $q(this).is(':checked')) valid = false;
         });
-
 
         if(count == 0){
             this.renderNotification($q('#' + step.id), null, 'warn');
