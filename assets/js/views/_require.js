@@ -67,7 +67,7 @@ requirejs.config({
         'api/rolemap-user': {'deps': ['api/roles', 'api/rolemap']},
 
         //Utils
-        'utils/aero': {'deps': juf },
+        'utils/aero': {'deps': juf.concat('utils/tween') },
         'utils/export': {'deps': juf.concat('utils/aero') },
         'utils/password': {'deps': juf },
         'utils/tween': {'deps': juf },

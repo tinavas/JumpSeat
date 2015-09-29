@@ -1,4 +1,8 @@
-<% var s = guides.search;  var a = (s) ? ["aero-search-clear", "fa-times"] : ["aero-search-btn", "fa-search"]; var b = (s) ? s : AeroStep.lang.search; var c = (s) ? "search" : "compass"; var d = (s) ? "Search" : AeroStep.lang.allguides; %>
+<% var s = guides.search;
+var a = (s) ? ["aero-search-clear", "fa-times"] : ["aero-search-btn", "fa-search"];
+var b = (s) ? s : AeroStep.lang.search;
+var c = (s) ? "search" : "compass";
+var d = (s) ? "Search" : AeroStep.lang.allguides; %>
 <% if(guides[0] && guides[0].path){ c = "avatar"; var ispath = true; var syn = guides[0].path.replace(/(\w)\w*\W*/g, function (_, i) { return i; }); } %>
 <div id="aeroGuidebar" class="aero-app aero-sidebar <% if(sidebar == 1){ %>open<% } %>">
 	<div id="aero-tab"><a></a></div>
