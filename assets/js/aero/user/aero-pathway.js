@@ -180,7 +180,7 @@ Aero.onpage = {
                     }
 
                     if(step.loc == "body") break;
-                    if(step.noUrl == "all" || step.url == window.location.pathname){
+                    if(step.noUrl == "all" || step.url == AeroStep.getSubURL(window.location.pathname)){
                         onPage.push(guides[i]);
                     }
                 }

@@ -147,7 +147,7 @@ Aero.tip = {
 		var an = /#$/;
 		var sl = /\/$/;
 		var curUrl = document.URL;
-		var full = cds ? cds : Aero.host;
+		var full = cds ? cds : location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
 
 		if(url == "/#/") skipTrim = true;
 		if(!url) url = "";
