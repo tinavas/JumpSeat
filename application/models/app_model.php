@@ -142,9 +142,9 @@ class App_Model extends CI_Model
 	*/
 	public function create($app = array())
 	{
-		//Check for existing
-		$existing = $this->get_by_host($app['host']);
-		if(sizeof($existing) > 0) return false;
+		//Check if already injects
+		$existing = $this->test_url($app['host'], "");
+		if($existing) return false;
 		$app['version'] = 0;
 
 		unset($app['id']);

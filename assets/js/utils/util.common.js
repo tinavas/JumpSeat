@@ -140,6 +140,20 @@ Utils.menu = function(menu, settings){
 	function setEvents(){
 
 		//Checked
+		$q('body').off('click.sa' + m.ns).on('click.sa' + m.ns, '.select-all', function(){
+
+            if($q('.select-all').is(':checked')){
+				$q('.select').prop('checked', true);
+            }else{
+                $q('.select').prop('checked', false);
+            }
+
+			m.el.find('.multi').addClass('disabled');
+			var ids = getFlagged();
+			if(ids.length > 0) m.el.find('.multi').removeClass('disabled');
+		});
+
+		//Checked
 		$q('body').off('click.s' + m.ns).on('click.s' + m.ns, '.select', function(){
 			m.el.find('.multi').addClass('disabled');
 			var ids = getFlagged();

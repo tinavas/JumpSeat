@@ -785,9 +785,10 @@ table .even td { background:#fff; }
 
 table tr td { font-size:1em; border-bottom: 2px solid #bdc9ce; border-right: 1px solid #bdc9ce; }
 table tr td:last-child { border-right: 0; }
-table thead th.sorting { background-image: url(../images/sortable.png); background-repeat: no-repeat; background-position: right 12px;}
-table thead th.sorting_asc { background-image: url(../images/sort_asc.png); background-repeat: no-repeat; background-position: right 12px;}
-table thead th.sorting_desc { background-image: url(../images/sort_desc.png); background-repeat: no-repeat; background-position: right 12px;}
+table thead th.sorting { background-image: url(../images/sortable.png); background-repeat: no-repeat; background-position: right 19px;}
+table thead th.sorting_asc { background-image: url(../images/sort_asc.png); background-repeat: no-repeat; background-position: right 19px;}
+table thead th.sorting_desc { background-image: url(../images/sort_desc.png); background-repeat: no-repeat; background-position: right 19px;}
+table thead input {     margin: 0.5em 1.5em!important; }
 
 .dataTables_info { color:rgb(54, 67, 71); float:right; font-size:0.9em; padding-top:0.9em; }
 .dataTables_paginate a { font-size:0.9em; border-left:1px solid #bdc9ce; padding:0.5em 0.9em; display:inline-block; }

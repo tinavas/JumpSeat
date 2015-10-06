@@ -41,7 +41,7 @@
 	      		<table class="display" cellspacing="0" width="100%">
 			        <thead>
 			            <tr>
-			                <th></th>
+			                <th><input type="checkbox" class="select-all" /></th>
 			                <th>URL</th>
 			                <th>Description</th>
 			                <th>Prefix</th>
