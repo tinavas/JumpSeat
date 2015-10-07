@@ -12,7 +12,7 @@ if(!AeroStep){
     */
     var aeroStorage = {
 
-        override : true,
+        override : false,
 
         /**
         *  Get local storage item
