@@ -5,48 +5,6 @@
 //Local Storage Cross Domain
 window.XdUtils=window.XdUtils||function(){function a(a,b){var c,d=b||{};for(c in a)a.hasOwnProperty(c)&&(d[c]=a[c]);return d}return{extend:a}}(),window.xdLocalStorage=window.xdLocalStorage||function(){function a(a){j[a.id]&&(j[a.id](a),delete j[a.id])}function b(b){var c;try{c=JSON.parse(b.data)}catch(d){}c&&c.namespace===g&&("iframe-ready"===c.id?(l=!0,h.initCallback()):a(c))}function c(a,b,c,d){i++,j[i]=d;var e={namespace:g,id:i,action:a,key:b,value:c};f.contentWindow.postMessage(JSON.stringify(e),"*")}function d(a){h=XdUtils.extend(a,h);var c=document.createElement("div");window.addEventListener?window.addEventListener("message",b,!1):window.attachEvent("onmessage",b),c.innerHTML='<iframe id="'+h.iframeId+'" src='+h.iframeUrl+' style="display: none;"></iframe>',document.body.appendChild(c),f=document.getElementById(h.iframeId)}function e(){return k?l?!0:(console.log("You must wait for iframe ready message before using the api."),!1):(console.log("You must call xdLocalStorage.init() before using it."),!1)}var f,g="cross-domain-local-message",h={iframeId:"cross-domain-iframe",iframeUrl:void 0,initCallback:function(){}},i=-1,j={},k=!1,l=!0;return{init:function(a){if(!a.iframeUrl)throw"You must specify iframeUrl";return k?void console.log("xdLocalStorage was already initialized!"):(k=!0,void("complete"===document.readyState?d(a):window.onload=function(){d(a)}))},setItem:function(a,b,d){e()&&c("set",a,b,d)},getItem:function(a,b){e()&&c("get",a,null,b)},removeItem:function(a,b){e()&&c("remove",a,null,b)},key:function(a,b){e()&&c("key",a,null,b)},clear:function(a){e()&&c("clear",null,null,a)},wasInit:function(){return k}}}();
 
-// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-if (!Object.keys) {
-Object.keys = (function () {
-'use strict';
-var hasOwnProperty = Object.prototype.hasOwnProperty,
-hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
-dontEnums = [
-'toString',
-'toLocaleString',
-'valueOf',
-'hasOwnProperty',
-'isPrototypeOf',
-'propertyIsEnumerable',
-'constructor'
-],
-dontEnumsLength = dontEnums.length;
-
-return function (obj) {
-if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
-throw new TypeError('Object.keys called on non-object');
-}
-
-var result = [], prop, i;
-
-for (prop in obj) {
-if (hasOwnProperty.call(obj, prop)) {
-result.push(prop);
-}
-}
-
-if (hasDontEnumBug) {
-for (i = 0; i < dontEnumsLength; i++) {
-if (hasOwnProperty.call(obj, dontEnums[i])) {
-result.push(dontEnums[i]);
-}
-}
-}
-return result;
-};
-}());
-}
-
 if(!AeroStep){
 
 /**
@@ -54,21 +12,18 @@ if(!AeroStep){
 */
 var aeroStorage = {
 
-override : false,
-
 /**
 *  Get local storage item
 */
 getItem : function(key, callback, cross){
 
-if(cross && this.override){
+if(cross){
 xdLocalStorage.getItem(key, function(d){ callback(d.value); });
 return true;
-}else if(callback){
-callback(localStorage.getItem(key));
-}else{
-return localStorage.getItem(key);
 }
+
+if(callback) callback(localStorage.getItem(key));
+return localStorage.getItem(key);
 },
 
 /*
@@ -76,25 +31,26 @@ return localStorage.getItem(key);
 */
 setItem : function(key, value, callback, cross){
 
-if(cross && this.override){
+if(cross){
 xdLocalStorage.setItem(key, value, function(d){ callback(d)});
-}else {
-localStorage.setItem(key, value);
-
-if(callback) callback(value);
+return true;
 }
+
+localStorage.setItem(key, value);
 },
 
 /*
 *  Set local storage item
 */
 removeItem : function(key, cross){
-
 if(key == "all"){
 
-// Clear All
-if(this.override){
 xdLocalStorage.clear(function (data) { /* callback */ });
+
+// Clear All
+if(cross){
+xdLocalStorage.clear(function (data) { /* callback */ });
+return true;
 }else{
 
 key = "aero:session";
@@ -107,14 +63,16 @@ if (reg.test(key)) {
 localStorage.removeItem(key);
 }
 });
+return true;
 }
-}else {
-if(cross && this.override){
+}
+
+if(cross){
 xdLocalStorage.removeItem(key, function (data) {});
-}else {
+return true;
+}
+
 localStorage.removeItem(key);
-}
-}
 }
 };
 
@@ -219,6 +177,7 @@ config : {
     ,"aero-admin-guide" : "assets/js/aero/admin/aero-guide"
     ,"aero-admin-step" : "assets/js/aero/admin/aero-step"
     ,"aero-admin-pathway" : "assets/js/aero/admin/aero-pathway"
+    ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
     ,"aero-admin-role" : "assets/js/aero/admin/aero-role"
     ,"aero-admin-picker" : "assets/js/aero/admin/aero-picker"
     ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
@@ -237,6 +196,7 @@ config : {
 ,"aero-media" : { 	    "deps" : ["aero"] }
 ,"aero-step" : {    	"deps" : ["aero"] }
 ,"aero-audit" : {    	"deps" : ["aero"] }
+,"aero-admin-quiz" : {  "deps" : ["aero", "aero-admin", "aero-admin-step"] }
 ,"aero-tip": { 			"deps" : ["aero", "aero-step", "aero-audit"] }
 <? if($debug){ ?>
     ,"aero-test": { "deps": ["aero"] }
