@@ -58,6 +58,21 @@ if(!AeroStep){
                     key = "aero:session";
                     var reg = new RegExp("^" + key, "i");
 
+					//IE Pollyfill
+					if (!Object.keys) {
+						Object.keys = function(obj) {
+							var keys = [];
+
+							for (var i in obj) {
+								if (obj.hasOwnProperty(i)) {
+								keys.push(i);
+								}
+							}
+
+							return keys;
+						};
+					}
+
                     //Clear session
                     Object.keys(localStorage)
                         .forEach(function(key){
