@@ -574,6 +574,12 @@ button.disabled.secondary, button[disabled].secondary, .button.disabled.secondar
 /**
 *  Default panel color | .panel
 */
+.app-loading {
+	padding:0px 25px 40px 20px;
+    font-size:18px;
+    color:#d6e1e5;
+    font-weight:900;
+}
 .panel-bar a  { color:#fff; }
 .panel-wrapper { background:#25303f; }
 .back .panel-wrapper { background:#d6e1e5; }

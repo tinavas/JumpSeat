@@ -33,7 +33,7 @@
 			<!-- <h4><?= $lang->appsc; ?></h4>  -->
 		</div>
 	</div>
-    <div id="apps" class="row"><ul class="clearfix"></ul></div>
+    <div id="apps" class="row"><ul class="clearfix"><li class="app-loading">Loading...</li></ul></div>
 </div>
 <? include 'inc/footer.php'; ?>
 <script src="<?= $baseUrl; ?>assets/js/views/apps<?= MIN ?>.js"></script>
