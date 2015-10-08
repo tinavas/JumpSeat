@@ -53,7 +53,7 @@ requirejs.config({
         'aero': {'deps': juf },
 
         //APIs
-        'api/apps': {'deps': ['aero']},
+        'api/apps': {'deps': ['aero', 'utils/aero']},
         'api/guides': {'deps': ['aero']},
         'api/versions': {'deps': ['aero']},
         'api/trash': {'deps': ['aero']},
