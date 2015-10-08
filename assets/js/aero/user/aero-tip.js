@@ -147,7 +147,10 @@ Aero.tip = {
 		var an = /#$/;
 		var sl = /\/$/;
 		var curUrl = document.URL;
-		var full = cds ? cds : location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+
+        //If cross domain
+        var myHost = (aeroStorage.override) ? Aero.host : location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+        var full = cds ? cds : myHost;
 
 		if(url == "/#/") skipTrim = true;
 		if(!url) url = "";
@@ -475,7 +478,7 @@ Aero.tip = {
 		this.setStep(i, skipStore);
 
 		//Check for redirect, admins don't need to
-		if(aeroStorage.getItem('aero:session:fake') && aeroStorage.getItem('aero:session:forwardUrl') !== document.URL){
+		if(AeroStep.admin && aeroStorage.getItem('aero:session:fake') && aeroStorage.getItem('aero:session:forwardUrl') !== document.URL){
 			Aero.view.step.setState(aeroStorage.getItem('aero:session:fake'), 'forward');
 			return;
 		}else{

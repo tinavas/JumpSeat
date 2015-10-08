@@ -12,18 +12,21 @@ if(!AeroStep){
 */
 var aeroStorage = {
 
+override : false,
+
 /**
 *  Get local storage item
 */
 getItem : function(key, callback, cross){
 
-if(cross){
+if(cross && this.override){
 xdLocalStorage.getItem(key, function(d){ callback(d.value); });
 return true;
-}
-
-if(callback) callback(localStorage.getItem(key));
+}else if(callback){
+callback(localStorage.getItem(key));
+}else{
 return localStorage.getItem(key);
+}
 },
 
 /*
@@ -31,26 +34,25 @@ return localStorage.getItem(key);
 */
 setItem : function(key, value, callback, cross){
 
-if(cross){
+if(cross && this.override){
 xdLocalStorage.setItem(key, value, function(d){ callback(d)});
-return true;
-}
-
+}else {
 localStorage.setItem(key, value);
+
+if(callback) callback(value);
+}
 },
 
 /*
 *  Set local storage item
 */
 removeItem : function(key, cross){
+
 if(key == "all"){
 
-xdLocalStorage.clear(function (data) { /* callback */ });
-
 // Clear All
-if(cross){
+if(this.override){
 xdLocalStorage.clear(function (data) { /* callback */ });
-return true;
 }else{
 
 key = "aero:session";
@@ -63,16 +65,14 @@ if (reg.test(key)) {
 localStorage.removeItem(key);
 }
 });
-return true;
 }
-}
-
-if(cross){
+}else {
+if(cross && this.override){
 xdLocalStorage.removeItem(key, function (data) {});
-return true;
-}
-
+}else {
 localStorage.removeItem(key);
+}
+}
 }
 };
 
@@ -177,7 +177,6 @@ config : {
     ,"aero-admin-guide" : "assets/js/aero/admin/aero-guide"
     ,"aero-admin-step" : "assets/js/aero/admin/aero-step"
     ,"aero-admin-pathway" : "assets/js/aero/admin/aero-pathway"
-    ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
     ,"aero-admin-role" : "assets/js/aero/admin/aero-role"
     ,"aero-admin-picker" : "assets/js/aero/admin/aero-picker"
     ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
@@ -196,7 +195,6 @@ config : {
 ,"aero-media" : { 	    "deps" : ["aero"] }
 ,"aero-step" : {    	"deps" : ["aero"] }
 ,"aero-audit" : {    	"deps" : ["aero"] }
-,"aero-admin-quiz" : {  "deps" : ["aero", "aero-admin", "aero-admin-step"] }
 ,"aero-tip": { 			"deps" : ["aero", "aero-step", "aero-audit"] }
 <? if($debug){ ?>
     ,"aero-test": { "deps": ["aero"] }
