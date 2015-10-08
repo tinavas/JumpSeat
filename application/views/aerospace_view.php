@@ -4,56 +4,8 @@
 
 //Local Storage Cross Domain
 window.XdUtils=window.XdUtils||function(){function a(a,b){var c,d=b||{};for(c in a)a.hasOwnProperty(c)&&(d[c]=a[c]);return d}return{extend:a}}(),window.xdLocalStorage=window.xdLocalStorage||function(){function a(a){j[a.id]&&(j[a.id](a),delete j[a.id])}function b(b){var c;try{c=JSON.parse(b.data)}catch(d){}c&&c.namespace===g&&("iframe-ready"===c.id?(l=!0,h.initCallback()):a(c))}function c(a,b,c,d){i++,j[i]=d;var e={namespace:g,id:i,action:a,key:b,value:c};f.contentWindow.postMessage(JSON.stringify(e),"*")}function d(a){h=XdUtils.extend(a,h);var c=document.createElement("div");window.addEventListener?window.addEventListener("message",b,!1):window.attachEvent("onmessage",b),c.innerHTML='<iframe id="'+h.iframeId+'" src='+h.iframeUrl+' style="display: none;"></iframe>',document.body.appendChild(c),f=document.getElementById(h.iframeId)}function e(){return k?l?!0:(console.log("You must wait for iframe ready message before using the api."),!1):(console.log("You must call xdLocalStorage.init() before using it."),!1)}var f,g="cross-domain-local-message",h={iframeId:"cross-domain-iframe",iframeUrl:void 0,initCallback:function(){}},i=-1,j={},k=!1,l=!0;return{init:function(a){if(!a.iframeUrl)throw"You must specify iframeUrl";return k?void console.log("xdLocalStorage was already initialized!"):(k=!0,void("complete"===document.readyState?d(a):window.onload=function(){d(a)}))},setItem:function(a,b,d){e()&&c("set",a,b,d)},getItem:function(a,b){e()&&c("get",a,null,b)},removeItem:function(a,b){e()&&c("remove",a,null,b)},key:function(a,b){e()&&c("key",a,null,b)},clear:function(a){e()&&c("clear",null,null,a)},wasInit:function(){return k}}}();
-
-if (!Array.prototype.forEach) {
-Array.prototype.forEach = function(fn, scope) {
-for(var i = 0, len = this.length; i < len; ++i) {
-fn.call(scope, this[i], i, this);
-}
-}
-}
-
-// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-if (!Object.keys) {
-Object.keys = (function () {
-'use strict';
-var hasOwnProperty = Object.prototype.hasOwnProperty,
-hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
-dontEnums = [
-'toString',
-'toLocaleString',
-'valueOf',
-'hasOwnProperty',
-'isPrototypeOf',
-'propertyIsEnumerable',
-'constructor'
-],
-dontEnumsLength = dontEnums.length;
-
-return function (obj) {
-if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
-throw new TypeError('Object.keys called on non-object');
-}
-
-var result = [], prop, i;
-
-for (prop in obj) {
-if (hasOwnProperty.call(obj, prop)) {
-result.push(prop);
-}
-}
-
-if (hasDontEnumBug) {
-for (i = 0; i < dontEnumsLength; i++) {
-if (hasOwnProperty.call(obj, dontEnums[i])) {
-result.push(dontEnums[i]);
-}
-}
-}
-return result;
-};
-}());
-}
+//IE Polyfill for Object.keys and Object.forEach
+Array.prototype.forEach||(Array.prototype.forEach=function(t,r){for(var o=0,e=this.length;e>o;++o)t.call(r,this[o],o,this)}),Object.keys||(Object.keys=function(){"use strict";var t=Object.prototype.hasOwnProperty,r=!{toString:null}.propertyIsEnumerable("toString"),o=["toString","toLocaleString","valueOf","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","constructor"],e=o.length;return function(n){if("object"!=typeof n&&("function"!=typeof n||null===n))throw new TypeError("Object.keys called on non-object");var c,l,p=[];for(c in n)t.call(n,c)&&p.push(c);if(r)for(l=0;e>l;l++)t.call(n,o[l])&&p.push(o[l]);return p}}());
 
 if(!AeroStep){
 
