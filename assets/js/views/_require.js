@@ -54,17 +54,17 @@ requirejs.config({
 
         //APIs
         'api/apps': {'deps': ['aero', 'utils/aero']},
-        'api/guides': {'deps': ['aero']},
-        'api/versions': {'deps': ['aero']},
-        'api/trash': {'deps': ['aero']},
-        'api/pagedata': {'deps': ['aero']},
-        'api/blacklist': {'deps': ['aero']},
-        'api/users': {'deps': ['aero']},
-        'api/pathways': {'deps': ['aero']},
-        'api/roles': {'deps': ['aero']},
-        'api/rolemap': {'deps': ['api/roles']},
-        'api/rolemap-pathway': {'deps': ['api/pathways', 'api/rolemap']},
-        'api/rolemap-user': {'deps': ['api/roles', 'api/rolemap']},
+        'api/guides': {'deps': ['aero', 'utils/aero']},
+        'api/versions': {'deps': ['aero', 'utils/aero']},
+        'api/trash': {'deps': ['aero', 'utils/aero']},
+        'api/pagedata': {'deps': ['aero', 'utils/aero']},
+        'api/blacklist': {'deps': ['aero', 'utils/aero']},
+        'api/users': {'deps': ['aero', 'utils/aero']},
+        'api/pathways': {'deps': ['aero', 'utils/aero']},
+        'api/roles': {'deps': ['aero', 'utils/aero']},
+        'api/rolemap': {'deps': ['api/roles', 'utils/aero']},
+        'api/rolemap-pathway': {'deps': ['api/pathways', 'api/rolemap', 'utils/aero']},
+        'api/rolemap-user': {'deps': ['api/roles', 'api/rolemap', 'utils/aero']},
 
         //Utils
         'utils/aero': {'deps': juf.concat('utils/tween') },

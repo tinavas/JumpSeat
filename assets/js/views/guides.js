@@ -63,7 +63,6 @@ require([ 'api/guides','utils/password','utils/export','lib/uploadify'], functio
                 {"width": "5%", "sClass": "tright"}
             ];
 
-            console.log(url);
             this.table = new Utils.datatable(url, columns);
             this.setEvents();
         },
