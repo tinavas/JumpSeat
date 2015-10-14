@@ -284,10 +284,10 @@ class User_Model extends CI_Model
     /**
      * Resets a users password
      * @param $email User's email address
-     * @param $expiry Set expiry on account in hours, defaults to 30min
+     * @param $expiry Set expiry on account in hours, defaults to a day
      * @return string Password reset URL
      */
-    public function password_reset($email, $expiry = 0.5)
+    public function password_reset($email, $expiry = 24)
     {
         $pass = $this->_random_password();
 
@@ -309,7 +309,7 @@ class User_Model extends CI_Model
         $id = $user['id'];
         unset($user['id']);
         $expiry = $expiry * 3600; // Convert to seconds
-        $user['resetExpiry'] = New Mongodate(time() + $expiry); // Set expiry of 30min
+        $user['resetExpiry'] = New Mongodate(time() + $expiry);
         $user['passwordReset'] = true;
         $user['password'] = $pass;
 
