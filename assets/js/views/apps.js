@@ -34,6 +34,8 @@ require([ 'api/apps' ], function() {
 			var $card = null;
 			var self = this;
 
+			$q('.app-loading').remove();
+
 			if (apps.length > 0) {
 				Aero.tpl.get("apps.html", function (r) {
 
