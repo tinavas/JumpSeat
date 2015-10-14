@@ -147,9 +147,10 @@ Aero.tip = {
 		var an = /#$/;
 		var sl = /\/$/;
 		var curUrl = document.URL;
+        var cdsEnabled = false;
 
         //If cross domain
-        var myHost = (aeroStorage.override) ? Aero.host : location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+        var myHost = (cdsEnabled || aeroStorage.override) ? Aero.host : location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
         var full = cds ? cds : myHost;
 
 		if(url == "/#/") skipTrim = true;
@@ -177,7 +178,6 @@ Aero.tip = {
 			url = url.split('#')[0];
 		}
 
-        console.log(curUrl + ' ' + url);
 		if(curUrl != url){
 			var tried = aeroStorage.getItem('aero:session:404');
 			var tries = (tried) ? (parseInt(tried) + 1) : 0;
