@@ -4,6 +4,7 @@ var b = (s) ? s : AeroStep.lang.search;
 var c = (s) ? "search" : "compass";
 var d = (s) ? "Search" : AeroStep.lang.allguides; %>
 <% if(guides[0] && guides[0].path){ c = "avatar"; var ispath = true; var syn = guides[0].path.replace(/(\w)\w*\W*/g, function (_, i) { return i; }); } %>
+<style type="text/css">@media print { #aeroGuidebar {  display:none!important}}</style>
 <div id="aeroGuidebar" class="aero-app aero-sidebar <% if(sidebar == 1){ %>open<% } %>">
 	<div id="aero-tab"><a></a></div>
 	<div class="aero-head">
