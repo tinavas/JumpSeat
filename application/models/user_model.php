@@ -287,7 +287,7 @@ class User_Model extends CI_Model
      * @param $expiry Set expiry on account in hours, defaults to a day
      * @return string Password reset URL
      */
-    public function password_reset($email, $expiry = 24)
+    public function password_reset($email, $expiry)
     {
         $pass = $this->_random_password();
 
@@ -304,6 +304,8 @@ class User_Model extends CI_Model
 
         if (isset($user) && count($user) < 1)
             return false;
+
+        if (!empty($expiry)) $expiry = 24;
 
         $user = $user[0];
         $id = $user['id'];
