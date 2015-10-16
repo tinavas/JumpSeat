@@ -305,7 +305,7 @@ class User_Model extends CI_Model
         if (isset($user) && count($user) < 1)
             return false;
 
-        if (!empty($expiry)) $expiry = 24;
+        if (empty($expiry)) $expiry = 24;
 
         $user = $user[0];
         $id = $user['id'];
