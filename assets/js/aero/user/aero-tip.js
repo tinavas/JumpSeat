@@ -24,7 +24,7 @@ Aero.tip = {
 				quiz = "",
                 media = "";
 			var pos = step.position ? step.position : "top";
-			var now = Aero.tip._current + 1;
+			var now = parseInt(Aero.tip._current) + 1;
 			var total = Aero.tip._guide.step.length;
 			var pec = (now / total) * 100;
 
@@ -370,12 +370,13 @@ Aero.tip = {
 		if(Aero.hashChange) return;
 
 		if(self.tries < time * 2){
-			setTimeout(function(){
+			Aero.timeFindStep = setTimeout(function(){
 				self.hide(i - 1);
 				self.show(i);
 				self.tries++;
 			}, 500);
 		}else{
+			clearTimeout(Aero.timeFindStep);
 
             //Finished Trying
             var step = Aero.step.get(i);
@@ -390,6 +391,13 @@ Aero.tip = {
             }
             else if(step.miss == "skip"){
                 self.show(i + 1);
+            }
+            else if(step.miss == "skipto"){
+                self.jumpTo(step.skipto);
+
+                for(var i = Aero.tip._current; i <= step.skipto - 1; i++){
+                    Aero.view.step.setState(i, "missing");
+                }
             }else {
                 this.renderException("Step is Missing", "Sorry, we can't find that step - to fix this try: <ul><li>Using a more generic element</li><li>Use 'next item visible' for the navigation on your previous step</li><li>Increase the wait timer for finding this step</li></ul>");
             }

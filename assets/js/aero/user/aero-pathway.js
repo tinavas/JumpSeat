@@ -26,6 +26,7 @@ Aero.view.pathway = {
 	render : function(pathways, index){
 
         $q('.aero-here').remove();
+        $q('.ae-here').removeClass('ae-here');
 
 		try {
 			var title = pathways[index].title;
@@ -37,7 +38,6 @@ Aero.view.pathway = {
 					Aero.view.guide.render(guides);
 				});
 			}else if(index == pathways.length - 1){
-
                 Aero.onpage.getGuides(function(guides){
                     guides[0].path = "On This Page";
                     Aero.view.guide.render(guides);
@@ -186,8 +186,8 @@ Aero.onpage = {
                 }
             }
 
-            _this.render(onPage);
             if(callback) callback(onPage);
+            _this.render(onPage);
         });
     },
 
@@ -197,46 +197,49 @@ Aero.onpage = {
      */
     render : function(guides){
 
+        $q('.aero-here').remove();
+        $q('.ae-here').removeClass('ae-here');
         var count = 0;
 
         for(var i in guides) {
-            var step, $el, off, $tpl;
+            if (guides[i]) {
+                var step, $el, off, $tpl;
 
-            step = guides[i].step[0];
+                step = guides[i].step[0];
 
-            //Don't use first step orphans
-            if(step.position && step.position == "orphan"){
-                step = guides[i].step[1];
+                //Don't use first step orphans
+                if (step.position && step.position == "orphan") {
+                    step = guides[i].step[1];
+                }
+
+                $el = $q(step.loc);
+                off = $el.offset();
+
+                if ($el && !$el.hasClass('ae-here')) {
+
+                    $el.addClass('ae-here').data('ae-id', count);
+                    $tpl = $q('<a id="ae-id-' + count + '" class="aero-here">X</a>');
+
+                    $tpl
+                        .css({
+                            top: off.top - 20,
+                            left: off.left - 37
+                        })
+                        .data('guideids', guides[i].id);
+                    $q('body').append($tpl);
+
+                    count++;
+                }
+
+                this.setEvents();
+                //}else{
+                //
+                //    // @todo allow multi guide on single link
+                //    var id = $el.data('ae-id');
+                //    var guideids = $q('#ae-id-' + id).data('guideids');
+                //
+                //    $q('#ae-id-' + id).data('guideids', guides[i].id);
             }
-
-
-            $el = $q(step.loc);
-            off = $el.offset();
-
-            //if (!$el.hasClass('ae-here')){
-
-                $el.addClass('ae-here').data('ae-id', count);
-                $tpl = $q('<a id="ae-id-'+count+'" class="aero-here">X</a>');
-
-                $tpl
-                    .css({
-                        top: off.top - 20,
-                        left: off.left - 37
-                    })
-                    .data('guideids', guides[i].id);
-
-                count++;
-            //}else{
-            //
-            //    // @todo allow multi guide on single link
-            //    var id = $el.data('ae-id');
-            //    var guideids = $q('#ae-id-' + id).data('guideids');
-            //
-            //    $q('#ae-id-' + id).data('guideids', guides[i].id);
-            //}
-
-            $q('body').append($tpl);
-            this.setEvents();
         }
     },
 

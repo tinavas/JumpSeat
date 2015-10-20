@@ -105,7 +105,13 @@ Aero.picker = {
         var $el = self.getElementByPos(e.pageX, e.pageY);
 
         // @todo display different path options in location
-        return $el.getSelector()[0];
+        return $el.getSelector(
+            {
+                ignore : {
+                    classes : ["ae-active-el"]
+                }
+            }
+        )[0];
     },
 
     /**

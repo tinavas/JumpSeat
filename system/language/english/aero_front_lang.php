@@ -79,6 +79,7 @@ $lang['roled']		= "Restrict your guide to one or multiple roles.";
  */
 $lang['done'] 		= "I'm done";
 $lang['stepa'] 		= "Add Step";
+$lang['stepn'] 		= "Step Number";
 $lang['steph']   	= "Looks like you haven't added any steps yet. Started by clicking \"Add Step\" above, then click an element on page.";
 $lang['contente']   = "Edit Content";
 $lang['contentd']   = "Describe in detail what the user is seeing and how they can progress to the next step; titles are shown in the list of steps displayed in the sidebar.";
@@ -113,6 +114,7 @@ $lang['url']    	= "URL";
 $lang['urlv']    	= "URL Validation";
 $lang['alerta']    	= "Action";
 $lang['alertm']    	= "What would you like your message to say?";
+$lang['skiptom']    = "Which step do you want to skip to?";
 $lang['branch']    	= "Branch to another guide";
 $lang['branchd']    = "If there are decision points within your processes, use branching to keep your guides simple and digestable.";
 $lang['bt']    		= "Branch to guide";

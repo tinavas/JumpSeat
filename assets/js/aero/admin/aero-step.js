@@ -254,9 +254,10 @@ Aero.view.step.admin = {
 
         //Change exception type
         $q('body').off("change.seC").on("change.seC", ".aero-section select[name='aero_miss']", function(){
-            $q('.aero-alert-edit').hide();
+            $q('.aero-alert-edit, .aero-skip-edit').hide();
             $q('.aero_alert, .aero_alertContent').val("");
             if($q(this).val() == "alert") $q('.aero-alert-edit').show();
+            if($q(this).val() == "skipto") $q('.aero-skip-edit').show();
         });
 
         //Add step
