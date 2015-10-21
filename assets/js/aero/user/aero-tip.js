@@ -474,7 +474,8 @@ Aero.tip = {
 
 		//Close sidebar?
 		if(step.sidebar){
-			Aero.view.sidebar.hide();
+            //Timeout required for bug
+            setTimeout("Aero.view.sidebar.hide();", 10);
 		}else{
 			aeroStorage.getItem('aero:sidebar:open', function(s){
 				if(!$q('.aero-sidebar').hasClass('open') && s == "1") Aero.view.sidebar.show();
