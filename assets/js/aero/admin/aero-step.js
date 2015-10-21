@@ -260,6 +260,31 @@ Aero.view.step.admin = {
             if($q(this).val() == "skipto") $q('.aero-skip-edit').show();
         });
 
+        //Change exception type
+        $q('body').off("change.lut").on("change.lut", ".aero-section input[name='aero_locText']", function(){
+
+            var query, nQuery, $el, tag, bits;
+
+            query = $q("input[name='aero_loc']").val();
+            $el = $q( query );
+            tag = $el.prop("tagName");
+
+            //Check to see if we have a button or anchor
+            if(tag != "A" && tag != "BUTTON" && tag != "LABEL") return;
+
+            //Break up current query
+            bits = query.split(">");
+            bits = bits.slice(0, -1);
+
+            if($q(this).is(':checked')){
+                nQuery = bits.join(">") + "> "+ tag.toLowerCase() + ":contains('" + $el.text().trim() + "')";
+            }else{
+                nQuery = bits.join(">") + "> "+ tag.toLowerCase() + ":eq(" + $q(bits.join(">") + "> "+ tag.toLowerCase()).index($el) + ")";
+            }
+
+            $q("input[name='aero_loc']").val(nQuery);
+        });
+
         //Add step
         $q('body')
             .on("mouseup", "a.aero-btn-picker", function() {

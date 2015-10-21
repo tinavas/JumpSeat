@@ -192,6 +192,8 @@
 				<label><%= AeroStep.lang.loc %></label>
 				<input type="text" name="aero_loc" value="<%= model.loc %>" />
 
+				<div class="aero-loc-text aero-radio"><input type="checkbox" value="1" name="aero_locText" <%= model.locText ? "checked" : "" %> /> <span>Use Text?</span></div>
+
 				<div class="clearfix">
 					<div class="aero-loc-find">
 						<label><%= AeroStep.lang.pause %></label>
