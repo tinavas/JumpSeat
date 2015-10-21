@@ -252,7 +252,7 @@
 						var d = "";
 						var s = "";
 						if(model.index != i){
-						if(model.skipto[j] == i) s = "selected";
+						if(model.skipto && model.skipto[j] == i) s = "selected";
 						%>
 						<option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
 						<% }} %>
