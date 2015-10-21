@@ -399,7 +399,7 @@ Aero.tip = {
                     Aero.view.step.setState(i, "missing");
                 }
             }else {
-                this.renderException("Step is Missing", "Sorry, we can't find that step - to fix this try: <ul><li>Using a more generic element</li><li>Use 'next item visible' for the navigation on your previous step</li><li>Increase the wait timer for finding this step</li></ul>");
+                this.renderException("Step is Missing", "Sorry, we can't find that step - to fix this try: <ul><li>Using a more generic element</li><li>Use 'next item visible' for the navigation on your previous step</li><li>Increase the wait timer for finding this step</li></ul>", true);
             }
 		}
 	},
@@ -472,15 +472,15 @@ Aero.tip = {
 		//Get step data
 		step = Aero.step.get(i);
 
-		//Close sidebar?
-		if(step.sidebar){
+        //Close sidebar?
+        if(step.sidebar){
             //Timeout required for bug
             setTimeout("Aero.view.sidebar.hide();", 10);
-		}else{
-			aeroStorage.getItem('aero:sidebar:open', function(s){
-				if(!$q('.aero-sidebar').hasClass('open') && s == "1") Aero.view.sidebar.show();
-			}, true);
-		}
+        }else{
+            aeroStorage.getItem('aero:sidebar:open', function(s){
+                if(!$q('.aero-sidebar').hasClass('open') && s == "1") Aero.view.sidebar.show();
+            }, true);
+        }
 
 		//Go find and set it
 		$el = this.findStep(step, i);

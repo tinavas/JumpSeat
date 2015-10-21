@@ -1080,7 +1080,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 .aero-modal-foot .button.success:active { background:#009dcd; }
 
 .aero-modal-body ul li { list-style: circle; list-style-position: inside; margin-left: 15px; padding-bottom: 5px;}
-.aero-modal-body ul { padding-top: 15px; }
+.aero-modal-body ul { padding-top: 15px;  margin: 0;  padding-left: 0; }
 .aero-loc-find {
 	width:49%;
 	float:left;

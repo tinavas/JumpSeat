@@ -120,6 +120,9 @@ Aero.pathway = {
 		if(id) data = { id : id };
 
 		Aero.send(Aero.model.pathway.url, data, function(r){
+
+            if(!r) r = [];
+
             r.unshift({ 'title': AeroStep.lang.allguides });
 			r.push({ 'title': 'On This Page' });
 
