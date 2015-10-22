@@ -167,7 +167,23 @@ class User_Model extends CI_Model
         return $id->{'$id'};
 	}
 
+    /**
+     * Create admin user from config file
+     * @return array $user
+     */
+    public function create_admin()
+    {
+        $this->config->load('admin_user');
 
+        $user = Array();
+        $user['firstname'] = $this->config->item('firstname');
+        $user['lastname'] = $this->config->item('lastname');
+        $user['email'] = $this->config->item('email');
+        $user['password'] = $this->config->item('password');
+        $user['sysadmin'] = true;
+
+        return $this->create($user);
+    }
 
     /**
      * Updates user last login date
