@@ -445,15 +445,16 @@ li.aero-helper-dropable {
 */
 .aero-tip {
 	width:210px;
-	background:#25303F;
+	background:#25303F;  draggable
 	color:#fff;
 	padding:25px;
 	font-size:16px;
 	position:absolute;
 	top:300px;
 	z-index: 999999999;
+	box-sizing: content-box;
 }
-.aero-tip-body { font-size:15px; line-height: 1.4em; }
+.aero-tip-body { font-size:15px; line-height: 1.4em; color:#fff; }
 
 .aero-tip-title { font-size:18px; margin-bottom:15px; font-weight:400;}
 .aero-tip .aero-tip-arrow { position:absolute; }
@@ -968,7 +969,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 }
 
 /**
-*  Errors
+*  Errors & help
 */
 .aero-error-box ul, .aero-error-box li { padding:0; margin:0; }
 .aero-error-box {
@@ -982,6 +983,19 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 	border: 1px solid #d7444e!important
 }
 
+.aero-help-block {
+    color: #A4A0A0;
+    padding-bottom: 26px;
+}
+.aero-admin-wrapper .aero-help-block li a {
+    padding: 0;
+    border: 0;
+    color: #2078B3;
+}
+.aero-admin-wrapper .aero-help-block li a:hover { border:0; }
+.aero-disabled {
+    background: #EEE!important;
+}
 
 .aero-progress {
 	width: 80px;

@@ -8,7 +8,7 @@
 			<li><a data-title="Styling" class="aicon-style"><span></span></a></li>
 			<li><a data-title="Navigation" class="aicon-nav"><span></span></a></li>
 			<li><a data-title="Location" class="aicon-loc"><span></span></a></li>
-			<li><a data-title="Exceptions" class="aicon-alert"><span></span></a></li>
+			<li><a data-title="Exceptions &amp; Validation" class="aicon-alert"><span></span></a></li>
 			<li><a data-title="Branching" class="aicon-branch"><span></span></a></li>
 			<li><a data-title="Custom code" class="aicon-code"><span></span></a></li>
 		</ul>
@@ -150,7 +150,7 @@
 						%>
 						<div class="aero-nav-item">
 							<select class="aero_nav_when" style="width:200px;">
-								<option value="">Next is clicked</option>
+								<option value="next">Next is clicked</option>
 								<option value="click" <%= j== "click" ? "selected" : "" %>>Element is clicked</option>
 								<option value="mousedown" <%= j== "mousedown" ? "selected" : "" %>>Item is dragged</option>
 								<option value="hover" <%= j == "hover" ? "selected" : "" %>>Hover over element</option>
@@ -192,7 +192,7 @@
 				<label><%= AeroStep.lang.loc %></label>
 				<input type="text" name="aero_loc" value="<%= model.loc %>" />
 
-				<div class="aero-loc-text aero-radio"><input type="checkbox" value="1" name="aero_locText" <%= model.locText ? "checked" : "" %> /> <span>Use Text?</span></div>
+				<div class="aero-loc-text aero-radio"><input type="checkbox" value="1" name="aero_locText" <%= model.locText ? "checked" : "" %> /> <span><%= AeroStep.lang.uset %></span></div>
 
 				<div class="clearfix">
 					<div class="aero-loc-find">
@@ -234,42 +234,67 @@
 			</div>
 			<div id="aeroSection4" class="aero-section">
 		    	<h1><%= AeroStep.lang.exce %></h1>
-		    	<p><%= AeroStep.lang.excd %></p>
 
-				<label><%= AeroStep.lang.alerta %></label>
-				<select type="text" name="aero_miss">
-					<option value="" <%= (!model.miss ? "selected" : "") %>>Alert (default)</option>
-					<option value="skip" <%= (model.miss == "skip" ? "selected":"") %>>Skip step</option>
-					<option value="skipto" <%= (model.miss == "skipto" ? "selected":"") %>>Skip to step...</option>
-					<option value="back" <%= (model.miss == "back" ? "selected":"") %>>Move back to previous step</option>
-					<option value="alert" <%= (model.miss == "alert" ? "selected":"") %>>Display a message</option>
-				</select>
+                <ul class="aero-tab aero-two clearfix">
+                    <li><a class="aero-tab-active" href="#aero-tab-1"><%= AeroStep.lang.exceptions %></a></li>
+                    <li><a href="#aero-tab-2"><%= AeroStep.lang.validation %></a></li>
+                </ul>
 
-                <div class="aero-skip-edit" style="<%= (model.miss != "skipto") ? 'display:none' : '' %>">
-                    <p style="margin-bottom:20px; margin-top:0px;"><%= AeroStep.lang.skiptom %></p>
+                <!-- BASIC CONTENT -->
+                <div id="aero-tab-1" class="aero-tab-content aero-tab-active">
+                    <p><%= AeroStep.lang.excd %></p>
 
-                    <label><%= AeroStep.lang.stepn %></label>
-					<select name="aero_skipto" style="width:170px;">
-						<% for(var i = 0; i < Aero.tip._guide.step.length + 1; i++){
-						var d = "";
-						var s = "";
-						if(model.index != i){
-						if(model.skipto && model.skipto[j] == i) s = "selected";
-						%>
-						<option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
-						<% }} %>
-					</select>
+                    <label><%= AeroStep.lang.alerta %></label>
+                    <select type="text" name="aero_miss">
+                        <option value="" <%= (!model.miss ? "selected" : "") %>>Alert (default)</option>
+                        <option value="skip" <%= (model.miss == "skip" ? "selected":"") %>>Skip step</option>
+                        <option value="skipto" <%= (model.miss == "skipto" ? "selected":"") %>>Skip to step...</option>
+                        <option value="back" <%= (model.miss == "back" ? "selected":"") %>>Move back to previous step</option>
+                        <option value="alert" <%= (model.miss == "alert" ? "selected":"") %>>Display a message</option>
+                    </select>
+
+                    <div class="aero-skip-edit" style="<%= (model.miss != "skipto") ? 'display:none' : '' %>">
+                        <p style="margin-bottom:20px; margin-top:0px;"><%= AeroStep.lang.skiptom %></p>
+
+                        <label><%= AeroStep.lang.stepn %></label>
+                        <select name="aero_skipto" style="width:170px;">
+                            <% for(var i = 0; i < Aero.tip._guide.step.length + 1; i++){
+                            var d = "";
+                            var s = "";
+                            if(model.index != i){
+                            if(model.skipto && model.skipto[j] == i) s = "selected";
+                            %>
+                            <option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
+                            <% }} %>
+                        </select>
+                    </div>
+
+                    <div class="aero-alert-edit" style="<%= (model.miss != "alert") ? 'display:none' : '' %>">
+                        <p style="margin-bottom:20px; margin-top:0px;"><%= AeroStep.lang.alertm %></p>
+
+                        <label><%= AeroStep.lang.title %></label>
+                        <input type="text" name="aero_alert" value="<%= model.alert %>" />
+
+                        <label><%= AeroStep.lang.content %></label>
+                        <textarea name="aero_alertContent"><%= model.alertContent %></textarea>
+                    </div>
+                </div>
+                <div id="aero-tab-2" class="aero-tab-content">
+                    <p><%= AeroStep.lang.vald %></p>
+
+                    <label><%= AeroStep.lang.mask %></label>
+                    <input type="text" name="aero_mask" value="<%= model.mask %>" />
+
+                    <div class="aero-help-block">
+                        <ul>
+                            <li><%= AeroStep.lang.val1 %></li>
+                            <li><%= AeroStep.lang.val2 %></li>
+                            <li><%= AeroStep.lang.val3 %></li>
+                            <li><a target="_blank" href="http://digitalbush.com/projects/masked-input-plugin"><%= AeroStep.lang.val4 %></a></li>
+                        </ul>
+                    </div>
                 </div>
 
-				<div class="aero-alert-edit" style="<%= (model.miss != "alert") ? 'display:none' : '' %>">
-					<p style="margin-bottom:20px; margin-top:0px;"><%= AeroStep.lang.alertm %></p>
-
-					<label><%= AeroStep.lang.title %></label>
-					<input type="text" name="aero_alert" value="<%= model.alert %>" />
-
-					<label><%= AeroStep.lang.content %></label>
-					<textarea name="aero_alertContent"><%= model.alertContent %></textarea>
-				</div>
 				<%= asSaveButton %><%= asCancelButton %>
 			</div>
 			<div id="aeroSection5" class="aero-section">

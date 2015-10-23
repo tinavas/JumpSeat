@@ -66,6 +66,12 @@ Aero.view.admin = {
 		//Guide screens
 		if(i == 2 && this.type == "guide") Aero.view.guide.admin.renderRoles();
 		if(i == 1 && this.type == "guide") Aero.view.guide.admin.renderPathways();
+		if(i == 4 && this.type == "step") {
+            //Check for input and validation
+            var tag = $q( $q("input[name='aero_loc']").val() ).prop("tagName");
+
+            if (tag != "INPUT") $q('input[name="aero_mask"]').attr('disabled', true).addClass('aero-disabled');
+        }
 	},
 
 	/**

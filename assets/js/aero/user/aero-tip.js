@@ -475,7 +475,7 @@ Aero.tip = {
         //Close sidebar?
         if(step.sidebar){
             //Timeout required for bug
-            setTimeout("Aero.view.sidebar.hide();", 10);
+            setTimeout("Aero.view.sidebar.hide();", 100);
         }else{
             aeroStorage.getItem('aero:sidebar:open', function(s){
                 if(!$q('.aero-sidebar').hasClass('open') && s == "1") Aero.view.sidebar.show();
@@ -500,6 +500,9 @@ Aero.tip = {
 		//Found element?
 		if($el){
 			Aero.log('Found Step ' + i, 'success');
+
+            //Add input mask
+            if(step.mask && step.mask != "") $el.mask(step.mask);
 
 			Aero.audit.update();
 
@@ -840,9 +843,6 @@ Aero.tip = {
 		var self = this;
 
 		$q('body')
-			.off('click.aNe').on('click.aNe', '.aero-btn-next', function(){
-				self.next();
-			})
 			.off('click.aPe').on('click.aPe', '.aero-btn-prev', function(){
 				self.prev();
 			})
@@ -912,12 +912,25 @@ Aero.tip = {
 			Aero.tip.start($q(this).data('guideid'), 0);
 		});
 
+        //Default for next
+        $q('body').off('click.aNe').on('click.aNe', '.aero-btn-next', function(){
+            self.next();
+        });
+
 		for(var n in nav){
             if (nav.hasOwnProperty(n)) {
 			    //Default next
 			    if(nav[n] == -1) nav[n] = Aero.tip._current + 1;
+
                 switch(n) {
-                    case "click":
+                    case "next":
+                        $q('body').off('click.aNe').on('click.aNe', '.aero-btn-next', function(){
+                            self.setStep(nav[n]);
+                            self.jumpTo(nav[n]);
+                        });
+                        break;
+
+					case "click":
                         $el.off('click.aeronav').on('click.aeronav', $el, function(){
                             if(last){
                                 if(!AeroStep.admin) self.stop();
