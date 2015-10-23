@@ -593,6 +593,13 @@ li.aero-helper-dropable {
 .aero-tip .aero-tip-nav [class^="aero-btn"]:hover {
 	background:#02445c;
 }
+a.aero-btn-prev {
+    background: none!important;
+    color: #697074!important;
+}
+a.aero-btn-prev:hover {
+    color: #fff!important;
+}
 
 /*
 *	Carousel
