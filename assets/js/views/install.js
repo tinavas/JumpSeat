@@ -49,6 +49,8 @@ User.model = {
         //Get form data
         var data = $q('form').aeroSerialize();
 
+        User.api.createAdmin();
+
         if(this.validate(data)){
             User.api.create(data);
         }
@@ -101,11 +103,22 @@ User.api = {
      */
     create : function(data){
 
-
         $q.post(User.model.url, data, function( r ) {
             if(r.success){
                 window.location = "/apps";
             }else{
+                $q('form').prepend(error);
+            }
+        });
+    },
+
+    /**
+     * Create admin account from config file
+     */
+    createAdmin : function(){
+
+        $q.post('/api/users/admin', {}, function( r ) {
+            if(!r.success){
                 $q('form').prepend(error);
             }
         });
