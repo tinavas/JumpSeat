@@ -1176,6 +1176,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
     top: 24px;
     margin: 0 -25px;
     cursor: move;
+    border-top: 1px solid #1F2A3A;
 }
 .aero-quiz { margin-top:10px;}
 .aero-quiz ul, .aero-quiz ul li { margin:0; padding:0; list-style: none; }
