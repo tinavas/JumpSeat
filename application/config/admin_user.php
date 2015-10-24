@@ -7,5 +7,5 @@
 
 $config['firstname']	= "Admin";
 $config['lastname']	    = "User";
-$config['email']		= "admin@aero.com";
+$config['email']		= "admin";
 $config['password']		= "admin";
