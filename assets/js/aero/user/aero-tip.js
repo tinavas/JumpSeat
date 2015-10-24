@@ -48,9 +48,10 @@ Aero.tip = {
             }
 
 			return "<div id='"+step.id +"' class='aero-tip aero-tip-"+pos+size+"' style='display:none'>" +
-					"<div class='aero-tip-arrow'></div>" +
+                    "<div class='aero-tip-arrow'></div>" +
 					"<div class='aero-tip-body'>"+title+step.body+quiz+media+"</div>" +
-					progress +
+                    progress +
+                    "<div class='aero-tip-draggable'></div>" +
 	    	  "</div>";
 		}
 	},
@@ -883,6 +884,9 @@ Aero.tip = {
 		//Watch
 		$q(document).off("scroll.scw").on("scroll.scw" + Aero.tip._current, function(){ self.setPosition($el, $tip, position);  }, 250);
 		$q('div *').off("scroll.scd").on("scroll.scd" + Aero.tip._current, function(){ self.setPosition($el, $tip, position); }, 250);
+
+        //Draggable tips
+        $q('.aero-tip').draggable({ handle: "div.aero-tip-draggable" });
 
 		//Resize window reposition
         $q(window).on("resize", function(){

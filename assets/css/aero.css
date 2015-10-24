@@ -1157,6 +1157,16 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 }
 
 /* Front */
+.aero-tip-draggable {
+    background-image: url('../images/draggable.png');
+    padding: 4px;
+    background-repeat-x: repeat;
+    background-repeat-y: no-repeat;
+    position: relative;
+    top: 24px;
+    margin: 0 -25px;
+    cursor: move;
+}
 .aero-quiz { margin-top:10px;}
 .aero-quiz ul, .aero-quiz ul li { margin:0; padding:0; list-style: none; }
 .aero-quiz ul li { float:left; line-height: 25px; width: 100%;}
