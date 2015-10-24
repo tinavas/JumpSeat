@@ -176,6 +176,16 @@ li.aero-helper-dropable {
 	padding:10px!important;
 	text-transform: uppercase;
 }
+.aero-section.aero-goto {
+    padding:0;
+    display:block;
+}
+.aero-section.aero-goto select {
+    width: 255px !important;
+}
+.aero-section.aero-goto label {
+    margin-top: 20px;
+}
 .aero-btn-red {
 	background: #DB5052;
 	color:#fff;
@@ -1100,7 +1110,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 .aero-modal-foot .button.success:hover, .aero-modal-foot .button.success:focus { background:#0fc7ff; }
 .aero-modal-foot .button.success:active { background:#009dcd; }
 
-.aero-modal-body ul li { list-style: circle; list-style-position: inside; margin-left: 15px; padding-bottom: 5px;}
+.aero-modal-body ul li { list-style: circle; list-style-position: outside; margin-left: 25px; padding-bottom: 5px;}
 .aero-modal-body ul { padding-top: 15px;  margin: 0;  padding-left: 0; }
 .aero-loc-find {
 	width:49%;

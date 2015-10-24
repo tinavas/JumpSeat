@@ -819,16 +819,33 @@ Aero.tip = {
      * @returns {void}
 	 */
 	renderException : function(title, body, goBack){
-		Aero.confirm({
+
+        var dropdown = "";
+
+        //Optional move to step for admins
+        if(goBack && AeroStep.admin) {
+            dropdown = '<div class="aero-section aero-goto"><label>Go back to step:</label><select id="aero-goto">';
+
+            for (var i = 0; i < Aero.tip._guide.step.length; i++) {
+                var s = i == (Aero.tip._current - 1) ? 'selected="selected"' : '';
+                dropdown += '<option ' + s + 'value="' + i + '">' + (i + 1) + ': '+ Aero.tip._guide.step[i].title + '</option>';
+            }
+            dropdown += '</select></div>';
+        }
+
+        Aero.confirm({
 			ok : "End Guide",
             cancel : goBack ? "Go Back" : "Ok",
 			title : title,
-			msg : body,
+			msg : body + dropdown,
 			onConfirm : function(){
 				Aero.tip.stop();
 			},
 			onCancel : function(){
-                if(goBack){
+                if(goBack && AeroStep.admin){
+                    Aero.tip.jumpTo(  $q('#aero-goto').val() );
+                }
+                else if(goBack){
                     Aero.tip.prev();
                 }
 			}
