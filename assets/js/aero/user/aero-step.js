@@ -148,6 +148,19 @@ Aero.view.step = {
 			$li.removeClass('aero-forward aero-missing');
 			aeroStorage.removeItem("aero:session:forward", function(){}, true);
 		}
+
+        //Scroll to active step
+        var $parentDiv = $q('div.aero-steps');
+        var $innerListItem = $q('li.aero-active');
+        var $adminButton = $q('div.aero-add-step');
+        var adjust = 0;
+
+        //Admin Button
+        if($adminButton.length > 0) adjust += $adminButton.outerHeight();
+
+        $parentDiv.animate({ scrollTop: $parentDiv.scrollTop() + $innerListItem.position().top
+        - $parentDiv.height()/2 + $innerListItem.height()/2 - adjust - $q('.aero-guide-title').outerHeight() });
+
 	},
 
 	/**
