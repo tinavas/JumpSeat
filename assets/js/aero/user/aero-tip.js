@@ -95,14 +95,14 @@ Aero.tip = {
 	 * @param {integer} id unique guide id
      * @returns {object} guide object
 	 */
-	setGuide : function(id, callback){
+	setGuide : function(id, callback, force){
 
 		var self = this;
 			self._guide = false;
 
         aeroStorage.getItem('aero:session', function(ls){
 
-            if(ls) {
+            if(ls && !force) {
 
                 //Start from session
                 self._guide = JSON.parse(ls);
@@ -222,7 +222,7 @@ Aero.tip = {
      * @param {string} id unique guide id
      * @returns {void}
 	 */
-	start : function(id, step){
+	start : function(id, step, force){
 		var s = step ? step : 0;
         var self = this;
 
@@ -249,7 +249,7 @@ Aero.tip = {
 
                 //Start the tips!
                 self.beforeShow(s, Aero.step.get(self._current));
-            });
+            }, force);
         }, true);
 	},
 
@@ -792,7 +792,7 @@ Aero.tip = {
 				Aero.tip.hide();
 
 				//Start return
-				Aero.tip.start(id, parseInt(to));
+				Aero.tip.start(id, parseInt(to), true);
 			},
 			onCancel : function(){
 				Aero.tip.stop();
@@ -932,7 +932,7 @@ Aero.tip = {
 			aeroStorage.setItem('aero:session:branch:returnto', $q(this).data('returnto'));
 
 			Aero.tip.hide();
-			Aero.tip.start($q(this).data('guideid'), 0);
+			Aero.tip.start($q(this).data('guideid'), 0, true);
 		});
 
         //Default for next
