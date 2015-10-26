@@ -155,12 +155,15 @@ Aero.view.step = {
         var $adminButton = $q('div.aero-add-step');
         var adjust = 0;
 
-        //Admin Button
-        if($adminButton.length > 0) adjust += $adminButton.outerHeight();
+        if($innerListItem.length > 0) {
+            //Admin Button
+            if ($adminButton.length > 0) adjust += $adminButton.outerHeight();
 
-        $parentDiv.animate({ scrollTop: $parentDiv.scrollTop() + $innerListItem.position().top
-        - $parentDiv.height()/2 + $innerListItem.height()/2 - adjust - $q('.aero-guide-title').outerHeight() });
-
+            $parentDiv.animate({
+                scrollTop: $parentDiv.scrollTop() + $innerListItem.position().top
+                - $parentDiv.height() / 2 + $innerListItem.height() / 2 - adjust - $q('.aero-guide-title').outerHeight()
+            });
+        }
 	},
 
 	/**

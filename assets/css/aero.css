@@ -888,7 +888,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 	font-weight: 600;
 	font-size: 0.9em;
 }
-.aero-section input[type=text], .aero-section textarea, .aero-section select {
+.aero-section input[type=text], .aero-section textarea, .aero-section select, a.aero-multi-drop {
 	background:#fff;
 	border: 1px solid #E1E1E1;
 	font-size: 15px;
@@ -916,6 +916,33 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 	color: #f16a5c;
 	margin-left: 10px!important;
 	font-size: 18px!important;
+}
+
+/* Multi Select */
+.aero-multi-select { position:relative; }
+.aero-multi-select ul, .aero-multi-select ul li { list-style:  none; padding:0; margin:0;}
+.aero-multi-drop { display:block; }
+.aero-multi-select ul {
+    background:#fff;
+    position: absolute;
+    top: 42px;
+    left: 0;
+    border: 1px solid #ccc;
+    width: 400px;
+    box-sizing: content-box;
+    height: 160px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.aero-multi-select ul li label {
+    padding: 6px 10px;
+    display: block;
+}
+
+.aero-multi-select ul li input {
+    margin-right:10px;
+    display: inline-block!important;
 }
 
 .aero-radio { margin-bottom:20px; }
