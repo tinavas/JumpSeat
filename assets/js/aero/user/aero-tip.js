@@ -525,9 +525,11 @@ Aero.tip = {
 			//Apply branch options
 			if(step.branch){
 				$tip = this.renderBranch($tip, step.branch, step.branchstep, step['return']);
-			}else{
-				$tip = this.buildNav($tip, step);
+                step.noNext = true;
 			}
+
+            //Build Navigation
+            $tip = this.buildNav($tip, step);
 
             //Add Flag
             $q('.ae-active-el').removeClass('ae-active-el');
