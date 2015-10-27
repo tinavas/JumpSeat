@@ -1,4 +1,6 @@
 appAPI.ready(function() {
+    console.log(42);
+    alert('zzt');
     var popupDims = {
         CH: {height: 55, width: 110},
         FF: {height: 55, width: 110},
