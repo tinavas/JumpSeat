@@ -55,12 +55,17 @@ Aero.model.step = {
 
 			//Update local storage
 			aeroStorage.setItem('aero:guides', JSON.stringify(ls));
-            aeroStorage.setItem('aero:session', JSON.stringify(ls[index]), function(){}, true);
+            aeroStorage.setItem('aero:session', JSON.stringify(ls[index]), function(){
 
-			//Set session
-			Aero.tip.setGuide(guide.id);
-			Aero.view.step.render(ls[index]);
+                //Set session
+                Aero.tip.setGuide(guide.id);
 
+                //Make sure we have enough steps
+                if(Aero.tip._current == Aero.tip._guide.step.length) Aero.tip._current--;
+
+                Aero.tip.jumpTo(Aero.tip._current);
+
+            }, true);
 		}, true);
 	},
 
@@ -243,14 +248,12 @@ Aero.step = {
 
 		Aero.send(Aero.model.step.url, step, function(r){
 
-			//Update ls
+            if(Aero.tip._guide.step.length != 0) {
+                Aero.tip._current++;
+            }
+
+            //Update ls
 			Aero.model.step.update(r);
-
-			var next = Aero.tip._current + 1;
-			var jump = Aero.tip._guide.step.length == 0 ? 0 : next;
-
-			//Move to new step
-			Aero.tip.jumpTo(jump);
 
 			if(callback) callback(r);
 		}, "POST");
@@ -272,7 +275,6 @@ Aero.step = {
 
 			//Update ls
 			Aero.model.step.update(r);
-			//Aero.tip.show();
 
 			if(callback) callback(r);
 		}, "PUT");
@@ -301,9 +303,6 @@ Aero.step = {
 
 			//Update ls
 			Aero.model.step.update(r);
-
-			//Deleted current step? then move next
-			if(i == Aero.tip._current) Aero.tip.next();
 
 			if(callback) callback(r);
 		}, "DELETE");

@@ -302,19 +302,25 @@
 		    	<p><%= AeroStep.lang.branchd %></p>
 
 				<label><%= AeroStep.lang.bt %></label>
-				<select type="text" name="aero_branch">
-					<option value="" <%= (!model.return ? "selected" : "") %>>- Select Guide -</option>
+				<select id="aeroBranch" type="text" multiple>
 					<%
+                    var s = "";
 					var ls = localStorage.getItem('aero:guides');
 					var guides = JSON.parse(ls);
 					for(var i = 0; i < guides.length; i++){
-						if(guides[i]){ var s = (model.branch == guides[i].id) ? "selected" : "";
+
+                    if(guides[i]){
+                        if($q.isArray(model.branch)){
+                            s = ($q.inArray(guides[i].id, model.branch) !== -1) ? 'selected="true"' : '';
+                        }else{
+                            s = (guides[i].id == model.branch) ? 'selected="true"' : '';
+                        }
 					 %>
 						<option value="<%= guides[i].id %>" <%= s %>><%= guides[i].title %></option>
 					<% }} %>
 				</select>
 
-				<div style="<%= (model.branch) ? '' : 'display:none' %>">
+				<div class="aero-branch-step" style="<%= (model.branch) ? '' : 'display:none' %>">
 					<p style="margin-bottom:20px; margin-top:15px;"><%= AeroStep.lang.bre %></p>
 					<label><%= AeroStep.lang.br %></label>
 					<select type="text" name="aero_return">

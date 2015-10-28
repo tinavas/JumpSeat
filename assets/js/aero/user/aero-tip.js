@@ -810,8 +810,20 @@ Aero.tip = {
 	renderBranch : function($tip, guideid, step, returnStep){
 
 		var body = $tip.find('.aero-tip-body').html();
-		$tip.find('.aero-tip-body').html("Please select one of the following choices: <div class='aero-branch'><a data-returnid='"+Aero.tip._guide.id+"' data-returnto='"+returnStep+"' data-guideid='"+guideid+"' class='aero-start'>"+body+"</a><a class='aero-continue'>Continue with this guide</a></div>");
+        var tpl = body + "<div class='aero-branch'></div>";
 
+        setTimeout(function(){
+            for(i in guideid) {
+                Aero.guide.get(guideid[i], function(r) {
+                    if( $q('.aero-branch').find('#b-' + r.id).length == 0)
+                        $q('.aero-branch').append("<a id='b-"+r.id+"' data-returnid='" + Aero.tip._guide.id + "' data-returnto='" + returnStep + "' data-guideid='" + r.id + "' class='aero-start'>" + r.title + "</a>");
+                    $q(window).trigger('resize');
+                });
+            }
+        }, 250);
+
+        //tpl += "<a class='aero-continue'>Continue with this guide</a></div>";
+        $tip.find('.aero-tip-body').html(tpl);
 		return $tip;
 	},
 

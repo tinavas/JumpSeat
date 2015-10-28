@@ -72,6 +72,11 @@ Aero.view.admin = {
 
             if (tag != "INPUT") $q('input[name="aero_mask"]').attr('disabled', true).addClass('aero-disabled');
         }
+		if(i == 5 && this.type == "step" && !$q('#aeroBranch').data('multi-init')) {
+            $q('#aeroBranch').multiSelect({ onChange : function(count){
+                (count > 0) ? $q('.aero-branch-step').show() : $q('.aero-branch-step').hide();
+            }});
+        }
 	},
 
 	/**

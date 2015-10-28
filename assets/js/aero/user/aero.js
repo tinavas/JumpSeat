@@ -97,88 +97,6 @@ var Aero = {
 };
 
 /**
- * Multi select dropdown
- * Must use unque ID on select
- */
-(function( $ ){
-    var methods = {
-        init : function(options) {
-
-            var $select, $tpl, id;
-
-            $select = $q(this);
-            id = $q(this).attr('id');
-
-            //Hide it
-            $select.hide();
-
-            //Start template
-            $tpl = $q('<div id="aeSelect'+id+'" class="aero-multi-select"><a class="aero-multi-drop">Select Guides</a><ul style="display:none"></ul></div>');
-            $select.after($tpl);
-
-            //Add options
-            $select.find("option").each(function() {
-                $tpl.find('ul').append('<li><label><input type="checkbox" value="'+ this.value+'" />'+ this.text+'</label></li>');
-            });
-
-            methods.setEvents(id);
-        },
-
-        setEvents : function(id){
-
-            var mId = '#aeSelect' + id;
-
-            //Click dropdown
-            $('body').on('click', function(){
-                $(mId).find('ul').hide();
-            });
-
-            //Click dropdown
-            $(mId).find('a.aero-multi-drop')
-                .on('click', function(e){
-                    var $ul = $(this).parent().find('ul');
-                    if(!$ul.is(':visible')) {
-                        $(this).parent().find('ul').show();
-                    }else{
-                        $(this).parent().find('ul').hide();
-                    }
-
-                    e.stopPropagation();
-                })
-                .attr('unselectable', 'on')
-                .css('user-select', 'none')
-                .on('selectstart', false);
-
-            $(mId).find('.aero-multi-select li, .aero-multi-select label').on('click', function(e){
-                e.stopPropagation();
-            });
-
-            //On change select
-            $(mId).find('input[type=checkbox]').on('change', function(e){
-                $('#' + id + ' option[value=' + $(this).val() + ']').attr('selected', $(this).is(':checked'));
-
-                var count = $(mId).find('input:checked').length;
-                var num = count > 0 ? count + " Selected": "Select Guides";
-                $(mId).find('.aero-multi-drop').html(num);
-                e.stopPropagation();
-            });
-        }
-    };
-
-    $.fn.multiSelect = function(methodOrOptions) {
-        if ( methods[methodOrOptions] ) {
-            return methods[ methodOrOptions ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
-            // Default to "init"
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.tooltip' );
-        }
-    };
-
-})( $q );
-
-/**
  *  Modal window
  */
 Aero.confirm = function(options){
@@ -344,6 +262,116 @@ $q.fn.aeroSerialize = function()
     return o;
 };
 
+/**
+ * Multi select dropdown
+ * Must use unque ID on select
+ */
+(function( $ ){
+
+    var callbacks = {
+        onChange : function(){}
+    };
+
+    var methods = {
+        /**
+         * Initialize Multi Select
+         * @param options
+         */
+        init : function(options) {
+
+            var $select, $tpl, id, count;
+
+            $select = $q(this);
+            id = $q(this).attr('id');
+            count = 0;
+
+            //Override
+            callbacks.onChange = options.onChange;
+
+            //Hide it
+            $select
+                .hide()
+                .data('multi-init', true);
+
+            //Start template
+            $tpl = $q('<div id="aeSelect'+id+'" class="aero-multi-select"><a class="aero-multi-drop"></a><ul style="display:none"></ul></div>');
+            $select.after($tpl);
+
+            //Add options
+            $select.find("option").each(function() {
+                if($(this).val() != "" && $(this).val() != Aero.tip._guide.id) {
+                    var s = $(this).is(':selected') ? 'checked="true"' : '';
+
+                    $tpl.find('ul').append('<li><label><input type="checkbox" '+ s +'value="' + this.value + '" />' + this.text + '</label></li>');
+                    if(s != "") count++;
+                }
+            });
+
+            var num = count > 0 ? count + " Selected": "Select Guides";
+            $('#aeSelect'+id).find('.aero-multi-drop').html(num);
+
+            methods.setEvents(id);
+        },
+
+        /**
+         * Set events for this instance
+         * @param id
+         */
+        setEvents : function(id){
+
+            var mId = '#aeSelect' + id;
+
+            //Click dropdown
+            $('body').on('click', function(){
+                $(mId).find('ul').hide();
+            });
+
+            //Click dropdown
+            $(mId).find('a.aero-multi-drop')
+                .on('click', function(e){
+                    var $ul = $(this).parent().find('ul');
+                    if(!$ul.is(':visible')) {
+                        $(this).parent().find('ul').show();
+                    }else{
+                        $(this).parent().find('ul').hide();
+                    }
+
+                    e.stopPropagation();
+                })
+                .attr('unselectable', 'on')
+                .css('user-select', 'none')
+                .on('selectstart', false);
+
+            $(mId).find('.aero-multi-select li, .aero-multi-select label').on('click', function(e){
+                e.stopPropagation();
+            });
+
+            //On change select
+            $(mId).find('input[type=checkbox]').on('change', function(e){
+                $('#' + id + ' option[value=' + $(this).val() + ']').attr('selected', $(this).is(':checked'));
+
+                var count = $(mId).find('input:checked').length;
+                var num = count > 0 ? count + " Selected": "Select Guides";
+                $(mId).find('.aero-multi-drop').html(num);
+
+                callbacks.onChange(count);
+                e.stopPropagation();
+            });
+        }
+    };
+
+    $.fn.multiSelect = function(methodOrOptions) {
+        if ( methods[methodOrOptions] ) {
+            return methods[ methodOrOptions ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
+            // Default to "init"
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.tooltip' );
+        }
+    };
+
+})( $q );
 
 //Form Validate
 $q.fn.isFormValid = function()

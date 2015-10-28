@@ -31,6 +31,7 @@ Aero.view.step.admin = {
         data.id = Aero.view.admin.guideid;
         data.body = $q('#aeroEditor').trumbowyg('html');
         data.nav = {};
+        data.branch = $q('#aeroBranch').val() != "" ? $q('#aeroBranch').val() : null;
 
         if(Aero.host != location.protocol+'//'+window.location.host) data.cds = location.protocol+'//'+window.location.host;
 
