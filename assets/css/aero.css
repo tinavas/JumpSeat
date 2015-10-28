@@ -933,6 +933,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
     height: 160px;
     overflow-y: auto;
     overflow-x: hidden;
+	z-index: 9;
 }
 
 .aero-multi-select ul li label {
