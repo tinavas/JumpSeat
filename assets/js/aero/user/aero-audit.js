@@ -40,6 +40,7 @@ Aero.model.audit = {
 	 * Update timestamp and write local storage
 	 */
 	update: function(data) {
+        if(AeroStep.admin || !Aero.tip._guide) return;
 
         var old = JSON.parse(aeroStorage.getItem(this.key));
 
@@ -132,7 +133,6 @@ Aero.audit = {
 	 * @function Initialize the audit
 	 */
 	init: function() {
-
 		//Reset for non page load
 		Aero.audit.furthestStep = 0;
 		Aero.view.audit.timeTotal = 0;
@@ -209,7 +209,7 @@ Aero.audit = {
 	 * @param {function} callback function
 	 */
 	save: function(callback) {
-        if(AeroStep.admin) return;
+        if(AeroStep.admin || !Aero.tip._guide) return;
 
 		var data = Aero.model.audit.get();
 

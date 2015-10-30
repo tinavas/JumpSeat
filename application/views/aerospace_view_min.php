@@ -14,7 +14,7 @@ if(!AeroStep){
 */
 var aeroStorage = {
 
-override : false,
+override : true,
 
 /**
 *  Get local storage item
@@ -55,7 +55,7 @@ if(key == "all"){
 // Clear All
 if(this.override){
 xdLocalStorage.clear(function (data) { /* callback */ });
-}else{
+}
 
 key = "aero:session";
 var reg = new RegExp("^" + key, "i");
@@ -81,7 +81,6 @@ if (reg.test(key)) {
 localStorage.removeItem(key);
 }
 });
-}
 }else {
 if(cross && this.override){
 xdLocalStorage.removeItem(key, function (data) {});

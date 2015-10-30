@@ -55,33 +55,34 @@ if(!AeroStep){
                 // Clear All
                 if(this.override){
                     xdLocalStorage.clear(function (data) { /* callback */ });
-                }else{
-
-                    key = "aero:session";
-                    var reg = new RegExp("^" + key, "i");
-
-					if (!Object.keys) {
-						Object.keys = function(obj) {
-							var keys = [];
-
-							for (var i in obj) {
-								if (obj.hasOwnProperty(i)) {
-								keys.push(i);
-								}
-							}
-
-							return keys;
-						};
-					}
-
-                    //Clear session
-                    Object.keys(localStorage)
-                        .forEach(function(key){
-                            if (reg.test(key)) {
-                                localStorage.removeItem(key);
-                        }
-                    });
                 }
+
+				key = "aero:session";
+				var reg = new RegExp("^" + key, "i");
+
+				if (!Object.keys) {
+					Object.keys = function(obj) {
+						var keys = [];
+
+						for (var i in obj) {
+							if (obj.hasOwnProperty(i)) {
+								keys.push(i);
+							}
+						}
+
+						return keys;
+					};
+				}
+
+				//Clear session
+				Object.keys(localStorage)
+					.forEach(function(key){
+						if (reg.test(key)) {
+							localStorage.removeItem(key);
+					}
+				});
+
+localStorage.removeItem('aero:session:audit');
             }else {
                 if(cross && this.override){
                     xdLocalStorage.removeItem(key, function (data) {});
