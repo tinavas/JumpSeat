@@ -82,11 +82,11 @@ class Pathway_Model extends CI_Model
 				$size = $this->pathwaymap_model->count_guides($pathway['id']);
 
 				//Drop empty?
-				if($dropEmpty){
-					if($size == 0) unset($pathways[$i]);
-				}else{
+//				if($dropEmpty){
+//					if($size == 0) unset($pathways[$i]);
+//				}else{
 					$pathway['guides'] = $size;
-				}
+//				}
 
 				if(!$this->has_access($pathway['id'])){
 					unset($pathways[$i]);
