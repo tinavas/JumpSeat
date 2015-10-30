@@ -155,6 +155,7 @@ $lang['start']   = "Starting a Guide";
 $lang['startd']   = "Guides can always be started by the use of the guide sidebar. However, sometimes it's important to start guides through other means.";
 $lang['restrictd']   = "Restrict element use to only trained users";
 $lang['restrictc']   = "Overlay color";
+$lang['infod']       = "Animate tooltip";
 
 $lang['restrictt']   = "Feature Restricted";
 $lang['restrictb']   = "This feature has been restricted and requires guidance for first time that you use it.";
