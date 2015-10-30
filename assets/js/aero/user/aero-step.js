@@ -62,7 +62,7 @@ Aero.model.step = {
                         //Make sure we have enough steps
                         if(Aero.tip._current == Aero.tip._guide.step.length) Aero.tip._current--;
 
-                        Aero.tip.show(Aero.tip._current);
+                        Aero.tip.jumpTo(Aero.tip._current);
                     });
             }, true);
 		}, true);
