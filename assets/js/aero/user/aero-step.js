@@ -56,15 +56,14 @@ Aero.model.step = {
 			//Update local storage
 			aeroStorage.setItem('aero:guides', JSON.stringify(ls));
             aeroStorage.setItem('aero:session', JSON.stringify(ls[index]), function(){
+                    //Set session
+                    Aero.tip.setGuide(guide.id, function(){
 
-                //Set session
-                Aero.tip.setGuide(guide.id);
+                        //Make sure we have enough steps
+                        if(Aero.tip._current == Aero.tip._guide.step.length) Aero.tip._current--;
 
-                //Make sure we have enough steps
-                if(Aero.tip._current == Aero.tip._guide.step.length) Aero.tip._current--;
-
-                Aero.tip.jumpTo(Aero.tip._current);
-
+                        Aero.tip.show(Aero.tip._current);
+                    });
             }, true);
 		}, true);
 	},
