@@ -38,7 +38,7 @@ Aero.view.pathway = {
 					Aero.view.guide.render(guides);
 				});
 			}else if(index == pathways.length - 1){
-                Aero.onpage.getGuides(function(guides){
+				Aero.onpage.getGuides(function(guides){
                     guides[0].path = "On This Page";
                     Aero.view.guide.render(guides);
                 });
@@ -177,6 +177,7 @@ Aero.onpage = {
                 var step = guides[i].step[0];
 
                 if(step){
+
                     //Don't use first step orphans
                     if(step.position && step.position == "orphan"){
                         step = guides[i].step[1];
@@ -218,17 +219,20 @@ Aero.onpage = {
                 $el = $q(step.loc);
                 off = $el.offset();
 
-                if ($el && !$el.hasClass('ae-here')) {
-
+                if (off && $el && !$el.hasClass('ae-here')) {
                     $el.addClass('ae-here').data('ae-id', count);
                     $tpl = $q('<a id="ae-id-' + count + '" class="aero-here">X</a>');
 
-                    $tpl
-                        .css({
-                            top: off.top - 20,
-                            left: off.left - 37
-                        })
-                        .data('guideids', guides[i].id);
+                    try {
+                        $tpl
+                            .css({
+                                top: off.top - 20,
+                                left: off.left - 37
+                            })
+                            .data('guideids', guides[i].id);
+                    } catch(err){
+                        Aero.log('Failed On Page:' + err, 'error');
+                    }
                     $q('body').append($tpl);
 
                     count++;
