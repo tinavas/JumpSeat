@@ -151,16 +151,18 @@ class Guides extends REST_Controller
         $find = $this->request_data['find'];
         $replace = $this->request_data['replace'];
         $ns = $this->request_data['namespace'];
+        $case = $this->request_data['case'];
+
         $prev = isset($this->request_data['preview']) && $this->request_data['preview'] == true;
         $response = "";
 
         if(stripos($id, ',') == false) {
-            $response = $this->guide_model->replace_prop($id, $find, $replace, $ns, $prev);
+            $response = $this->guide_model->replace_prop($id, $find, $replace, $ns, $case, $prev);
         }else{
             $ids = explode(',', $id);
 
             foreach($ids as $id){
-                $response = $this->guide_model->replace_prop($id, $find, $replace, $ns, $prev);
+                $response = $this->guide_model->replace_prop($id, $find, $replace, $ns, $case, $prev);
             }
         }
 		$this->response($response, 201);

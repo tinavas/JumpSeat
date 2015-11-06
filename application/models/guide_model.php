@@ -305,10 +305,9 @@ class Guide_Model extends CI_Model
 	 * @param $namespace Property to Search
      * @param $isPreview Save or Not (return preview of what will change)
 	 * @return boolean
-     * @todo make replace insensitive
      * @todo add how many we found
 	 */
-	public function replace_prop($id, $find, $replace, $namespace, $isPreview)
+	public function replace_prop($id, $find, $replace, $namespace, $case, $isPreview)
     {
         //Go get the guide
         $guide = $this->get_by_id($id);
@@ -336,15 +335,23 @@ class Guide_Model extends CI_Model
 
                         array_push($preview, $arr);
                     } else {
-                        //Do the replace and save
-                        $step[$prop] = str_replace($find, $replace, $step[$prop]);
+                        if($case) {
+                            //Do the replace and save
+                            $step[$prop] = str_replace($find, $replace, $step[$prop]);
+                        }else{
+                            $step[$prop] = str_ireplace($find, $replace, $step[$prop]);
+                        }
                     }
                 }
                 $count++;
             }
         }else{
-            //Guide level changes
-            $guide[$namespace] = str_replace($find, $replace, $guide[$namespace]);
+            if($case) {
+                //Guide level changes
+                $guide[$namespace] = str_replace($find, $replace, $guide[$namespace]);
+            }else{
+                $guide[$namespace] = str_ireplace($find, $replace, $guide[$namespace]);
+            }
         }
 
 
