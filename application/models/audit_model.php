@@ -123,6 +123,9 @@ class Audit_Model extends CI_Model
 	*/
 	public function create($entry = array())
 	{
+        if (!isset($entry) && (!empty($entry)))
+            unset($entry['id']);
+
 		try
 		{
 			$id = $this->mongo_db->insert($this->collection, (array) $entry);
@@ -143,6 +146,8 @@ class Audit_Model extends CI_Model
 	 */
 	public function update_by_id($id, $entry)
 	{
+        unset($entry['id']);
+
 		try
 		{
 			$this->mongo_db
