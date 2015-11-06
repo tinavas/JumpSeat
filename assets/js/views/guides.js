@@ -18,6 +18,9 @@ require([ 'api/guides','utils/password','utils/export','lib/uploadify'], functio
          *  Initialize view
          */
         init: function () {
+
+            var _this = this;
+
             $q('#form-wrapper').html("");
             Guide.view.render();
 
@@ -41,6 +44,9 @@ require([ 'api/guides','utils/password','utils/export','lib/uploadify'], functio
                 },
                 onClone: function (ids) {
                     Guide.api.clone(ids);
+                },
+                onFind: function(ids){
+                    _this.renderFindForm(ids);
                 }
             };
             new Utils.menu("#menu", options);
@@ -65,6 +71,32 @@ require([ 'api/guides','utils/password','utils/export','lib/uploadify'], functio
 
             this.table = new Utils.datatable(url, columns);
             this.setEvents();
+        },
+
+        /**
+         *  Render list view
+         */
+        renderFindForm: function (ids) {
+
+            Aero.tpl.get("guide-find-replace.html", function (r) {
+
+                //Get load tpl
+                var tpl = _q.template(r);
+
+                //Confirm
+                Aero.confirm({
+                    ok: "save",
+                    title: AeroStep.lang.afindr,
+                    msg: tpl({ids: ids}),
+                    onValidate: function () {
+                        return Guide.model.validate();
+                    },
+                    onConfirm: function () {
+                        var valid = Guide.model.validate();
+                        if(valid) Guide.model.replaceProp($q('#aero-replace-form').data('ids'));
+                    }
+                });
+            });
         },
 
         /**
@@ -143,6 +175,12 @@ require([ 'api/guides','utils/password','utils/export','lib/uploadify'], functio
             $q('body').off("click.pathf").on("click.pathf", ".trash", function () {
                 window.location.href = '/app/' + AeroStep.host + '/trash';
                 return false;
+            });
+
+            //Find Preview
+            $q('body').off("click.grepl").on("click.grepl", ".aero-btn-fpreview", function () {
+                var valid = Guide.model.validate();
+                if(valid) Guide.model.replaceProp($q(this).parents('form').data('ids'), true);
             });
         }
     };

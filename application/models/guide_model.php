@@ -296,8 +296,72 @@ class Guide_Model extends CI_Model
 		}
 	}
 
+
+	/**
+	 * Replaces content in a guide with new data
+	 * @param $id Guide Id
+	 * @param $find Find Text
+	 * @param $replace Replace With
+	 * @param $namespace Property to Search
+     * @param $isPreview Save or Not (return preview of what will change)
+	 * @return boolean
+     * @todo make replace insensitive
+     * @todo add how many we found
+	 */
+	public function replace_prop($id, $find, $replace, $namespace, $isPreview)
+    {
+        //Go get the guide
+        $guide = $this->get_by_id($id);
+
+        $found = array();
+        $preview = array();
+        $count = 0;
+        $prop = str_replace('step.', '', $namespace);
+
+        //Replace Step Content
+        if(stripos($namespace, 'step.') !== false) {
+            //Loop each step to find a match
+            foreach ($guide['step'] as &$step) {
+                if (stripos($step[$prop], $find) !== false) {
+
+                    //Found a match
+                    array_push($found, $count);
+
+                    if ($isPreview) {
+                        //Make a previous object
+                        $arr = array(
+                            "step" => $count,
+                            "body" => str_replace($find, $find . "[" . $replace . "]", $step[$prop])
+                        );
+
+                        array_push($preview, $arr);
+                    } else {
+                        //Do the replace and save
+                        $step[$prop] = str_replace($find, $replace, $step[$prop]);
+                    }
+                }
+                $count++;
+            }
+        }else{
+            //Guide level changes
+            $guide[$namespace] = str_replace($find, $replace, $guide[$namespace]);
+        }
+
+
+        //Go save changes
+        if(!$isPreview) {
+            $this->update_by_id($id, $guide);
+            $preview = $found;
+        }
+
+		return $preview;
+	}
+
 	/**
 	 * Updates a guide with new data
+	 * @param $id
+	 * @param $guide
+	 * @return mixed
 	 */
 	public function update_by_id($id, $guide)
 	{

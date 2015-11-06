@@ -36,7 +36,7 @@ Guide.model = {
 
         //Get form data
         var data = $q('form').aeroSerialize();
-        data.active = (data.active) ? true : false;
+            data.active = (data.active) ? true : false;
 
         //Create or update
         if(Guide.id){
@@ -44,6 +44,17 @@ Guide.model = {
         }else{
             Guide.api.create(data);
         }
+    },
+
+    replaceProp : function(ids, preview){
+
+        var data = $q('form').aeroSerialize();
+            data.case = (data.case) ? true : false;
+            data.preview = preview ? true : false;
+
+        Guide.api.replaceProp(ids, data, function(r){
+            console.log(r);
+        });
     }
 };
 
@@ -107,6 +118,21 @@ Guide.api = {
         //Call
         Aero.send(Guide.model.url, data, function(r){
             Guide.view.table.ajax.reload();
+            if(callback) callback(r);
+        }, "PUT");
+    },
+
+    /**
+     *  Find and Replace Properties
+     *  @param string[] data
+     *  @param function callback
+     */
+    replaceProp : function(id, data, callback){
+
+        data.id = id;
+
+        //Call
+        Aero.send(Guide.model.url + "/replace", data, function(r){
             if(callback) callback(r);
         }, "PUT");
     },

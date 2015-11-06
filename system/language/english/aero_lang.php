@@ -49,6 +49,10 @@ $lang['no']				= "No";
 $lang['requirede']		= "Please check all required fields";
 $lang['success']		= "Success! Your changes have been saved.";
 
+//Tools
+$lang['selected']       = "Guide(s) Selected";
+$lang['case']       = "Case sensitive?";
+
 /**
  *  Apps
  */
@@ -85,6 +89,11 @@ $lang['trash']			= "Trash";
 $lang['importg']		= "Import guides";
 $lang['etitle']			= "Enter a title";
 $lang['edesc']			= "Enter a description";
+$lang['afindr']			= "Find &amp; Replace";
+$lang['afindp']         = "Guide Property";
+$lang['afindc']         = "Find";
+$lang['afindrw']        = "Replace With";
+$lang['afindp']         = "Preview";
 
 /**
  *  Roles
