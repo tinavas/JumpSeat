@@ -787,7 +787,7 @@ Aero.tip = {
 			title : "Branch complete",
 			msg : "You have completed this branch, we will now move you back to the original guide.",
 			onConfirm : function(){
-				//Hide the current incase same page
+				//Hide the current in case same page
 				Aero.tip.hide();
 
 				//Start return

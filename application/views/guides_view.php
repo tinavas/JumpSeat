@@ -29,7 +29,7 @@
 					<ul id="multiAction" class="f-dropdown">
                         <? if($acl['guides']['create']){ ?><li><a class="multi-clone"><i class="ss-icon">&#xEC00;</i> <?= $lang->clone; ?></a></li><? } ?>
 					  	<? if($acl['guides']['read']){ ?><li><a class="multi-export"><i class="ss-icon">&#xEB01;</i> <?= $lang->export; ?></a></li><? } ?>
-						<? if($acl['guides']['create']){ ?><li><a class="multi-find"><i class="ss-icon">&#xE0D0;</i> <?= $lang->afindr; ?></a></li><? } ?>
+						<? if($acl['guides']['create']){ ?><li><a class="multi-find"><i class="ss-icon">&#xE010;</i> <?= $lang->afindr; ?></a></li><? } ?>
 						<? if($acl['guides']['create']){ ?><li><a class="multi-delete"><i class="ss-icon">&#xE0D0;</i> <?= $lang->delete; ?></a></li><? } ?>
 					</ul>
 					<? if($acl['guides']['create']){ ?>
