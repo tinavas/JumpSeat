@@ -142,6 +142,30 @@ class Guides extends REST_Controller
     	$this->response($new, $response_code);
     }
 
+	/**
+	 *  POST find replace
+	 */
+	function replace_put()
+	{
+		$id = $this->request_data['id'];
+        $find = $this->request_data['find'];
+        $replace = $this->request_data['replace'];
+        $ns = $this->request_data['namespace'];
+        $prev = isset($this->request_data['preview']) && $this->request_data['preview'] == true;
+        $response = "";
+
+        if(stripos($id, ',') == false) {
+            $response = $this->guide_model->replace_prop($id, $find, $replace, $ns, $prev);
+        }else{
+            $ids = explode(',', $id);
+
+            foreach($ids as $id){
+                $response = $this->guide_model->replace_prop($id, $find, $replace, $ns, $prev);
+            }
+        }
+		$this->response($response, 201);
+	}
+
     /**
      *  POST guide service call
      */

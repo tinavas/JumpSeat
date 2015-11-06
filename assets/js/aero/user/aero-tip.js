@@ -525,7 +525,6 @@ Aero.tip = {
 			//Apply branch options
 			if(step.branch){
 				$tip = this.renderBranch($tip, step.branch, step.branchstep, step['return']);
-                step.noNext = true;
 			}
 
             //Build Navigation
@@ -813,13 +812,13 @@ Aero.tip = {
         var tpl = body + "<div class='aero-branch'></div>";
 
         setTimeout(function(){
-            for(i in guideid) {
+            for(i in guideid) { if(guideid[i]){
                 Aero.guide.get(guideid[i], function(r) {
                     if( $q('.aero-branch').find('#b-' + r.id).length == 0)
                         $q('.aero-branch').append("<a id='b-"+r.id+"' data-returnid='" + Aero.tip._guide.id + "' data-returnto='" + returnStep + "' data-guideid='" + r.id + "' class='aero-start'>" + r.title + "</a>");
                     $q(window).trigger('resize');
                 });
-            }
+            }}
         }, 250);
 
         //tpl += "<a class='aero-continue'>Continue with this guide</a></div>";

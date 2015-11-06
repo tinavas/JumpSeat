@@ -451,6 +451,13 @@ button.disabled.secondary, button[disabled].secondary, .button.disabled.secondar
 	background: rgb(248, 69, 69);
 }
 
+[class^="aero-box-"] {
+	padding:10px;
+	margin-bottom:1em;
+}
+.aero-box-warning { background:#fad46b; }
+
+
 /**
 *  Menu with import | .float-menu
 */

@@ -1,0 +1,33 @@
+<form id="aero-replace-form" data-ids="<%=ids %>">
+    <div class="aero-box-warning"><%= ids.length %> <%= AeroStep.lang.selected %></div>
+
+    <label><%= AeroStep.lang.afindp %></label>
+    <select name="namespace" class="aero-required">
+        <option value="">- Select a property -</option>
+        <option value="title">Guide: Title</option>
+        <option value="desc">Guide: Description</option>
+        <option value="step.title">Step: Title</option>
+        <option value="step.body">Step: Content</option>
+    </select>
+
+    <label><%= AeroStep.lang.afindc %></label>
+    <input name="find" type="text" class="aero-required" value="">
+
+    <label><%= AeroStep.lang.afindrw %></label>
+    <input name="replace" type="text" class="aero-required" value="">
+
+    <div>
+        <label><%= AeroStep.lang.case %></label>
+        <div class="check row">
+            <div class="large-12">
+                <label class="left"><%= AeroStep.lang.no %></label>
+                <fieldset class="left tiny switch round">
+                    <input name="case" id="case" type="checkbox">
+                    <label for="case"></label>
+                </fieldset>
+                <label class="left"><%= AeroStep.lang.yes %></label>
+            </div>
+        </div>
+    </div>
+    <!--<a href="#" class="aero-btn-fpreview secondary small button"><%= AeroStep.lang.afindp %></a>-->
+</form>

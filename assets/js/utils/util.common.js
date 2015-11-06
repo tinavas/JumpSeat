@@ -108,7 +108,8 @@ Utils.menu = function(menu, settings){
 			onDelete : function(r){},
 			onExport : function(r){},
 			onImport : function(r){},
-			onClone : function(r){}
+			onClone : function(r){},
+			onFind: function(r){}
 		};
 
 	//Extend defaults
@@ -180,6 +181,12 @@ Utils.menu = function(menu, settings){
 		//Clone
 		m.el.off('click.cl' + m.ns).on('click.cl' + m.ns, '.multi-clone', function(){
 			m.events.onClone(getFlagged());
+		});
+
+		//Find
+		m.el.off('click.e' + m.ns).on('click.e' + m.ns, '.multi-find', function(){
+			m.events.onFind(getFlagged());
+			disable();
 		});
 
 		//Anything that gets to the document will hide the dropdown
