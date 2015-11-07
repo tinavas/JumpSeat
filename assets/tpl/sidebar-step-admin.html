@@ -120,7 +120,10 @@
 				<label><%= AeroStep.lang.sbar %></label>
 				<div class="aero-radio"><input type="checkbox" value="1" name="aero_sidebar" <%= model.sidebar ? "checked" : "" %> /></div>
 
-                <label><%= AeroStep.lang.restrictd %></label>
+				<label><%= AeroStep.lang.ctip %></label>
+				<div class="aero-radio"><input type="checkbox" value="1" name="aero_contextual" <%= model.contextual ? "checked" : "" %> /></div>
+
+				<label><%= AeroStep.lang.restrictd %></label>
                 <div class="aero-radio"><input type="checkbox" value="1" name="aero_isRestrict" <%= model.isRestrict ? "checked" : "" %> /></div>
 
                 <div class="aero-color-wrapper" style="<%= model.isRestrict ? '' : 'display:none' %>">

@@ -52,9 +52,7 @@ Guide.model = {
             data.case = (data.case) ? true : false;
             data.preview = preview ? true : false;
 
-        Guide.api.replaceProp(ids, data, function(r){
-            console.log(r);
-        });
+        Guide.api.replaceProp(ids, data, function(r){});
     }
 };
 
@@ -134,6 +132,7 @@ Guide.api = {
         //Call
         Aero.send(Guide.model.url + "/replace", data, function(r){
             if(callback) callback(r);
+            Guide.view.table.ajax.reload();
         }, "PUT");
     },
 

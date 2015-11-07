@@ -16,7 +16,7 @@ Aero.tip = {
 		labels: {
 			end: AeroStep.lang['finished'],
 			next: AeroStep.lang['next'],
-			prev: AeroStep.lang['prev'],
+			prev: AeroStep.lang['prev']
 		},
 		template: function(step){
 			var size = "",
@@ -25,7 +25,7 @@ Aero.tip = {
                 media = "";
 			var pos = step.position ? step.position : "top";
 			var now = parseInt(Aero.tip._current) + 1;
-			var total = Aero.tip._guide.step.length;
+			var total = (Aero.tip._guide) ? Aero.tip._guide.step.length : 0;
 			var pec = (now / total) * 100;
 
 			if(isNaN(step.size)){
@@ -36,6 +36,9 @@ Aero.tip = {
 
 			if(step.showTitle) title = '<div class="aero-tip-title">'+step.title+'</div>';
 			var progress = step.multi ? "" : "<div class='aero-tip-nav clearfix'><div class='aero-progress'><span>" + now +" of "+total+"</span><span class='aero-needle'><span style='width:"+pec+"%'></span></span></div></div>";
+
+			//Clear progress on contextual tips
+			if(!Aero.tip._guide) progress = "";
 
 			//Does it have a Quiz?
 			if(step.answers && step.answers.length > 0){

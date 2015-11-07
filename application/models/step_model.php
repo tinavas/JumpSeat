@@ -59,6 +59,25 @@ class Step_Model extends CI_Model
 		}
 	}
 
+    /**
+     * Set Guide Metadata for Contextual Tips
+     * @param $guide
+     * @param $index
+     */
+    public function set_contextual(&$guide, $index, $contextual){
+
+        //Set
+        if(!isset($guide['contextual'])) $guide['contextual'] = array();
+
+        //Remove current
+        if(($key = array_search($index, $guide['contextual'])) !== false) unset($guide['contextual'][$key]);
+
+        //Add new
+        if($contextual) array_push($guide['contextual'], $index);
+
+        return $guide;
+    }
+
 	/**
 	 * Update a step with new data
 	 * @param integer $index step index
@@ -75,6 +94,8 @@ class Step_Model extends CI_Model
         // @todo allow multiple restrict
         $guide['restrict'] = array();
         if(isset($data['isRestrict']) && $data['isRestrict']) $guide['restrict']['s' . $index] = $data['restrictColor'];
+
+        $guide = $this->set_contextual($guide, $index, isset($data['contextual']));
 
 		if($guide){
 			$guide["step"][$index] = $data;

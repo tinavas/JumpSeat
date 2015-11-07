@@ -90,7 +90,8 @@ Aero.view.guide = {
 		var self = this;
 
 		//Cleanup stuff
-        $q('.aero-restrict').remove();
+        $q('.aero-restrict, .aero-contextual').remove();
+
 		if(!search) self.clearSearch();
 
 		Aero.tpl.get("sidebar-guides.html", function(r){
@@ -117,6 +118,72 @@ Aero.view.guide = {
             }, true);
 		});
 	},
+
+    /**
+     * Render tooltip for context item
+     * @param guideid
+     * @param step
+     */
+    renderContextualTip : function(guideid, step){
+
+        function renderTip (step, index){
+            var $tpl = $q(Aero.tip.options.template(step));
+            var loc = guideid + '-' + index;
+
+            $tpl.attr('id', 'atip-' + loc);
+            $tpl.addClass('aero-action-tip');
+            $q('body').append($tpl);
+
+            Aero.tip.setPosition($q('#aaction-' + loc), $q('#atip-' + loc), step.position);
+            $tpl.show();
+        }
+
+        Aero.guide.get(guideid, function(r){
+            renderTip(r.step[step], step);
+        });
+    },
+    /**
+     * @function contextual tooltips
+     * @param guide with tips
+     */
+    renderContextualAction : function(guide){
+
+        var _this = this;
+
+        if(!guide.contextual || guide.contextual.length == 0) return;
+
+        function renderBox(step, loc){
+
+            var $el, $box;
+                $el = $q(loc);
+
+            if($el.length > 0) {
+
+                var off = $el.offset();
+
+                //Setup Box
+                $box = $q('<a />')
+                    .attr('id', 'aaction-' + guide.id + '-' + step)
+                    .addClass('aero-contextual')
+                    .css({
+                        top: off.top + ($el.outerHeight() / 2) - 8,
+                        left: off.left + ($el.outerWidth())
+                    })
+                    .data('loc', loc)
+                    .data('guideid', guide.id)
+                    .data('step', parseInt(step));
+
+                $q('body').append($box);
+            }
+        }
+
+        for(var j in guide.contextual) {
+            if (guide.step.length > 0) {
+                var index = parseInt(guide.contextual[j]);
+                renderBox(index, guide.step[index].loc);
+            }
+        }
+    },
 
     /**
      *  @function restrict a guide
@@ -268,6 +335,22 @@ Aero.view.guide = {
             });
         });
 
+        //Contextual Start
+        $q('body').off('mouseenter.actip').on('mouseenter.actip', '.aero-contextual', function(){
+            var _this = $q(this);
+            var guideid = _this.data('guideid');
+            var step = _this.data('step');
+
+            $q('.aero-action-tip').remove();
+            setTimeout(function() {
+                self.renderContextualTip(guideid, step);
+            }, 250);
+        });
+        //Contextual End
+        $q('body').off('mouseleave.actip').on('mouseleave.actip', '.aero-contextual', function(){
+            $q('.aero-action-tip').remove();
+        });
+
         //Auto start options
         $q('body').on('click', 'input[name="aero_auto"]', function(){
             $q('.aero-auto-page').hide();
@@ -340,6 +423,9 @@ Aero.guide = {
 
         //Check restrict
         Aero.view.guide.renderRestrict(guide);
+
+		//Check contextual tips
+		Aero.view.guide.renderContextualAction(guide);
 
         if(!guide.auto) return;
 

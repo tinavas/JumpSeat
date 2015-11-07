@@ -82,6 +82,16 @@ li.aero-helper-dropable {
 	 padding:25px!important;
 }
 
+.aero-contextual {
+    position:absolute;
+	cursor: pointer;
+	background-image: url(https://aero.local/assets/images/question.png);
+	height: 16px;
+	width: 16px;
+	display: block;
+    z-index:99;
+    margin-left: -20px;
+}
 .aero-helper {
 	background: #FCE087;
 	margin: 15px;

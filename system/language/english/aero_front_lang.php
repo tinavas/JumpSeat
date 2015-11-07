@@ -92,6 +92,7 @@ $lang['sizec']    	= "Custom size (pixels)";
 $lang['stitle']    	= "Show title in tip?";
 $lang['sprev']    	= "Show with previous step?";
 $lang['sbar']    	= "Close sidebar?";
+$lang['ctip']    	= "Contextual tooltip?";
 $lang['nave']    	= "Edit Navigation";
 $lang['navd']    	= "Whether you're displaying a simple 'next' button or enforcing a particular user interaction, you decide how users progress from step-to-step.";
 $lang['move']    	= "Move when";

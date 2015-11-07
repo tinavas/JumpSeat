@@ -165,8 +165,6 @@ require([ 'api/users', 'lib/charts', 'utils/dropdown' ], function() {
 			var _this = this;
 
 			Aero.send(Analytics.model.url + '/user_stats', { user : username }, function(r){
-
-                console.log(r);
                 callback(_this.etl2(r));
 			}, "GET");
 		},
