@@ -215,6 +215,25 @@ Aero.confirm = function(options){
 };
 
 /**
+ * Poistioning Helpers
+ * @type {{isFixed: Function}}
+ */
+Aero.pos = {
+    isFixed : function(element) {
+		var $element = $q(element);
+		var $checkElements = $element.add($element.parents());
+		var isFixed = false;
+
+        $checkElements.each(function(){
+			if ($q(this).css("position") === "fixed") {
+				isFixed = true;
+				return false;
+			}
+		});
+		return isFixed;
+	}
+}
+/**
  * Template manager
  */
 Aero.tpl = {

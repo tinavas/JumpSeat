@@ -236,14 +236,16 @@ Aero.view.guide = {
 
         var $el = $q($box.data('loc'));
 
+        var pos = Aero.pos.isFixed($el) ? 'fixed' : 'absolute';
+
         //Setup Box
         $box.css({
             'width' : $el.outerWidth(),
             'height' : $el.outerHeight(),
             'top' : $el.offset().top,
             'left' : $el.offset().left,
-            'position' : 'absolute',
-            'z-index' : 99
+            'position' : pos,
+            'z-index' : 99999999
         });
     },
 

@@ -18,6 +18,7 @@ Aero.tip = {
 			next: AeroStep.lang['next'],
 			prev: AeroStep.lang['prev']
 		},
+
 		template: function(step){
 			var size = "",
 				title = "",
@@ -62,6 +63,7 @@ Aero.tip = {
     /**
      * Create Spotlight Effect
      * @param step
+     * @todo complete spotlight feature
      */
     spotlight : function($tip, step){
         return;
@@ -138,7 +140,6 @@ Aero.tip = {
 		this._current = i;
 		if(!skipStore) aeroStorage.setItem('aero:session:current', i, function(){}, true);
 	},
-
 
 	/**
 	 *  @function Redirect to correct page if needed
