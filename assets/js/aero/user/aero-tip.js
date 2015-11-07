@@ -962,6 +962,8 @@ Aero.tip = {
                 switch(n) {
                     case "next":
                         $q('body').off('click.aNe').on('click.aNe', '.aero-btn-next', function(){
+                            if(!self.validate()) return;
+
                             self.setStep(nav[n]);
                             self.jumpTo(nav[n]);
                         });
@@ -969,6 +971,8 @@ Aero.tip = {
 
 					case "click":
                         $el.off('click.aeronav').on('click.aeronav', $el, function(){
+                            if(!self.validate()) return;
+
                             if(last){
                                 if(!AeroStep.admin) self.stop();
                                 return;
@@ -980,6 +984,8 @@ Aero.tip = {
 
                     case "mousedown":
                         $el.off('mousedown.aeronav').on('mousedown.aeronav', $el, function(){
+                            if(!self.validate()) return;
+
                             if(last){
                                 if(!AeroStep.admin) self.stop();
                                 return;
@@ -991,6 +997,8 @@ Aero.tip = {
 
                     case "hover":
                         $el.off('mouseenter.aeronav').on('mouseenter.aeronav', $el, function(){
+                            if(!self.validate()) return;
+
                             setTimeout(function(){
                                 self.jumpTo(nav[n]);
                             },500);
@@ -1000,6 +1008,8 @@ Aero.tip = {
                     case "blur":
                         $el.focus();
                         $el.off('keydown.aeronav').on('keydown.aeronav', $el, function(e){
+                            if(!self.validate()) return;
+
                             var code = e.keyCode || e.which;
                             if(code == 13 || code == 9){
                                 self.jumpTo(nav[n]);
