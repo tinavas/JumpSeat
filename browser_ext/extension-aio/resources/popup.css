@@ -28,6 +28,7 @@ body, html { padding:0; margin:0; }
 }
 
 button, button:visited, button:active {
+    cursor:pointer;
     width:100%;
     border:0;
     outline:none;
@@ -38,7 +39,6 @@ button, button:visited, button:active {
     color: #fff;
     transition: all .25s ease-in-out;
     -moz-transition: all .25s ease-in-out;
-    font-weight: 900;
     -webkit-transition: all .25s;
     font-family: Sans-serif;
     font-weight: 400;
@@ -59,3 +59,10 @@ label {
     color: #61747B;
 }
 
+#login {
+    background: #A5A5A5;
+    margin-top: 5px;
+}
+#login:hover {
+    background:#B7B6B6;
+}
