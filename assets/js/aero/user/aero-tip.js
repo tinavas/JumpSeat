@@ -638,7 +638,7 @@ Aero.tip = {
 		var skipNext = false;
 
 		//Only show next on next nav
-		if(!step.nav.next) skipNext = true;
+		if(!step.nav.next && !step.nav.blur) skipNext = true;
 
 		if(!step.noNav){
 			if(step.next == -1) nav += "<a class='aero-btn-end'>"+this.options.labels.end+"</a>";
