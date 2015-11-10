@@ -21,7 +21,7 @@ appAPI.ready(function() {
         alert('This extension is not supported on your browser');
     }
 
-    appAPI.contextMenu.add("key1", "Start Element Picker", function (data) {
+    appAPI.contextMenu.add("key1", "Add Step (only for active guides)", function (data) {
         appAPI.message.toActiveTab({type:'dataToSend', data: {}});
     }, ["all"]);
 });
