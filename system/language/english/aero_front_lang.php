@@ -10,16 +10,22 @@ $lang['found']		= "result(s) found.";
 
 //Tips
 $lang['finished']   = "Finish";
-$lang['gfinished']   = "Guide Complete";
+$lang['gfinished']  = "Guide Complete";
 $lang['next']       = "Next &raquo;";
 $lang['prev']       = "&laquo; Prev";
 $lang['tdone']      = "Done";
 $lang['notfound']   = "Page not found";
-$lang['gfinish']  = "Guide Finished!";
+$lang['gfinish']    = "Guide Finished!";
 $lang['congrats']   = "Congratulations you've completed: ";
 
 //Errors
 $lang['urlloop']    = "We are having trouble finding a step URL. To stop this looping, the guide will now end:";
+
+//Page not found
+$lang['oops']        = "Oops. You are on the wrong page.";
+$lang['oopsdesc']    = "It seems you have landed on the wrong page. Please choose how you would like to proceed. You can move back to the last step, or proceed to the correct page.";
+$lang['oopsm']      = "Move back";
+$lang['oopst']      = "Take me there";
 
 /**
  *  Admin

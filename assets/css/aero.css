@@ -476,6 +476,7 @@ li.aero-helper-dropable {
 	box-sizing: content-box;
 }
 .aero-tip-body { font-size:15px; line-height: 1.4em; color:#fff; }
+.aero-tip-body p { margin-bottom:1em;}
 
 .aero-tip-title { font-size:18px; margin-bottom:15px; font-weight:400;}
 .aero-tip .aero-tip-arrow { position:absolute; }
@@ -915,6 +916,8 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 	outline:none;
 	line-height: 30px;
 	-webkit-appearance: menu;
+    min-width: auto;
+    max-width: auto;
 }
 .aero-section textarea {
     line-height: 20px!important;

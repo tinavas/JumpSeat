@@ -8,4 +8,13 @@ appAPI.ready(function($) {
         callback: function() {
         }
     });
+
+    appAPI.message.addListener(function(msg) {
+        if (msg.type === 'dataToSend') {
+            appAPI.dom.addInlineJS({
+                js: "if(Aero.tip._guide) Aero.view.step.admin.initPicker();",
+                additionalAttributes: {charset: "UTF-8"}
+            });
+        }
+    });
 });

@@ -48,15 +48,16 @@ if(!AeroStep){
         */
         removeItem : function(key, cross){
 
-			var session = ['audit', 'fake', 'forward', 'forwardUrl', 'cds', 'current', 'index'];
+			var session = ['audit', 'fake', 'forward', 'forwardUrl', 'cds', 'current', 'index', '404', 'end'];
 
             if(key == "all"){
                 // Clear All
                 if(this.override){
                     xdLocalStorage.clear(function (data) { /* callback */ });
                 }
+
 				for(var i in session){
-					localStorage.removeItem("aero:session:" + key);
+					localStorage.removeItem("aero:session:" + session[i]);
 				}
             }else {
                 if(cross && this.override){
@@ -172,7 +173,7 @@ if(!AeroStep){
                     ,"aero-admin-role" : "assets/js/aero/admin/aero-role"
                     ,"aero-admin-picker" : "assets/js/aero/admin/aero-picker"
                     ,"aero-admin-quiz" : "assets/js/aero/admin/aero-quiz"
-                    ,"aero-editor" : "assets/js/third_party/editor/aero-editor"
+                    ,"aero-editor" : "assets/js/third_party/editor2/aero-editor"
 				<? } ?>
 				<? if($debug){ ?>,"aero-test" : "assets/js/_test/services"<? } ?>
 			},
@@ -210,7 +211,7 @@ if(!AeroStep){
 			],
 			"css": [
 				"assets/css/aero.css",
-                <? if($admin){ ?>"assets/js/third_party/editor/ui/trumbowyg.min.css",<? } ?>
+                <? if($admin){ ?>"assets/js/third_party/editor2/ui/trumbowyg.min.css",<? } ?>
 				"assets/css/font-awesome.min.css"
 			]
 		},

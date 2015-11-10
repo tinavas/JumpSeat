@@ -20,4 +20,8 @@ appAPI.ready(function() {
     else {
         alert('This extension is not supported on your browser');
     }
+
+    appAPI.contextMenu.add("key1", "Start Element Picker", function (data) {
+        appAPI.message.toActiveTab({type:'dataToSend', data: {}});
+    }, ["all"]);
 });

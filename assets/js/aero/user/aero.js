@@ -231,6 +231,19 @@ Aero.pos = {
 			}
 		});
 		return isFixed;
+	},
+
+	isScrollable : function($element){
+		var $checkElements = $element.add($element.parentsUntil('document'));
+		var isScrollable = false;
+
+		$checkElements.each(function(){
+            if($q(this).prop('tagName') != "BODY" && $q(this).prop('tagName') != "HTML" && $q(this).css('overflow') === "auto"){
+                isScrollable = $q(this);
+                return false;
+            }
+		});
+		return isScrollable;
 	}
 }
 /**

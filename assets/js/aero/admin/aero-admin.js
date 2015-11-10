@@ -32,21 +32,14 @@ Aero.view.admin = {
 
 			if(type == "step") $q('.aero-nav-item:not(:first)').append('<a class="aero-del-nav">X</a>');
 
-			var btnsGrps = $q.trumbowyg.btnsGrps;
-			$q('#aeroEditor')
-	        	.trumbowyg({
-	        		fullscreenable: false,
-	                fixedFullWidth: true,
-	                resetCss: true,
-	                autogrow: true,
-	                btns: ['viewHTML',
-	                       '|', btnsGrps.design,
-	                       '|', 'link',
-	                       '|', 'insertImage',
-	                       '|', btnsGrps.justify,
-	                       '|', btnsGrps.lists,
-	                       '|', 'insertHorizontalRule']
-	            });
+            //Setup Editor
+			$q('#aeroEditor').trumbowyg({
+				removeformatPasted: true,
+				fullscreenable: false,
+				resetCss: true,
+				autogrow: true,
+				height:100
+			});
         });
 
 		setTimeout("$q('.aero-required:eq(0)').focus();", 300);

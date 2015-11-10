@@ -199,7 +199,27 @@ Aero.tip = {
 					}
 				});
 			}else{
-				window.location = url;
+                //First step, just take me there
+                if(Aero.navigating || Aero.tip._current == 0){
+                    Aero.navigating = false;
+                    window.location = url;
+
+                    return true;
+                }
+
+                //Not the first step, choose where you go
+				Aero.confirm({
+					ok : AeroStep.lang['oopst'],
+                    cancel : AeroStep.lang['oopsm'],
+					title : AeroStep.lang['oops'],
+					msg : AeroStep.lang['oopsdesc'],
+					onConfirm : function(){
+						window.location = url;
+					},
+                    onCancel : function(){
+                        Aero.tip.jumpTo(Aero.tip._current - 1);
+                    }
+				});
 			}
 			return true;
 		}
@@ -617,10 +637,8 @@ Aero.tip = {
 		var nav = "";
 		var skipNext = false;
 
-		//Don't display next for hover, click
-		for(var i in step.nav){
-			if(step.nav.click != undefined || step.nav.hover != undefined) skipNext = true;
-		}
+		//Only show next on next nav
+		if(!step.nav.next) skipNext = true;
 
 		if(!step.noNav){
 			if(step.next == -1) nav += "<a class='aero-btn-end'>"+this.options.labels.end+"</a>";
@@ -759,12 +777,23 @@ Aero.tip = {
 		$tip.show();
 		if (!$el.visible()) {
 
-			$q('body, html').stop().animate({
-			      scrollTop: $tip.offset().top - ($q(window).height() / 2) + ($tip.height())
-			 }, 750, function(){
-				 $q('.aero-tip').fadeIn(200);
-			 });
-			$tip.hide();
+            var $scrollParent = Aero.pos.isScrollable($el);
+
+            //Check if $el is part of scrollable list
+            if($scrollParent){
+                $scrollParent.stop().animate({
+                    scrollTop: $scrollParent.scrollTop() + $el.position().top - $scrollParent.height()/2 + $el.height()/2
+                }, 1000, function () {
+                    $q('.aero-tip').fadeIn(200);
+                });
+            }else{
+                $q('body, html').stop().animate({
+                    scrollTop: $tip.offset().top - ($q(window).height() / 2) + ($tip.height())
+                }, 1000, function () {
+                    $q('.aero-tip').fadeIn(200);
+                });
+            }
+            $tip.hide();
 		}else{
 			$tip.hide();
 			$q('.aero-tip').fadeIn(200);
@@ -879,7 +908,8 @@ Aero.tip = {
 
 		$q('body')
 			.off('click.aPe').on('click.aPe', '.aero-btn-prev', function(){
-				self.prev();
+                Aero.navigating = true;
+                self.prev();
 			})
 			.off('click.aEd').on('click.aEd', '.aero-btn-end', function(){
 				self.stop();
@@ -917,7 +947,7 @@ Aero.tip = {
 
 		//Watch
 		$q(document).off("scroll.scw").on("scroll.scw" + Aero.tip._current, function(){ self.setPosition($el, $tip, position);  }, 250);
-		$q('div *').off("scroll.scd").on("scroll.scd" + Aero.tip._current, function(){ self.setPosition($el, $tip, position); }, 250);
+		$q('div *:not(".aero-steps")').off("scroll.scd").on("scroll.scd" + Aero.tip._current, function(){ self.setPosition($el, $tip, position); }, 250);
 
         //Draggable tips
         $q('.aero-tip').draggable({ handle: "div.aero-tip-draggable" });
@@ -965,6 +995,7 @@ Aero.tip = {
                         $q('body').off('click.aNe').on('click.aNe', '.aero-btn-next', function(){
                             if(!self.validate()) return;
 
+                            Aero.navigating = true;
                             self.setStep(nav[n]);
                             self.jumpTo(nav[n]);
                         });
@@ -978,6 +1009,7 @@ Aero.tip = {
                                 if(!AeroStep.admin) self.stop();
                                 return;
                             }
+                            Aero.navigating = true;
                             self.setStep(nav[n]);
                             self.jumpTo(nav[n]);
                         });
@@ -991,6 +1023,7 @@ Aero.tip = {
                                 if(!AeroStep.admin) self.stop();
                                 return;
                             }
+                            Aero.navigating = true;
                             self.setStep(nav[n]);
                             self.jumpTo(nav[n]);
                         });
