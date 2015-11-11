@@ -274,16 +274,16 @@ Aero.tip = {
 
             self._forward = true;
             self.setGuide(id, function() {
-                if(Aero.constants.USERNAME) Aero.audit.init();
+                Aero.audit.init(function(){
+                    self.setNav();
+                    self.setStep(s);
 
-                self.setNav();
-                self.setStep(s);
+                    //Remove restrictions
+                    $q('.aero-restrict').remove();
 
-                //Remove restrictions
-                $q('.aero-restrict').remove();
-
-                //Start the tips!
-                self.beforeShow(s, Aero.step.get(self._current));
+                    //Start the tips!
+                    self.beforeShow(s, Aero.step.get(self._current));
+                });
             }, force);
         }, true);
 	},

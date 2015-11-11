@@ -132,34 +132,31 @@ Aero.audit = {
 	/**
 	 * @function Initialize the audit
 	 */
-	init: function() {
+	init: function(callback) {
+
+        var isNew = true;
+
 		//Reset for non page load
 		Aero.audit.furthestStep = 0;
 		Aero.view.audit.timeTotal = 0;
 
-		// Check for username
-		if (!Aero.constants.USERNAME) {
-			return;
-		}
+        if(AeroStep.admin ||
+		    !Aero.constants.USERNAME || typeof Aero.tip._guide === 'undefined' || !Aero.tip._guide ||
+            aeroStorage.getItem('aero:session:audit')) isNew = false;
 
-		// Check to see if we have a session (guide running)
-		if (typeof Aero.tip._guide === 'undefined' || !Aero.tip._guide) {
-			return;
-		}
+        Aero.view.audit.setEvents();
 
-		Aero.view.audit.setEvents();
-
-		if (aeroStorage.getItem('aero:session:audit')) {
-			return;
-		}
-
-		this.create();
+        if(isNew) {
+            this.create(callback);
+        }else{
+            callback();
+        }
 	},
 
 	/**
 	 * @function Create new audit log
 	 */
-	create: function() {
+	create: function(callback) {
         if(AeroStep.admin) return;
 
 		// This function is called only from init for new sessions not to be called if
@@ -177,6 +174,7 @@ Aero.audit = {
             data.id = r;
 
             Aero.model.audit.update(data);
+            if(callback) callback();
         }, 'GET');
 	},
 
