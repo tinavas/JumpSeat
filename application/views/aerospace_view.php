@@ -138,7 +138,8 @@ if(!AeroStep){
                         for(var j in urls[i]){
                             if(urls[i][j]['regex']){
                                 var reg = new RegExp(urls[i][j]['regex'].replace(/\//g, '\/'), "i");
-                                url = url.replace(reg, (eval(urls[i][j]['value'])));
+								var val = (eval(urls[i][j]['value']));
+								if(val && val != "") url = url.replace(reg, val);
                             }
                         }
 					}
