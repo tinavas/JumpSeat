@@ -2,7 +2,7 @@
 	<label><%= AeroStep.lang.user %></label>
 	<select name="userid">
 		<% for(i in users){ %>
-			<option value="<%= users[i].id %>"><%= users[i].lastname %>, <%= users[i].firstname %></option>
+			<option value="<%= users[i].id %>"><%= users[i].email %> (<%= users[i].firstname %> <%= users[i].lastname %>)</option>
 		<% } %>
 	</select>
 </form>

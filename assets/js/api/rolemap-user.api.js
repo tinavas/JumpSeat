@@ -70,7 +70,7 @@ RoleUserMap.api = {
             return;
         }
 
-        Aero.send("api/users", { select : ['firstname', 'lastname' ]}, function(r){
+        Aero.send("api/users", { select : ['email', 'firstname', 'lastname' ]}, function(r){
             RoleUserMap.USERS = r;
             callback();
         }, "GET");

@@ -4,10 +4,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script type="text/javascript">
         function crossriderMain($) {
-            eval(appAPI.resources.get('popup.js'));
             appAPI.resources.includeCSS('popup.css');
 
-            document.getElementById('hostname').value = appAPI.db.get('hostname');
+            var hostname = appAPI.db.get('hostname');
+            if(hostname && hostname !== ""){
+                $('#hostname').val(hostname);
+                $('button').addClass('btn-half');
+                $('#login').show();
+            }
+
+            //On save
+            $('#login').on('click', function(){
+                var win = window.open($('#hostname').val(), '_blank');
+                if(win){
+                    //Browser has allowed it to be opened
+                    win.focus();
+                }else{
+                    //Broswer has blocked it
+                    alert('Please allow popups for this site');
+                }
+            });
+
+            //On save
+            $('#save').on('click', function(){
+                appAPI.db.set('hostname', $('#hostname').val());
+                appAPI.browserAction.closePopup();
+            });
+
+            //On enter key
+            $('#hostname').on('keyup', function(e){
+                if(e.which == 13) {
+                    appAPI.db.set('hostname', $('#hostname').val());
+                    appAPI.browserAction.closePopup();
+                    return false;
+                }
+            });
         }
     </script>
 </head>

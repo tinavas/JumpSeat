@@ -24,7 +24,7 @@ $lang['urlloop']    = "We are having trouble finding a step URL. To stop this lo
 //Page not found
 $lang['oops']        = "Oops. You are on the wrong page.";
 $lang['oopsdesc']    = "It seems you have landed on the wrong page. Please choose how you would like to proceed. You can move back to the last step, or proceed to the correct page.";
-$lang['oopsm']      = "Move back";
+$lang['oopsm']      = "Go back";
 $lang['oopst']      = "Take me there";
 
 /**
