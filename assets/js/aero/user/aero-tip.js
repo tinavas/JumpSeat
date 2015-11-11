@@ -136,9 +136,11 @@ Aero.tip = {
 	 *  @function Set current step once shown
 	 *  @param {Number} i index to set
 	 */
-	setStep : function(i, skipStore) {
+	setStep : function(i, skipStore, callback) {
 		this._current = i;
-		if(!skipStore) aeroStorage.setItem('aero:session:current', i, function(){}, true);
+		if(!skipStore) aeroStorage.setItem('aero:session:current', i, function(){
+            if(callback) callback();
+        }, true);
 	},
 
 	/**
@@ -217,7 +219,10 @@ Aero.tip = {
 						window.location = url;
 					},
                     onCancel : function(){
-                        Aero.tip.jumpTo(Aero.tip._current - 1);
+                        var i = Aero.tip._current - 1;
+                        Aero.tip.setStep(i, false, function(){
+                            Aero.tip.jumpTo(i);
+                        });
                     }
 				});
 			}
@@ -895,7 +900,10 @@ Aero.tip = {
 			},
 			onCancel : function(){
                 if(goBack && AeroStep.admin){
-                    Aero.tip.jumpTo( parseInt($q('#aero-goto').val()) );
+                    var i = parseInt($q('#aero-goto').val());
+                    Aero.tip.setStep(i, false, function(){
+                        Aero.tip.jumpTo(i);
+                    });
                 }
                 else if(goBack){
                     Aero.tip.prev();
