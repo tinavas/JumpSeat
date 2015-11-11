@@ -618,6 +618,9 @@ Aero.tip = {
 	hide : function(i){
 		var step = Aero.step.get(i);
 
+        //Ignore missing steps
+        if(!$q('.aero-tip:visible').length > 0) return;
+
 		$q('.aero-active, .aero-showElement').removeClass('aero-active aero-showElement aero-relativePosition');
 		$q('.aero-tip, .aero-remove').remove();
 
@@ -892,7 +895,7 @@ Aero.tip = {
 			},
 			onCancel : function(){
                 if(goBack && AeroStep.admin){
-                    Aero.tip.jumpTo(  $q('#aero-goto').val() );
+                    Aero.tip.jumpTo( parseInt($q('#aero-goto').val()) );
                 }
                 else if(goBack){
                     Aero.tip.prev();
