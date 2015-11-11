@@ -1097,6 +1097,14 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 /**
 *  Modal window
 */
+.aero-modal-close {
+	position: absolute;
+	top: 2px;
+	right: 6px;
+	font-weight: 900;
+	color: #8C8585;
+	cursor: pointer;
+}
 .aero-backdrop {
 	background: none repeat scroll 0 0 #333;
     height: 100%;

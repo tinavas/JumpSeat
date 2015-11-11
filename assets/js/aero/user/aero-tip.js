@@ -198,7 +198,10 @@ Aero.tip = {
 					msg : AeroStep.lang['urlloop'] + "</br></br><strong>" + url + "</strong>",
 					onConfirm : function(){
 						Aero.tip.stop();
-					}
+					},
+                    onClose : function(){
+                        Aero.view.step.setState(aeroStorage.getItem('aero:session:fake'), 'forward');
+                    }
 				});
 			}else{
                 //First step, just take me there
@@ -223,6 +226,9 @@ Aero.tip = {
                         Aero.tip.setStep(i, false, function(){
                             Aero.tip.jumpTo(i);
                         });
+                    },
+                    onClose : function(){
+                        Aero.view.step.setState(aeroStorage.getItem('aero:session:fake'), 'forward');
                     }
 				});
 			}
@@ -908,7 +914,10 @@ Aero.tip = {
                 else if(goBack){
                     Aero.tip.prev();
                 }
-			}
+			},
+            onClose : function(){
+                Aero.view.step.setState(aeroStorage.getItem('aero:session:fake'), 'forward');
+            }
 		});
 	},
 

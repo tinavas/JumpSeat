@@ -111,6 +111,7 @@ Aero.confirm = function(options){
 		title : "",
 		msg : "",
 		confirm : false,
+        onClose : function(){},
 		onConfirm : function(){},
 		onCancel : function(){},
 		onValidate : function(){ return true; }
@@ -185,6 +186,12 @@ Aero.confirm = function(options){
 				hide();
 			}
 		});
+
+        //Close
+        $q('body').off("click.amwc").on("click.amwc", ".aero-modal-close", function(e){
+            defaults.onClose();
+            hide();
+        });
 
 		//Buttons
 		$q('body')
