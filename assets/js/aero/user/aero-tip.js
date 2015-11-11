@@ -577,6 +577,8 @@ Aero.tip = {
             }
 			else{
 				if(!step.multi){
+                    clearTimeout(Aero.timeFindStep);
+
 					//Default skip
 					Aero.log('Skipping step: ' + i + ' with loc:' + step.loc , 'error');
 					Aero.view.step.setState(i, "missing");
@@ -983,6 +985,7 @@ Aero.tip = {
 
         //Default for next
         $q('body').off('click.aNe').on('click.aNe', '.aero-btn-next', function(){
+            Aero.navigating = true;
             self.next();
         });
 
