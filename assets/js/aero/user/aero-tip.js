@@ -405,7 +405,10 @@ Aero.tip = {
 		var self = this;
 		if(Aero.hashChange) return;
 
-        if($q('.aero-modal:visible').length > 0) return;
+        if($q('.aero-modal:visible').length > 0) {
+            clearTimeout(Aero.timeFindStep);
+            return;
+        }
 
 		if(self.tries < time * 2){
 			Aero.timeFindStep = setTimeout(function(){
