@@ -214,6 +214,21 @@ Aero.confirm = function(options){
 	show();
 };
 
+$q.fn.scrollParent = function() {
+    var overflowRegex = /(auto|scroll)/,
+        position = this.css( "position" ),
+        excludeStaticParent = position === "absolute",
+        scrollParent = this.parents().filter( function() {
+            var parent = $q( this );
+            if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
+                return false;
+            }
+            return (overflowRegex).test( parent.css( "overflow" ) + parent.css( "overflow-y" ) + parent.css( "overflow-x" ) );
+        }).eq( 0 );
+
+    return position === "fixed" || !scrollParent.length ? $q( this[ 0 ].ownerDocument || document ) : scrollParent;
+};
+
 /**
  * Poistioning Helpers
  * @type {{isFixed: Function}}
@@ -234,16 +249,12 @@ Aero.pos = {
 	},
 
 	isScrollable : function($element){
-		var $checkElements = $element.add($element.parentsUntil('document'));
-		var isScrollable = false;
+        var $parent = $element.scrollParent();
+		var tagName = $parent.prop('tagName');
 
-		$checkElements.each(function(){
-            if($q(this).prop('tagName') != "BODY" && $q(this).prop('tagName') != "HTML" && $q(this).css('overflow') === "auto"){
-                isScrollable = $q(this);
-                return false;
-            }
-		});
-		return isScrollable;
+        if(tagName != "HTML" && tagName != "BODY") return $parent;
+
+        return false;
 	}
 }
 /**
