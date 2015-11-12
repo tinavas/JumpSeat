@@ -35,7 +35,7 @@ Aero.picker = {
 
             $picker
                 .on('mousemove.aeroPicker', function(e) { self.latch(e); })
-                .on('mouseup.aeroPicker', function(e) { settings.callback(self.get(e)); });
+                .on('mousedown.aeroPicker', function(e) { settings.callback(self.get(e)); });
         }
     },
 

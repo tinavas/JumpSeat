@@ -287,7 +287,7 @@ Aero.view.guide = {
 		//Start a guide
 		$q('body').off('click.aeroStart').on('click.aeroStart', '.aero-guides ul li > a', function(){
 			var id = $q(this).parents('li:eq(0)').data('guideid');
-			aeroStorage.removeItem("aero:session:fake");
+			aeroStorage.removeItem("aero:session:pause");
 			Aero.tip.start(id);
 		});
 

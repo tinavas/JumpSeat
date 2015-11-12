@@ -15,7 +15,7 @@ function AeroMain() {
                     var bitsArr = bits.split("~");
 
                     if(bitsArr[1] != window.location.host){
-                        aeroStorage.setItem("aero:session:fake", bitsArr[0]);
+                        aeroStorage.setItem("aero:session:pause", bitsArr[0]);
                     }
                 }
                 Aero.guide.init();
