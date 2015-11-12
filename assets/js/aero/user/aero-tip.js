@@ -138,9 +138,13 @@ Aero.tip = {
 	 */
 	setStep : function(i, skipStore, callback) {
 		this._current = i;
-		if(!skipStore) aeroStorage.setItem('aero:session:current', i, function(){
-            if(callback) callback();
-        }, true);
+		if(!skipStore) {
+            aeroStorage.setItem('aero:session:current', i, function () {
+                if (callback) callback();
+            }, true);
+        }else{
+            if (callback) callback();
+        }
 	},
 
 	/**
@@ -984,7 +988,7 @@ Aero.tip = {
 
 		//Is last step?
 		aeroStorage.removeItem('aero:session:end');
-		if(Aero.tip._current == (Aero.tip._guide.step.length - 1)){
+		if(parseInt($q('.aero-tip:last').attr('id').replace('astep-', '')) == (Aero.tip._guide.step.length - 1)){
 			aeroStorage.setItem('aero:session:end', 1);
 			last = true;
 		}
