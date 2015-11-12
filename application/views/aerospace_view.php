@@ -48,7 +48,7 @@ if(!AeroStep){
         */
         removeItem : function(key, cross){
 
-			var session = ['audit', 'fake', 'forward', 'forwardUrl', 'cds', 'current', 'index', '404', 'end'];
+			var session = ['audit', 'pause', 'forward', 'forwardUrl', 'cds', 'current', 'index', '404', 'end'];
 
             if(key == "all"){
                 // Clear All

@@ -48,7 +48,7 @@ if(callback) callback(value);
 */
 removeItem : function(key, cross){
 
-var session = ['audit', 'fake', 'forward', 'forwardUrl', 'cds', 'current', 'index', '404', 'end'];
+var session = ['audit', 'pause', 'forward', 'forwardUrl', 'cds', 'current', 'index', '404', 'end'];
 
 if(key == "all"){
 // Clear All
@@ -138,7 +138,8 @@ for(var i in urls){
 for(var j in urls[i]){
 if(urls[i][j]['regex']){
 var reg = new RegExp(urls[i][j]['regex'].replace(/\//g, '\/'), "i");
-url = url.replace(reg, (eval(urls[i][j]['value'])));
+var val = (eval(urls[i][j]['value']));
+if(val && val != "") url = url.replace(reg, val);
 }
 }
 }
