@@ -477,6 +477,10 @@ li.aero-helper-dropable {
 }
 .aero-tip-body { font-size:15px; line-height: 1.4em; color:#fff; }
 .aero-tip-body p { margin-bottom:1em;}
+.aero-tip-body ol, .aero-tip-body ul { margin-left:20px;}
+.aero-tip-body ol li, .aero-tip-body ul li { padding-bottom:5px;}
+.aero-tip-body ol li { list-style: decimal; }
+.aero-tip-body ul li { list-style: circle; }
 
 .aero-tip-title { font-size:18px; margin-bottom:15px; font-weight:400;}
 .aero-tip .aero-tip-arrow { position:absolute; }

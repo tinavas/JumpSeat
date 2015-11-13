@@ -243,7 +243,7 @@ Aero.step = {
 
 		//Actions
 		step.id = Aero.tip._guide.id;
-		step.insertAt = Aero.tip._current;
+		step.insertAt = Aero.tip._current ? Aero.tip._current : 0;
 
 		Aero.send(Aero.model.step.url, step, function(r){
 
