@@ -203,7 +203,7 @@ Aero.view.step = {
         $q('#aero-tab').draggable({
             axis: "y",
             distance: 10,
-			containment: '#aeroStepbar',
+			containment: 'body',
             stop: function( event, ui ) {
                 aeroStorage.setItem('aero:session:tab', ui.offset.top, function(){}, true);
             }
