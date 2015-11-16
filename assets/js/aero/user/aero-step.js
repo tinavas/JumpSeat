@@ -109,20 +109,22 @@ Aero.view.step = {
 		var self = this;
 
 		Aero.tpl.get("sidebar-steps.html", function(r){
-
 			aeroStorage.getItem('aero:sidebar:open', function(s){
+				aeroStorage.getItem('aero:session:tab', function(tab){
+					//Remove duplicates
+					$q('#aeroStepbar').remove();
 
-				//Remove duplicates
-				$q('#aeroStepbar').remove();
+					var tpl = _q.template(r);
+					$q('body').append( tpl( { sidebar: s, g : guide }));
+					$q('#aeroGuidebar').remove();
 
-				var tpl = _q.template(r);
-				$q('body').append( tpl( { sidebar: s, g : guide }));
-				$q('#aeroGuidebar').remove();
+                    if(tab > $q('#aeroStepbar').outerHeight()) tab = $q('#aeroStepbar').outerHeight() - 100;
+                    if(tab < 0) tab = 0;
 
-				$q('#aero-tab').css("top", aeroStorage.getItem("aero:session:tab") + "px");
-				self.setEvents();
-				Aero.view.sidebar.setScrollable();
-
+					$q('#aero-tab').css("top", tab + "px");
+					self.setEvents();
+					Aero.view.sidebar.setScrollable();
+				}, true);
 			}, true);
 		});
 
@@ -201,6 +203,7 @@ Aero.view.step = {
         $q('#aero-tab').draggable({
             axis: "y",
             distance: 10,
+			containment: '#aeroStepbar',
             stop: function( event, ui ) {
                 aeroStorage.setItem('aero:session:tab', ui.offset.top, function(){}, true);
             }

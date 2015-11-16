@@ -104,6 +104,9 @@ Aero.view.guide = {
                     $q('body').append( tpl( { sidebar: s, guides: guides }));
                     $q('#aeroStepbar').remove();
 
+                    if(tab > $q('#aeroGuidebar').outerHeight()) tab = $q('#aeroGuidebar').outerHeight() - 100;
+                    if(tab < 0) tab = 0;
+
                     $q('#aero-tab').css("top", tab + "px");
                     self.setEvents();
                     Aero.view.sidebar.setEvents();
