@@ -5,16 +5,17 @@
 */
 .aero-app span {
 	font-weight:normal;
+	font-size: inherit;
 }
 
 ::-moz-selection { /* Code for Firefox */
     color: #000;
-    background: #CCC!important
+    background: #CCC!important;
 }
 
 ::selection {
     color: #000;
-    background: #CCC!important
+    background: #CCC!important;
 }
 
 [class^="aero"], [class^="aero"] a, [class^="aero"] p {

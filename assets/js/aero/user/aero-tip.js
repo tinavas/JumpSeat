@@ -154,6 +154,7 @@ Aero.tip = {
 	redirect : function(url, ignore, cds) {
 
 		//Trailing hash
+        var self = this;
 		var skipTrim = false;
 		var an = /#$/;
 		var sl = /\/$/;
@@ -209,7 +210,7 @@ Aero.tip = {
 				});
 			}else{
                 //First step, just take me there
-                if(Aero.navigating || Aero.tip._current == 0){
+                if(Aero.forceTakeme || Aero.navigating || Aero.tip._current == 0){
                     Aero.navigating = false;
                     window.location = url;
 
@@ -226,8 +227,12 @@ Aero.tip = {
 						window.location = url;
 					},
                     onCancel : function(){
+                        Aero.forceTakeme = true;
                         var i = Aero.tip._current - 1;
-                        Aero.tip.jumpTo(i);
+
+                        self.setStep(i, false, function() {
+                            Aero.tip.jumpTo(i);
+                        });
                     },
                     onClose : function(){
                         Aero.view.step.setState(aeroStorage.getItem('aero:session:pause'), 'forward');
@@ -451,19 +456,40 @@ Aero.tip = {
      * @param {integer} i Step index
      * @returns {void}
 	 */
-	observe : function(i){
+	observe : function(i, isFound, callback){
 		var self = this;
-		Aero.log("Observe", "info");
     	var step = Aero.step.get(i);
 
         clearInterval(self.ob);
 		self.ob = setInterval(function(){
+			Aero.log("Observing for item visible: " + isFound, "info");
 
-			Aero.log("Observing", "info");
+            //Found the step?
 			var found = self.findStep(step);
 
-			if(found) self.next();
-			if(found || i != self._current + 1) clearInterval(self.ob);
+            //If found and callback on waiting
+			if (isFound && found) {
+                Aero.log("Observe found item", "info");
+                callback();
+                clearInterval(self.ob);
+			}
+
+            //If found and callback on missing
+            if(!isFound && !found) {
+                //Wait for next step to be set
+                setTimeout(function(){
+                    //Don't do anything for steps in transition
+                    if(Aero.navigating) {
+                        Aero.navigating = false;
+                        clearInterval(self.ob);
+                        return;
+                    }
+
+                    Aero.log("Observe lost item", "info");
+                    callback();
+                    clearInterval(self.ob);
+                }, 500);
+			}
 		}, 500);
 	},
 
@@ -554,6 +580,12 @@ Aero.tip = {
             //Found element?
             if ($el && $el.is(':visible')) {
                 Aero.log('Found Step ' + i, 'success');
+
+                //Wait and see if it disappears
+                Aero.tip.isMoving = null;
+                self.observe(i, false, function(){
+                    self.findStepTimeout(0, i);
+                });
 
                 //Add input mask
                 if (step.mask && step.mask != "") $el.mask(step.mask);
@@ -1022,41 +1054,44 @@ Aero.tip = {
                 switch(n) {
                     case "next":
                         $q('body').off('click.aNe').on('click.aNe', '.aero-btn-next', function(){
+                            Aero.navigating = true;
                             if(!self.validate()) return;
 
-                            Aero.navigating = true;
                             self.jumpTo(nav[n]);
                         });
                         break;
 
 					case "click":
                         $el.off('click.aeronav').on('click.aeronav', $el, function(){
+                            Aero.navigating = true;
                             if(!self.validate()) return;
 
                             if(last){
                                 if(!AeroStep.admin) self.stop();
                                 return;
                             }
-                            Aero.navigating = true;
+
                             self.jumpTo(nav[n]);
                         });
                         break;
 
                     case "mousedown":
                         $el.off('mousedown.aeronav').on('mousedown.aeronav', $el, function(){
+                            Aero.navigating = true;
                             if(!self.validate()) return;
 
                             if(last){
                                 if(!AeroStep.admin) self.stop();
                                 return;
                             }
-                            Aero.navigating = true;
+
                             self.jumpTo(nav[n]);
                         });
                         break;
 
                     case "hover":
                         $el.off('mouseenter.aeronav').on('mouseenter.aeronav', $el, function(){
+                            Aero.navigating = true;
                             if(!self.validate()) return;
 
                             setTimeout(function(){
@@ -1068,6 +1103,7 @@ Aero.tip = {
                     case "blur":
                         $el.focus();
                         $el.off('keydown.aeronav').on('keydown.aeronav', $el, function(e){
+                            Aero.navigating = true;
                             if(!self.validate()) return;
 
                             var code = e.keyCode || e.which;
@@ -1079,12 +1115,16 @@ Aero.tip = {
 
                     case "unload":
                         $q(window).off('beforeunload.aeronav').on('beforeunload.aeronav', function(){
+                            Aero.navigating = true;
                             self.setStep(nav[n]);
                         });
                         break;
 
                     case "observe":
-                        self.observe(self._current + 1);
+                        self.observe(self._current + 1, true, function(){
+                            Aero.navigating = true;
+                            self.next();
+                        });
                         break;
                 }
             }
