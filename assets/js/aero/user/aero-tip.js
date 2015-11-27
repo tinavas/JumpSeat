@@ -392,6 +392,9 @@ Aero.tip = {
 
 		var $el = false;
 
+        //Default orphan to body
+		if(step.position == "orphan") step.loc = "body";
+
 		if(step.loc){
 			$el = step.isFrame ? $q(step.framePath).contents().find(step.loc) : $q(step.loc);
 
