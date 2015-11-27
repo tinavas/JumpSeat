@@ -838,33 +838,29 @@ Aero.tip = {
 	 */
 	scrollToElement : function($el){
 		var $tip = $q('.aero-tip:eq(0)');
+        var $scrollParent = Aero.pos.isScrollable($el);
+        var nudge = 0;
 
-		$tip.show();
-		if (!$el.visible()) {
-
-            var $scrollParent = Aero.pos.isScrollable($el);
+		if (!$el.visible(true, $scrollParent)) {
 
             //Check if $el is part of scrollable list
-            if($scrollParent){
-                $scrollParent.stop().animate({
-                    scrollTop: $scrollParent.scrollTop() + $el.position().top - $scrollParent.height()/2 + $el.height()/2
-                }, 1000, function () {
+            nudge = $scrollParent ? $scrollParent.scrollTop() - $scrollParent.offset().top : 0;
+            $scrollParent = $scrollParent ? $scrollParent : $q('body, html');
+            $tip.hide();
+
+            $scrollParent.stop().animate({
+                scrollTop: nudge + $el.offset().top - ($scrollParent.height()/2 + $el.height()/2)
+            }, 1000, function () {
+                setTimeout(function(){
                     $q('.aero-tip').fadeIn(200);
-                });
-            }else{
-                $q('body, html').stop().animate({
-                    scrollTop: $tip.offset().top - ($q(window).height() / 2) + ($tip.height())
-                }, 1000, function () {
-                    $q('.aero-tip').fadeIn(200);
-                });
-            }
+                },500);
+            });
+
             $tip.hide();
 		}else{
 			$tip.hide();
 			$q('.aero-tip').fadeIn(200);
 		}
-
-        $q('.aero-tip').fadeIn(200);
 	},
 
 	/**

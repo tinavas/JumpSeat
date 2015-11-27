@@ -456,9 +456,9 @@ $q.fn.isFormValid = function()
  * @param partial
  * @returns {boolean}
  */
-$q.fn.visible = function(partial){
+$q.fn.visible = function(partial, contain){
 
-	var $w = $q(window);
+	var $w = contain ? contain : $q(window);
     var $t        = this.length > 1 ? this.eq(0) : this,
         t         = $t.get(0),
         vpWidth   = $w.width(),
