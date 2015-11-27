@@ -628,8 +628,11 @@ Aero.tip = {
                 //}
                 self.setPosition($el, $tip, step.position);
                 self.setEvents($el, step.nav, $tip, step.position);
-                self.scrollToElement($el);
 
+                //Don't scroll orphans
+                if(step.position != "orphan") {
+                    self.scrollToElement($el);
+                }
             } else {
                 //Missing steps
                 if (step.tries && step.tries > 0) {
