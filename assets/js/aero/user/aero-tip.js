@@ -632,6 +632,8 @@ Aero.tip = {
                 //Don't scroll orphans
                 if(step.position != "orphan") {
                     self.scrollToElement($el);
+                }else{
+                    $q('.aero-tip').fadeIn(200);
                 }
             } else {
                 //Missing steps
