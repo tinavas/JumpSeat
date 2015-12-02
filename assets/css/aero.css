@@ -483,7 +483,17 @@ li.aero-helper-dropable {
 .aero-tip-body ol li { list-style: decimal; }
 .aero-tip-body ul li { list-style: circle; }
 
-.aero-tip-title { font-size:18px; margin-bottom:15px; font-weight:400;}
+.aero-tip-title {
+	font-size: 15px;
+	margin-bottom: 15px;
+	font-weight: 400;
+	background: #222C3A;
+	margin-top: -25px;
+	margin-left: -25px;
+	margin-right: -25px;
+	padding: 15px 25px;
+	border-bottom: 1px solid #3A4758;
+}
 .aero-tip .aero-tip-arrow { position:absolute; }
 .aero-tip-bottom { margin-top:12px; }
 .aero-tip-top { margin-bottom:12px;  }
