@@ -259,7 +259,7 @@ Aero.pos = {
         var $parent = $element.scrollParent();
 		var tagName = $parent.prop('tagName');
 
-        if(tagName != "HTML" && tagName != "BODY") return $parent;
+        if(tagName && tagName != "HTML" && tagName != "BODY" && tagName != "DOCUMENT") return $parent;
 
         return false;
 	}

@@ -6,6 +6,6 @@
 
 	<div class="aero-modal-foot">
 		<a href="#" class="aero-btn-ok success small button"><%= msg.ok %></a>
-		<a href="#" class="aero-btn-no secondary small button"><%= msg.cancel %></a>
+		<% if(msg.cancel != ''){ %><a href="#" class="aero-btn-no secondary small button"><%= msg.cancel %></a><% } %>
 	</div>
 </div>

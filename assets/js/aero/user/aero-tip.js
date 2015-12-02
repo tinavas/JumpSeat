@@ -10,6 +10,7 @@ Aero.tip = {
 	/**
 	 *  Default settings
 	 */
+    tries : 0,
 	options : {
 
         //Multilingual
@@ -137,9 +138,9 @@ Aero.tip = {
 	 *  @param {Number} i index to set
 	 */
 	setStep : function(i, skipStore, callback) {
-		this._current = i;
+		this._current = parseInt(i);
 		if(!skipStore) {
-            aeroStorage.setItem('aero:session:current', i, function () {
+            aeroStorage.setItem('aero:session:current', this._current, function () {
                 if (callback) callback();
             }, true);
         }else{
@@ -410,24 +411,34 @@ Aero.tip = {
      * @param {integer} Seconds until timeout
      * @returns {void}
 	 */
-	findStepTimeout : function(time, i){
-		var self = this;
-		if(Aero.hashChange) return;
+	findStepTimeout : function(step, time, i){
+
+        var self = this;
+        if(Aero.hashChange) return;
         clearTimeout(Aero.timeFindStep);
 
-        if($q('.aero-modal:visible').length > 0){
-            return;
-        }
+        if($q('.aero-modal:visible').length > 0) return;
 
 		if(self.tries < time * 2){
 			Aero.timeFindStep = setTimeout(function(){
 				self.hide(i - 1);
+
+                var before = (self._forward) ? step.beforeCode : self._guide.step[i].beforeCode;
+
+                //Fire custom code
+                if (before) {
+                    try {
+                        eval(before);
+                    } catch (err) {
+                        Aero.log('Before show code is broken: ' + err, 'error');
+                    }
+                }
+
 				self.show(i);
 				self.tries++;
 			}, 500);
 		}else{
             //Finished Trying
-            var step = Aero.step.get(i);
             Aero.view.step.setState(i, "missing");
 
             if(step.miss == "alert"){
@@ -463,37 +474,52 @@ Aero.tip = {
 		var self = this;
     	var step = Aero.step.get(i);
 
-        clearInterval(self.ob);
-		self.ob = setInterval(function(){
-			Aero.log("Observing for item visible: " + isFound, "info");
+        if(isFound){
+            clearInterval(self.obf);
 
-            //Found the step?
-			var found = self.findStep(step);
+            //Every half second
+            self.obf = setInterval(function(){
+                //Found the step?
+                var found = self.findStep(step);
+                Aero.navigating = true;
+                Aero.log("Observing for item visible", "info");
 
-            //If found and callback on waiting
-			if (isFound && found) {
-                Aero.log("Observe found item", "info");
-                callback();
-                clearInterval(self.ob);
-			}
-
-            //If found and callback on missing
-            if(!isFound && !found) {
-                //Wait for next step to be set
-                setTimeout(function(){
-                    //Don't do anything for steps in transition
-                    if(Aero.navigating) {
-                        Aero.navigating = false;
-                        clearInterval(self.ob);
-                        return;
-                    }
-
-                    Aero.log("Observe lost item", "info");
+                //If found and callback on waiting
+                if (found) {
+                    Aero.log("Observe found item", "success");
+                    clearInterval(self.obf);
                     callback();
-                    clearInterval(self.ob);
-                }, 500);
-			}
-		}, 500);
+                }
+            }, 500);
+        }else {
+            clearInterval(self.ob);
+
+            //Only every one second
+            self.ob = setInterval(function(){
+                Aero.log("Observing for item not visible", "info");
+
+                //Found the step?
+                var found = self.findStep(step);
+
+                //If found and callback on missing
+                if(!found) {
+
+                    //Wait for next step to be set
+                    setTimeout(function(){
+                        //Don't do anything for steps in transition
+                        if(Aero.navigating) {
+                            Aero.navigating = false;
+                            clearInterval(self.ob);
+                            return;
+                        }
+
+                        Aero.log("Observe lost item", "warn");
+                        callback();
+                        clearInterval(self.ob);
+                    }, 500);
+                }
+            }, 1000);
+        }
 	},
 
 	/**
@@ -508,25 +534,28 @@ Aero.tip = {
         //Get Step Info
         var step = Aero.step.get(i);
 
-        //Default wait
-		var wait = 200;
-		var before = (this._forward) ? step.beforeCode : this._guide.step[i].beforeCode;
-		if(step.pause) wait = parseInt(step.pause) * 1000;
+        self.setStep(i, false, function() {
 
-        //Fire custom code
-		if(before){
-			try {
-				eval(before);
-			}catch(err){
-				Aero.log('Before show code is broken: ' + err,'error');
-			}
-		}
+            //Default wait
+            var wait = 200;
+            var before = (self._forward) ? step.beforeCode : self._guide.step[i].beforeCode;
+            if (step.pause) wait = parseInt(step.pause) * 1000;
 
-        //Call Show Step
-        clearTimeout(Aero.timeBeforeShow);
-		Aero.timeBeforeShow = setTimeout(function(){
-			if(!Aero.hashChange) self.show(i);
-		}, wait);
+            //Fire custom code
+            if (before) {
+                try {
+                    eval(before);
+                } catch (err) {
+                    Aero.log('Before show code is broken: ' + err, 'error');
+                }
+            }
+
+            //Call Show Step
+            clearTimeout(Aero.timeBeforeShow);
+            Aero.timeBeforeShow = setTimeout(function () {
+                if (!Aero.hashChange) self.show(i);
+            }, wait);
+        });
 	},
 
 	/**
@@ -585,9 +614,10 @@ Aero.tip = {
                 Aero.log('Found Step ' + i, 'success');
 
                 //Wait and see if it disappears
+                Aero.navigating = false;
                 Aero.tip.isMoving = null;
                 self.observe(i, false, function(){
-                    self.findStepTimeout(0, i);
+                    self.findStepTimeout(step, 0, i);
                 });
 
                 //Add input mask
@@ -638,7 +668,7 @@ Aero.tip = {
             } else {
                 //Missing steps
                 if (step.tries && step.tries > 0) {
-                    self.findStepTimeout(step.tries, i);
+                    self.findStepTimeout(step, step.tries, i);
                     return;
                 }
                 else {
@@ -841,7 +871,9 @@ Aero.tip = {
         var $scrollParent = Aero.pos.isScrollable($el);
         var nudge = 0;
 
-		if (!$el.visible(true, $scrollParent)) {
+        $tip.show();
+
+		if (!$el.visible(false, $scrollParent) || !$tip.visible(false)) {
 
             //Check if $el is part of scrollable list
             nudge = $scrollParent ? $scrollParent.scrollTop() - $scrollParent.offset().top : 0;
@@ -850,10 +882,8 @@ Aero.tip = {
 
             $scrollParent.stop().animate({
                 scrollTop: nudge + $el.offset().top - ($scrollParent.height()/2 + $el.height()/2)
-            }, 1000, function () {
-                setTimeout(function(){
-                    $q('.aero-tip').fadeIn(200);
-                },500);
+            }, 500, function () {
+                $q('.aero-tip').fadeIn(200);
             });
 
             $tip.hide();
@@ -990,7 +1020,8 @@ Aero.tip = {
 
 			if(!AeroStep.admin){
 				Aero.confirm({
-					ok : AeroStep.lang['done'],
+					ok : AeroStep.lang['ok'],
+                    cancel: "",
 					title : AeroStep.lang['gfinished'],
 					msg : AeroStep.lang['congrats'] + guide.title,
 					onConfirm : function(){
@@ -1053,7 +1084,8 @@ Aero.tip = {
 		for(var n in nav){
             if (nav.hasOwnProperty(n)) {
 			    //Default next
-			    if(nav[n] == -1) nav[n] = Aero.tip._current + 1;
+                if(nav[n] == -1) nav[n] = Aero.tip._current + 1;
+                nav[n] = parseInt(nav[n]);
 
                 switch(n) {
                     case "next":
