@@ -138,7 +138,7 @@
                     </select>
                 </div>
 
-                <%= asSaveButton %><%= asCancelButton %>
+                <div><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
 
 			<div id="aeroSection2" class="aero-section">
@@ -186,7 +186,7 @@
 					<option value="noPrev" <%= (model.noPrev ? "selected":"") %>>Previous button</option>
 					<option value="noNav" <%= (model.noNav ? "selected":"") %>>All buttons</option>
 				</select>
-				<%= asSaveButton %><%= asCancelButton %>
+				<div><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
 			<div id="aeroSection3" class="aero-section">
 		    	<h1><%= AeroStep.lang.loce %></h1>
@@ -233,7 +233,7 @@
 					<option value="par" <%= (model.noUrl == "par" ? "selected":"") %>>Without Parameters (example.com?key=value)</option>
 					<option value="all" <%= (model.noUrl == "all" ? "selected":"") %>>Ignore URL Entirely</option>
 				</select>
-				<%= asSaveButton %><%= asCancelButton %>
+				<div><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
 			<div id="aeroSection4" class="aero-section">
 		    	<h1><%= AeroStep.lang.exce %></h1>
@@ -298,7 +298,7 @@
                     </div>
                 </div>
 
-				<%= asSaveButton %><%= asCancelButton %>
+				<div><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
 			<div id="aeroSection5" class="aero-section">
 				<h1><%= AeroStep.lang.branch %></h1>
@@ -335,7 +335,7 @@
 					</select>
 				</div>
 
-				<%= asSaveButton %><%= asCancelButton %>
+				<div><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
 			<div id="aeroSection6" class="aero-section">
 		    	<h1><%= AeroStep.lang.codee %></h1>
@@ -367,7 +367,7 @@
                     <textarea name="aero_offCode" style="height:150px"><%= model.offCode %></textarea>
                 </div>
 
-				<%= asSaveButton %><%= asCancelButton %>
+				<div><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
 		</form>
 	</div>
