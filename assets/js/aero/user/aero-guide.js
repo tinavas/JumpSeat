@@ -183,7 +183,9 @@ Aero.view.guide = {
         for(var j in guide.contextual) {
             if (guide.step.length > 0) {
                 var index = parseInt(guide.contextual[j]);
-                renderBox(index, guide.step[index].loc);
+                if(guide.step[index] && guide.step[index].loc) {
+                    renderBox(index, guide.step[index].loc);
+                }
             }
         }
     },
