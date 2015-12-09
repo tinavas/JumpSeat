@@ -761,51 +761,53 @@ Aero.tip = {
      * @param {integer} i Step number
      * @returns {void}
 	 */
-	setPosition : function($el, $tip, position){
-		var pos = {};
-		var off = $el.offset();
-		var tipMidX = $tip.outerWidth() / 2;
-		var tipMidY = $tip.outerHeight();
-		var elMidX = off.left + ($el.outerWidth() / 2);
-		var elMidY = off.top + ($el.outerHeight() / 2);
-		var $tri = $tip.find('.aero-tip-arrow');
+	setPosition : function($el, $tip, position) {
+        var pos = {};
+        var off = $el.offset();
+        var tipMidX = $tip.outerWidth() / 2;
+        var tipMidY = $tip.outerHeight();
+        var elMidX = off.left + ($el.outerWidth() / 2);
+        var elMidY = off.top + ($el.outerHeight() / 2);
+        var $tri = $tip.find('.aero-tip-arrow');
 
-		pos.tLeft = tipMidX - ($tri.outerWidth() / 2);
-		pos.tTop = ($tip.outerHeight() / 2) - ($tri.outerHeight() / 2);
+        pos.tLeft = tipMidX - ($tri.outerWidth() / 2);
+        pos.tTop = ($tip.outerHeight() / 2) - ($tri.outerHeight() / 2);
 
-		switch(position) {
-		    case "top":
-		    	pos.left = elMidX - tipMidX;
-		    	pos.top = off.top - tipMidY - $tip.find('.aero-tip-arrow').outerHeight();
-		        break;
-		    case "bottom":
-		    	pos.left = elMidX - tipMidX;
-		    	pos.top = off.top + $el.outerHeight();
-		        break;
-		    case "left":
-		    	pos.left = off.left - $tip.outerWidth() - $tip.find('.aero-tip-arrow').outerWidth();
-		    	pos.top = elMidY - (tipMidY / 2);
-		        break;
-		    case "right":
-		    	pos.left = off.left + $el.outerWidth();
-		    	pos.top = elMidY - (tipMidY / 2);
-		        break;
-		    case "orphan":
-		    	pos.left = $q(window).width() / 2 - tipMidX;
-		    	pos.top = $q(window).height() / 2 - (tipMidY / 2);
-		        break;
-		}
+        switch (position) {
+            case "top":
+                pos.left = elMidX - tipMidX;
+                pos.top = off.top - tipMidY - $tip.find('.aero-tip-arrow').outerHeight();
+                break;
+            case "bottom":
+                pos.left = elMidX - tipMidX;
+                pos.top = off.top + $el.outerHeight();
+                break;
+            case "left":
+                pos.left = off.left - $tip.outerWidth() - $tip.find('.aero-tip-arrow').outerWidth();
+                pos.top = elMidY - (tipMidY / 2);
+                break;
+            case "right":
+                pos.left = off.left + $el.outerWidth();
+                pos.top = elMidY - (tipMidY / 2);
+                break;
+            case "orphan":
+                pos.left = $q(window).width() / 2 - tipMidX;
+                pos.top = $q(window).height() / 2 - (tipMidY / 2);
+                break;
+        }
 
-		//Snap to window
-		pos = this.containIn(document, $tip, pos, position);
+        //Snap to window
+        pos = this.containIn(document, $tip, pos, position);
+
+        //Set position
+        $tip.css({"left": pos.left, "top": pos.top});
 
 		//Set triangle
-		$q('.aero-tip-top, .aero-tip-bottom').each(function(){ $tri.css({ 'left' : pos.tLeft }); });
-        $q('.aero-tip-left, .aero-tip-right').each(function(){ $tri.css({ 'top' : pos.tTop }); });
-        $q('.aero-tip-top').each(function(){ $tri.css({ 'top' : 'auto' }); });
+        if ($tip.hasClass('aero-tip-bottom') || $tip.hasClass('aero-tip-top')) $tri.css({'left': pos.tLeft});
+        if ($tip.hasClass('aero-tip-left') || $tip.hasClass('aero-tip-right')) $tri.css({'top': pos.tTop});
+        if ($tip.hasClass('aero-tip-top')) $tri.css({'top': 'auto'});
 
-		$tip.css({ "left": pos.left, "top": pos.top });
-	},
+    },
 
 	/**
 	 * @function Scroll tool-tip into view
