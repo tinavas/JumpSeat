@@ -467,7 +467,7 @@ li.aero-helper-dropable {
 */
 .aero-tip {
 	width:210px;
-	background:#25303F;  draggable
+	background:#25303F;
 	color:#fff;
 	padding:25px;
 	font-size:16px;
@@ -476,23 +476,38 @@ li.aero-helper-dropable {
 	z-index: 999999999;
 	box-sizing: content-box;
 }
-.aero-tip-body { font-size:15px; line-height: 1.4em; color:#fff; }
+.aero-tip-body { font-size:14px; line-height: 1.4em; color:#fff; }
 .aero-tip-body p { margin-bottom:1em;}
 .aero-tip-body ol, .aero-tip-body ul { margin-left:20px;}
 .aero-tip-body ol li, .aero-tip-body ul li { padding-bottom:5px;}
 .aero-tip-body ol li { list-style: decimal; }
 .aero-tip-body ul li { list-style: circle; }
 
+.aero-tip-title img.as-icon-note {     height: 19px; top: 3px;}
+.aero-tip-title img.as-icon-choose { height: 18px; top: 2px; }
+.aero-tip-title img.as-icon-type { height: 19px; }
 .aero-tip-title {
-	font-size: 15px;
-	margin-bottom: 15px;
+    text-transform: uppercase;
+    line-height: 20px;
+	font-size: 18px;
 	font-weight: 400;
-	background: #222C3A;
 	margin-top: -25px;
 	margin-left: -25px;
 	margin-right: -25px;
-	padding: 15px 25px;
-	border-bottom: 1px solid #3A4758;
+	padding: 20px 25px;
+}
+.aero-tip-title span {
+	display: block;
+	border-bottom: 2px solid #DB5052;
+	width: 40px;
+	padding-top: 0.5em;
+}
+.aero-tip-title img {
+	height: 20px;
+	position: relative;
+	top: 4px;
+	margin-right: 0.2em;
+	margin-top: -5px;
 }
 .aero-tip .aero-tip-arrow { position:absolute; }
 .aero-tip-bottom { margin-top:12px; }
@@ -616,13 +631,15 @@ li.aero-helper-dropable {
 	float:right;
 	background:#0599c3;
 	color:#fff;
-	font-size:12px;
-	margin-top: 25px;
-  	padding: 8px 12px;
+	font-size: 13px;
+	text-shadow: 0px 1px 0px #333;
+  	padding: 8px 22px;
+	margin-top: 0.5em;
 	display:inline-block;
 	transition: all .25s ease-in-out;
     -moz-transition: all .25s ease-in-out;
     -webkit-transition: all .25s;
+	text-transform:uppercase;
 }
 .aero-tip .aero-tip-nav .aero-btn-next, .aero-tip .aero-tip-nav .aero-btn-end{
 	margin-left:1px;
@@ -632,7 +649,8 @@ li.aero-helper-dropable {
 }
 a.aero-btn-prev {
     background: none!important;
-    color: #697074!important;
+	float:left!important;
+	padding-left: 0!important;
 }
 a.aero-btn-prev:hover {
     color: #fff!important;
@@ -1072,23 +1090,15 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 }
 
 .aero-progress {
-	width: 80px;
-	float:left;
+	border-top:1px solid #7387A4;
+	padding-top:1em;
 	margin-top:1.5em;
-	margin-bottom:1em;
-}
-.aero-progress .aero-needle {
-	background:#384048;
-	padding:2px;
-	display:block;
-}
-.aero-progress .aero-needle span {
-	background:#00bee9;
-	display:block;
-	height:2px;
 }
 .aero-progress span {
-	font-size:12px; color:#767b7e;
+	text-transform: uppercase;
+	font-size:12px;
+	color:#9AA1AC;
+	display: block;
 }
 
 .aero-not {

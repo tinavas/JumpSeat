@@ -28,7 +28,6 @@ Aero.tip = {
 			var pos = step.position ? step.position : "top";
 			var now = parseInt(Aero.tip._current) + 1;
 			var total = (Aero.tip._guide) ? Aero.tip._guide.step.length : 0;
-			var pec = (now / total) * 100;
 
 			if(isNaN(step.size)){
 				size = (step.size && step.size != "") ? " aero-tip-"+step.size : "";
@@ -36,8 +35,18 @@ Aero.tip = {
 				size = "' style='width:"+step.size+"px'";
 			}
 
-			if(step.showTitle) title = '<div class="aero-tip-title">'+step.title+'</div>';
-			var progress = step.multi ? "" : "<div class='aero-tip-nav clearfix'><div class='aero-progress'><span>" + now +" of "+total+"</span><span class='aero-needle'><span style='width:"+pec+"%'></span></span></div></div>";
+			//Replace hot words
+			var hotwords = ['OVERVIEW', 'CLICK', 'CHOOSE', 'COPY', 'DRAG', 'FORK', 'NOTE', 'TIP', 'TYPE', 'SCROLL'];
+            var titleImageTpl = '<img class="as-icon-TITLE" src="' + Aero.constants.PATH + 'assets/images/icons/TITLE.png" title="TITLE" />';
+
+            for(var j in hotwords) {
+                if(typeof hotwords[j] == "string"){
+                    var title = (hotwords[j] == "OVERVIEW") ? "Overview" : "";
+                    step.title = step.title.replace(hotwords[j], titleImageTpl.replace(/TITLE/g, hotwords[j].toLowerCase()) + " " + title);
+            }}
+
+			if(step.showTitle) title = '<div class="aero-tip-title">'+step.title+'<span></span></div>';
+			var progress = step.multi ? "" : "<div class='aero-tip-nav clearfix'><div class='aero-progress'><span>Step " + now +" of "+total+"</span></div></div>";
 
 			//Clear progress on contextual tips
 			if(!Aero.tip._guide) progress = "";
