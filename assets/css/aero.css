@@ -398,7 +398,6 @@ li.aero-helper-dropable {
 	text-align:center;
 	background:#DB5052;
 	z-index:9999999;
-    border-radius: 9px 0 0 9px;
 }
 
 #aero-tab a {
@@ -409,7 +408,6 @@ li.aero-helper-dropable {
 	background-position: 8px center;
 	background-repeat: no-repeat;
 	border-bottom: 1px solid #ab3e3b;
-    border-radius: 9px 0 0 9px;
 }
 .aero-app #aero-tab a:hover {
     background-color: inherit!important;

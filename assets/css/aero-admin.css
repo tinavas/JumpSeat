@@ -776,6 +776,31 @@ table .tools { display:inline-block;}
     text-align: center;
     text-transform: uppercase;
 }
+
+.dataTables_length label {
+	display: inline-block;
+	color: #02BAF2;
+	text-transform: uppercase;
+	font-weight: 600!important;
+	position: absolute;
+	top: 3px;
+	right: 15px;
+}
+.dataTables_length label:after {
+	content: ":";
+}
+
+.dataTables_length select {
+	display: inline-block;
+	float: right;
+	width: 61px;
+	background-color: #fff;
+	border: 1px solid #E1E1E1;
+	font-size: 15px;
+	font-weight: 400;
+	font-family: 'Source Sans Pro';
+	box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
+}
 table { border:0; }
 table .select { margin-bottom:0;}
 table .tright div { text-align:right; }
@@ -785,9 +810,8 @@ table tr td.tright { text-align:right; padding: 0 20px 0 0!important;}
 table thead th { cursor:pointer; border-bottom: 2px solid #bdc9ce; }
 table thead { background:none; text-transform:uppercase; }
 table thead tr th, table thead tr td { font-weight:400; color:#5e696d; font-size:1em; font-family:'Source Sans Pro'!important;}
-.dataTables_length { display:none; }
 .dataTables_filter { float:right; }
-.dataTables_filter label { position:absolute; top:0; right:0; color:#02BAF2; text-transform:uppercase; font-weight:600!important; }
+.dataTables_filter label { position:absolute; top:3px; right:185px; color:#02BAF2; text-transform:uppercase; font-weight:600!important; }
 table { clear:both; }
 table td a { margin-bottom:0!important; }
 table td a:last-child {  display:inline-block; margin-left:2px; }

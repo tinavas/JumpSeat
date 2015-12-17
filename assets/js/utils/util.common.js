@@ -140,13 +140,17 @@ Utils.menu = function(menu, settings){
 	 */
 	function setEvents(){
 
-		//Checked
+        $q('#menu .multi').data('orig', $q('#menu .multi').text());
+
+		//Check All
 		$q('body').off('click.sa' + m.ns).on('click.sa' + m.ns, '.select-all', function(){
 
             if($q('.select-all').is(':checked')){
 				$q('.select').prop('checked', true);
+				$q('#menu .multi').text($q('#menu .multi').data('orig').replace('With', $q('.select:checked').length));
             }else{
                 $q('.select').prop('checked', false);
+                $q('#menu .multi').text($q('#menu .multi').data('orig'));
             }
 
 			m.el.find('.multi').addClass('disabled');
@@ -158,7 +162,12 @@ Utils.menu = function(menu, settings){
 		$q('body').off('click.s' + m.ns).on('click.s' + m.ns, '.select', function(){
 			m.el.find('.multi').addClass('disabled');
 			var ids = getFlagged();
-			if(ids.length > 0) m.el.find('.multi').removeClass('disabled');
+			if(ids.length > 0) {
+                m.el.find('.multi').removeClass('disabled');
+                $q('#menu .multi').text($q('#menu .multi').data('orig').replace('With', $q('.select:checked').length));
+            }else{
+                $q('#menu .multi').text($q('#menu .multi').data('orig'));
+            }
 		});
 
 		//Delete
@@ -332,7 +341,7 @@ Utils.datatable = function(url, columns, id){
 
     $q('#'+api+' table tbody').html("");
     table = $('#'+api+' table').DataTable({
-		"pageLength": 50,
+		"pageLength": 25,
         "ajax" : '/api/'+ url + host + Aero.host +'&id='+ id,
         "order": [[ 1, "asc" ]],
         "columnDefs": [{ "targets": 0, "orderable": false }, { "targets": (columns.length - 1), "orderable": false }],
