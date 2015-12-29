@@ -470,7 +470,15 @@ Aero.tip = {
 				//Do nothing
 				return;
             }else {
-                this.renderException("Step is Missing", "Sorry, we can't find that step - to fix this try: <ul><li>Using a more generic element</li><li>Use 'next item visible' for the navigation on your previous step</li><li>Increase the wait timer for finding this step</li></ul>", true);
+                this.renderException("Step is Missing", "To fix this, try:" +
+					"<ul style='font-size:14px'>" +
+					"<li>Using a more generic element</li>" +
+					"<li>Increase the step wait timer</li>" +
+					"<li>Check the previous step navigation:" +
+					"<ul><li>Page changed or refreshed - when steps move between pages</li>" +
+					"<li>Next item visible - on the same page, but has an animation or time delay when showing the next step</li>" +
+					"</ul></li></ul>" +
+					"", true);
             }
 		}
 	},
