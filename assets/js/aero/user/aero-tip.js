@@ -602,6 +602,9 @@ Aero.tip = {
         //Get step data
         step = Aero.step.get(i);
 
+        //Setsidebar based on step style
+        aeroStorage.setItem('aero:sidebar:open', step.sidebar ? 0 : 1, function(){}, true);
+
         //Set the step and go for it
         self.setStep(i, skipStore, function() {
 
@@ -1169,6 +1172,11 @@ Aero.tip = {
                                 self.jumpTo(nav[n]);
                             }
                         });
+						$el.off('focusout.aeronavb').on('focusout.aeronavb', $el, function(e){
+							Aero.navigating = true;
+							if(!self.validate()) return;
+							self.jumpTo(nav[n]);
+						});
                         break;
 
                     case "unload":
