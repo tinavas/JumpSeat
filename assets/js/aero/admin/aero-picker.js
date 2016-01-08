@@ -154,11 +154,11 @@ Aero.picker = {
             });
 
         //Shortcuts
-        $q(document).keyup(function(e) {
-            if (e.keyCode == 27){
-                self.destroy();
-                Aero.view.sidebar.show(false, 0);
-            }
-        });
+        //$q(document).keyup(function(e) {
+        //    if (e.keyCode == 27){
+        //        self.destroy();
+        //        Aero.view.sidebar.show(false, 0);
+        //    }
+        //});
     }
 };
