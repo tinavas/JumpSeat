@@ -140,7 +140,8 @@ Aero.view.step.admin = {
                     isAdd: true,
                     index: index,
                     loc : path,
-                    nav : nav
+                    nav : nav,
+                    loss : 'ignore'
                 };
 
                 Aero.view.admin.render("step", $q.extend(Aero.model.step.defaults(), settings));
@@ -256,9 +257,17 @@ Aero.view.step.admin = {
         //Change exception type
         $q('body').off("change.seC").on("change.seC", ".aero-section select[name='aero_miss']", function(){
             $q('.aero-alert-edit, .aero-skip-edit').hide();
-            $q('.aero_alert, .aero_alertContent').val("");
+            $q('input[name="aero_alert"], input[name="aero_alertContent"]').val("");
             if($q(this).val() == "alert") $q('.aero-alert-edit').show();
             if($q(this).val() == "skipto") $q('.aero-skip-edit').show();
+        });
+
+        //Change exception type
+        $q('body').off("change.seL").on("change.seL", ".aero-section select[name='aero_loss']", function(){
+            $q('.aero-loss-alert-edit, .aero-loss-skip-edit').hide();
+            $q('input[name="aero_lossalert"], input[name="aero_lossalertContent"]').val("");
+            if($q(this).val() == "alert") $q('.aero-loss-alert-edit').show();
+            if($q(this).val() == "skipto") $q('.aero-loss-skip-edit').show();
         });
 
         //Change exception type
@@ -289,6 +298,7 @@ Aero.view.step.admin = {
         //Add step
         $q('body')
             .on("mouseup", "a.aero-btn-picker", function() {
+                $q('.aero-play-icon').remove();
                 self.initPicker();
             })
             .on("click", "a.aero-btn-picker", function() {

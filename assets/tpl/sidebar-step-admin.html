@@ -243,18 +243,19 @@
                     <li><a href="#aero-tab-2"><%= AeroStep.lang.validation %></a></li>
                 </ul>
 
-                <!-- BASIC CONTENT -->
+                <!-- EXCEPTIONS -->
                 <div id="aero-tab-1" class="aero-tab-content aero-tab-active">
                     <p><%= AeroStep.lang.excd %></p>
 
-                    <label><%= AeroStep.lang.alerta %></label>
+                    <!-- FINDING EXCEPTIONS -->
+                    <label><%= AeroStep.lang.excef %></label>
                     <select type="text" name="aero_miss">
                         <option value="" <%= (!model.miss ? "selected" : "") %>>Alert (default)</option>
                         <option value="skip" <%= (model.miss == "skip" ? "selected":"") %>>Skip step</option>
                         <option value="skipto" <%= (model.miss == "skipto" ? "selected":"") %>>Skip to step...</option>
                         <option value="back" <%= (model.miss == "back" ? "selected":"") %>>Move back to previous step</option>
                         <option value="alert" <%= (model.miss == "alert" ? "selected":"") %>>Display a message</option>
-						<option value="ignore" <%= (!model.miss ? "ignore" : "") %>>No Nothing</option>
+						<option value="ignore" <%= (model.miss == "ignore" ? "selected":"") %>>No Nothing</option>
                     </select>
 
                     <div class="aero-skip-edit" style="<%= (model.miss != "skipto") ? 'display:none' : '' %>">
@@ -282,6 +283,45 @@
                         <label><%= AeroStep.lang.content %></label>
                         <textarea name="aero_alertContent"><%= model.alertContent %></textarea>
                     </div>
+
+                    <!-- LOST EXCEPTIONS -->
+                    <p><%= AeroStep.lang.exceld %></p>
+
+					<label><%= AeroStep.lang.excel %></label>
+					<select type="text" name="aero_loss">
+						<option value="" <%= (!model.loss ? "selected" : "") %>>Alert</option>
+						<option value="skip" <%= (model.loss == "skip" ? "selected":"") %>>Skip step</option>
+						<option value="skipto" <%= (model.loss == "skipto" ? "selected":"") %>>Skip to step...</option>
+						<option value="back" <%= (model.loss == "back" ? "selected":"") %>>Move back to previous step</option>
+						<option value="alert" <%= (model.loss == "alert" ? "selected":"") %>>Display a message</option>
+						<option value="ignore" <%= (model.loss == "ignore" ? "selected":"") %>>No Nothing (default)</option>
+					</select>
+
+					<div class="aero-loss-skip-edit" style="<%= (model.loss != "skipto") ? 'display:none' : '' %>">
+						<p style="margin-bottom:20px; margin-top:0px;"><%= AeroStep.lang.skiptom %></p>
+
+						<label><%= AeroStep.lang.stepn %></label>
+						<select name="aero_lossskipto" style="width:170px;">
+							<% for(var i = 0; i < Aero.tip._guide.step.length + 1; i++){
+							var d = "";
+							var s = "";
+							if(model.index != i){
+							if(model.skipto && parseInt(model.skipto) == i) s = "selected";
+							%>
+							<option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
+							<% }} %>
+						</select>
+					</div>
+
+					<div class="aero-loss-alert-edit" style="<%= (model.loss != "alert") ? 'display:none' : '' %>">
+						<p style="margin-bottom:20px; margin-top:0px;"><%= AeroStep.lang.alertm %></p>
+
+						<label><%= AeroStep.lang.title %></label>
+						<input type="text" name="aero_lossalert" value="<%= model.lossalert %>" />
+
+						<label><%= AeroStep.lang.content %></label>
+						<textarea name="aero_lossalertContent"><%= model.lossalertContent %></textarea>
+					</div>
                 </div>
                 <div id="aero-tab-2" class="aero-tab-content">
                     <p><%= AeroStep.lang.vald %></p>

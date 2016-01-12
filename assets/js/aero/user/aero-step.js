@@ -146,7 +146,7 @@ Aero.view.step = {
 		if(!i) i = Aero.tip._current;
 
 		if(state){
-			$q('.aero-steps li:eq('+i+')').addClass('aero-' + state);
+			$q('.aero-steps li:eq('+i+')').attr('class', 'clearfix aero-' + state);
 		}else{
 			var $li = $q('.aero-steps li:eq('+i+')');
 
@@ -184,6 +184,15 @@ Aero.view.step = {
                 Aero.tip.jumpTo($q('.aero-steps li').index($q(this).parent()));
             });
         }
+
+		//Play button
+		$q('body').off('click.aplay').on('click.aplay', 'a.aero-play-icon', function(){
+			Aero.view.step.setState(parseInt(aeroStorage.getItem('aero:session:pause')), 'non');
+			aeroStorage.removeItem('aero:session:pause');
+
+			Aero.tip.jumpTo(Aero.tip._current);
+			$q(this).remove();
+		});
 
 		$q('body').off("click.sas").on("click.sas", "a.aero-stop", function(){
 			Aero.tip.stop();

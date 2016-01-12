@@ -385,6 +385,8 @@ Aero.tip = {
 		clearInterval(this.ob);
 		Aero.jump = true;
 
+        $q('.aero-play-icon').remove();
+
 		aeroStorage.removeItem('aero:session:pause');
 
 		if(step){
@@ -417,10 +419,12 @@ Aero.tip = {
 
 	/**
 	 * @function Look for step until timeout
-     * @param {integer} Seconds until timeout
+     * @param {string} Find or loss type
+	 * @param {object} step object
+	 * @param {integer} Seconds until timeout
      * @returns {void}
 	 */
-	findStepTimeout : function(step, time, i){
+	findStepTimeout : function(type, step, time, i){
 
         var self = this;
         if(Aero.hashChange) return;
@@ -449,24 +453,26 @@ Aero.tip = {
 		}else{
             //Finished Trying
             Aero.view.step.setState(i, "missing");
+            var prefix = type == "loss" ? "loss" : "";
 
-            if(step.miss == "alert"){
-                this.renderException(step.alert, step.alertContent, true);
+            if(step[type] == "alert"){
+                alert(prefix + "alert");
+                this.renderException(step[prefix + "alert"], step[prefix + "alertContent"], true);
             }
-            else if(step.miss == "back"){
+            else if(step[type] == "back"){
                 Aero.view.step.setState(i, "missing");
                 this.prev();
             }
-            else if(step.miss == "skip"){
+            else if(step[type] == "skip"){
                 self.show(i + 1);
             }
-            else if(step.miss == "skipto") {
-				self.jumpTo(step.skipto);
+            else if(step[type] == "skipto") {
+				self.jumpTo(step[prefix + "skipto"]);
 
-				for (var i = Aero.tip._current; i <= step.skipto - 1; i++) {
+				for (var i = Aero.tip._current; i <= step[prefix + "skipto"] - 1; i++) {
 					Aero.view.step.setState(i, "missing");
 				}
-			} else if(step.miss == "ignore"){
+			} else if(step[type] == "ignore"){
 				//Do nothing
 				return;
             }else {
@@ -624,6 +630,15 @@ Aero.tip = {
             //Check for redirect (admins don't need to)
             if (AeroStep.admin && aeroStorage.getItem('aero:session:pause') && aeroStorage.getItem('aero:session:forwardUrl') !== document.URL) {
                 Aero.view.step.setState(aeroStorage.getItem('aero:session:pause'), 'forward');
+
+                var $play = $q('<a class="aero-play-icon"><span></span></a>');
+
+                $play.css({
+                    top: $q(window).height() / 2 - 150,
+                    left: $q(window).width() / 2 - 100
+                });
+                $q('body').append($play);
+
                 return;
             } else {
                 if (self.redirect(step.url, step.noUrl, step.cds)) return;
@@ -640,7 +655,7 @@ Aero.tip = {
                 Aero.navigating = false;
                 Aero.tip.isMoving = null;
                 self.observe(i, false, function(){
-                    self.findStepTimeout(step, 0, i);
+                    self.findStepTimeout("loss", step, 0, i);
                 });
 
                 //Add input mask
@@ -691,7 +706,7 @@ Aero.tip = {
             } else {
                 //Missing steps
                 if (step.tries && step.tries > 0) {
-                    self.findStepTimeout(step, step.tries, i);
+                    self.findStepTimeout("miss", step, step.tries, i);
                     return;
                 }
                 else {
@@ -1124,6 +1139,11 @@ Aero.tip = {
 
 					case "click":
                         $el.off('click.aeronav').on('click.aeronav', $el, function(){
+
+                            //Stop bubbling on move
+                            $el.off('click.aeronav');
+
+                            //Set nav
                             Aero.navigating = true;
                             if(!self.validate()) return;
 
