@@ -64,16 +64,6 @@ Aero.view.step.admin.quiz = {
 
         $q('.aero-answer-list ul').sortable();
 
-        //New Answer
-        $q('body').off('click.qaa').on('click.qaa', '.aero-answer-add', function(){
-            var answer = {
-                title : $q(this).val(),
-                correct : false
-            };
-
-            _this.renderAnswer(answer);
-        });
-
         //Check Answer
         $q('body').off('click.qaa').on('click.qaa', '.aero-answer-check', function(){
             var $i = $q(this).find('i');
@@ -101,6 +91,17 @@ Aero.view.step.admin.quiz = {
                 _this.renderAnswer(answer);
                 return false;
             }
+        });
+
+        //New Answer
+        $q('body').off('click.qaaz').on('click.qaaz', '.aero-answer-add', function(){
+
+            var answer = {
+                title : $q('.aero-answer').val(),
+                correct : false
+            };
+
+            _this.renderAnswer(answer);
         });
 
         //Delete

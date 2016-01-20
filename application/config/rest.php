@@ -84,7 +84,7 @@ $config['rest_realm'] = 'REST API';
 |	'session' = check for PHP session variable. Set variable name below.
 |
 */
-$config['rest_auth'] = false;
+$config['rest_auth'] = 'session';
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +99,7 @@ $config['rest_auth'] = false;
 */
 
 //change this to '' for wildcard unit test
-$config['auth_source'] = 'ldap';
+$config['auth_source'] = 'username';
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +138,21 @@ $config['auth_library_function'] = '';
 | Acceptable values are; 'none', 'digest' and 'basic'.
 |
 */
+    $config['auth_override_class_method']['login']['*'] = 'none';
+    $config['auth_override_class_method']['apps']['*'] = 'none';
+    $config['auth_override_class_method']['template']['*'] = 'none';
+    $config['auth_override_class_method']['analytics']['*'] = 'none';
+    $config['auth_override_class_method']['audit']['*'] = 'none';
+    $config['auth_override_class_method']['blacklist']['*'] = 'none';
+    $config['auth_override_class_method']['features']['*'] = 'none';
+    $config['auth_override_class_method']['pagedata']['*'] = 'none';
+    $config['auth_override_class_method']['pages']['*'] = 'none';
+    $config['auth_override_class_method']['pathway']['*'] = 'none';
+    $config['auth_override_class_method']['search']['*'] = 'none';
+    $config['auth_override_class_method']['steps']['*'] = 'none';
+    $config['auth_override_class_method']['url']['*'] = 'none';
+    $config['auth_override_class_method']['guides']['*'] = 'none';
+
 // $config['auth_override_class_method']['deals']['view'] = 'none';
 // $config['auth_override_class_method']['deals']['insert'] = 'digest';
 // $config['auth_override_class_method']['accounts']['user'] = 'basic';
@@ -156,7 +171,7 @@ $config['auth_library_function'] = '';
 |	array('admin' => '1234')
 |
 */
-$config['rest_valid_logins'] = array('admin' => '1234');
+$config['rest_valid_logins'] = array('servicelogin' => 'MD5r3g2V9Cc694Rp');
 
 /*
 |--------------------------------------------------------------------------
