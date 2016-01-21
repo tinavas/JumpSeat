@@ -606,7 +606,7 @@ Aero.tip = {
         clearTimeout(Aero.timeFindStep);
 
         //Empty guide
-        if (Aero.tip._guide.step.length == 0) return;
+        if (!Aero.tip._guide || Aero.tip._guide.step.length == 0) return;
 
         //Default current step
         if (typeof i == "undefined") i = self._current;
