@@ -3,7 +3,7 @@
 /**
  *  Start the role mapping to pathways
  */
-require(['aero', 'aero/utils'], function() {
+require(['aero', 'utils/aero'], function() {
 
 	/**
 	 * @class Feature

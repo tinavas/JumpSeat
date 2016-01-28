@@ -1389,25 +1389,25 @@ abstract class REST_Controller extends CI_Controller
         if (!isset($_SESSION[$key])) {
 
             //Check basic auth for backup
-            if (empty($this->input->server('PHP_AUTH_USER')))
-            {
-                header('HTTP/1.0 401 Unauthorized');
-                header('HTTP/1.1 401 Unauthorized');
-                header('WWW-Authenticate: Basic realm="My Realm"');
-                $this->response(array('status' => false, 'error' => 'Not Authorized'), 401);
-            }
-
-            //Check login service
-            $api_login = $this->config->item('rest_valid_logins');
-            $username = $this->input->server('PHP_AUTH_USER');
-            $password = $this->input->server('PHP_AUTH_PW');
-
-            //Login with
-            if(isset($api_login[$username]) && $api_login[$username] == $password){
-                $_SESSION['username'] = $username;
-            }else{
-                $this->response(array('status' => false, 'error' => 'Not Authorized'), 401);
-            }
+//            if (empty($this->input->server('PHP_AUTH_USER')))
+//            {
+//                header('HTTP/1.0 401 Unauthorized');
+//                header('HTTP/1.1 401 Unauthorized');
+//                header('WWW-Authenticate: Basic realm="My Realm"');
+//                $this->response(array('status' => false, 'error' => 'Not Authorized'), 401);
+//            }
+//
+//            //Check login service
+//            $api_login = $this->config->item('rest_valid_logins');
+//            $username = $this->input->server('PHP_AUTH_USER');
+//            $password = $this->input->server('PHP_AUTH_PW');
+//
+//            //Login with
+//            if(isset($api_login[$username]) && $api_login[$username] == $password){
+//                $_SESSION['username'] = $username;
+//            }else{
+//                $this->response(array('status' => false, 'error' => 'Not Authorized'), 401);
+//            }
         }
     }
 
