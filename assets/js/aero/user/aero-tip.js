@@ -313,6 +313,9 @@ Aero.tip = {
         //Validate
         if(!this.validate()) return;
 
+		//Remove play button if exists
+		$q('.aero-play-icon').remove();
+
         // @todo clear on restrict and auto only
         aeroStorage.setItem('aero:cache', 0);
 
@@ -456,7 +459,6 @@ Aero.tip = {
             var prefix = type == "loss" ? "loss" : "";
 
             if(step[type] == "alert"){
-                alert(prefix + "alert");
                 this.renderException(step[prefix + "alert"], step[prefix + "alertContent"], true);
             }
             else if(step[type] == "back"){

@@ -255,7 +255,7 @@
                         <option value="skipto" <%= (model.miss == "skipto" ? "selected":"") %>>Skip to step...</option>
                         <option value="back" <%= (model.miss == "back" ? "selected":"") %>>Move back to previous step</option>
                         <option value="alert" <%= (model.miss == "alert" ? "selected":"") %>>Display a message</option>
-						<option value="ignore" <%= (model.miss == "ignore" ? "selected":"") %>>No Nothing</option>
+						<option value="ignore" <%= (model.miss == "ignore" ? "selected":"") %>>Do Nothing</option>
                     </select>
 
                     <div class="aero-skip-edit" style="<%= (model.miss != "skipto") ? 'display:none' : '' %>">
@@ -294,7 +294,7 @@
 						<option value="skipto" <%= (model.loss == "skipto" ? "selected":"") %>>Skip to step...</option>
 						<option value="back" <%= (model.loss == "back" ? "selected":"") %>>Move back to previous step</option>
 						<option value="alert" <%= (model.loss == "alert" ? "selected":"") %>>Display a message</option>
-						<option value="ignore" <%= (model.loss == "ignore" ? "selected":"") %>>No Nothing (default)</option>
+						<option value="ignore" <%= (model.loss == "ignore" ? "selected":"") %>>Do Nothing (default)</option>
 					</select>
 
 					<div class="aero-loss-skip-edit" style="<%= (model.loss != "skipto") ? 'display:none' : '' %>">
