@@ -24,7 +24,7 @@ Aero.view.admin = {
 			$q('.aero-admin-wrapper').remove();
 
 			var tpl = _q.template(r);
-			console.log(guide);
+
 			$q('body').append( tpl( { model: guide }));
 
 			$q('#aero-tab').css('left', '-542px');

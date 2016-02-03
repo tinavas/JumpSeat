@@ -528,3 +528,13 @@ if (!Object.keys) {
 
 //Fire Custom
 if (typeof aerofire !== 'undefined') aerofire.init();
+
+//Remove old JSON Prototyping
+if(typeof Prototype !== 'undefined' && parseFloat(Prototype.Version.substr(0,3)) < 1.7 && typeof Array.prototype.toJSON !== 'undefined') {
+    if(window.Prototype) {
+        delete Object.prototype.toJSON;
+        delete Array.prototype.toJSON;
+        delete Hash.prototype.toJSON;
+        delete String.prototype.toJSON;
+    }
+}
