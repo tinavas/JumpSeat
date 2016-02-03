@@ -969,6 +969,7 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 	-webkit-appearance: menu;
     min-width: auto;
     max-width: auto;
+    height:auto;
 }
 .aero-section textarea {
     line-height: 20px!important;
