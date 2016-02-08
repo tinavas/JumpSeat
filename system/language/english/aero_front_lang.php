@@ -27,6 +27,9 @@ $lang['oopsdesc']    = "It seems you have landed on the wrong page. Please choos
 $lang['oopsm']      = "Go back";
 $lang['oopst']      = "Take me there";
 
+//Share Guides
+$lang['share']      = "Share";
+
 /**
  *  Admin
  */

@@ -70,6 +70,9 @@ $lang['vpaths']			= "View Paths";
 $lang['on']				= "On";
 $lang['off']			= "Off";
 $lang['appsa']			= "Add a new web application";
+$lang['addhost']		= "Add another host";
+$lang['more']			= "more";
+
 
 /**
  *  Blacklist
@@ -95,6 +98,14 @@ $lang['afindc']         = "Find";
 $lang['afindrw']        = "Replace With";
 $lang['afindp']         = "Preview";
 
+$lang['sprop']          = "- Select a property -";
+$lang['sgtitle']        = "Guide: Title";
+$lang['sgdesc']         = "Guide: Description";
+$lang['sstitle']        = "Step: Title";
+$lang['ssbody']         = "Step: Content";
+
+
+
 /**
  *  Roles
  */
@@ -112,6 +123,9 @@ $lang['pathd']			= "Pathways help users learn key tasks and related concepts in 
 $lang['cardp']			= "Manage pathway";
 $lang['assocg']			= "Add a guide";
 $lang['assocr']			= "Add a role";
+$lang['start']			= "Start";
+$lang['end']			= "End";
+
 
 /**
  * Mappings
@@ -155,6 +169,7 @@ $lang['steps'] 			= "Steps";
 /**
  *  Blacklist
  */
+$lang['url'] 		    = "URL";
 $lang['addurl'] 		= "Add a URL";
 $lang['blacklistd'] 	= "The guide-bar will be available on all URLs under this domain. In order to ignore pages (e.g. login page), you must blacklist them here.";
 

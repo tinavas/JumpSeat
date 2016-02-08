@@ -1,5 +1,5 @@
 <form>
-	<label>URL</label>
+	<label><%= AeroStep.lang.url %></label>
 	<input name="url" type="text" class="aero-required" placeholder="<%= AeroStep.lang.eurl %>" value="<%= blacklist.url %>">
 
 	<label><%= AeroStep.lang.desc%></label>
@@ -8,12 +8,12 @@
 		<label><%= AeroStep.lang.matchpre %></label>
 		<div class="check row">
 			<div class="large-12">
-				<label class="left">OFF</label>
+				<label class="left"><%= AeroStep.lang.off %></label>
 				<fieldset class="left tiny switch round">
 					<input name="globPrefix" id="globPrefix" type="checkbox" <%= (blacklist.globPrefix) ? "checked" : "" %>>
 					<label for="globPrefix"></label>
 				</fieldset>
-				<label class="left">ON</label>
+				<label class="left"><%= AeroStep.lang.on %></label>
 			</div>
 		</div>
 	</div>
@@ -21,12 +21,12 @@
 		<label><%= AeroStep.lang.matchsuf %></label>
 		<div class="check row">
 			<div class="large-12">
-				<label class="left">OFF</label>
+				<label class="left"><%= AeroStep.lang.off %></label>
 				<fieldset class="left tiny switch round">
 					<input name="globSuffix" id="globSuffix" type="checkbox" <%= (blacklist.globSuffix) ? "checked" : "" %>>
 					<label for="globSuffix"></label>
 				</fieldset>
-				<label class="left">ON</label>
+				<label class="left"><%= AeroStep.lang.on %></label>
 			</div>
 		</div>
 	</div>
