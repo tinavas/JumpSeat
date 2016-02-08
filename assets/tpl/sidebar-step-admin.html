@@ -4,13 +4,13 @@
 <div class="aero-app aero-admin-wrapper clearfix aero-editing-step <%= (model.isAdd) ? 'aero-add-step':'' %>">
 	<div class="aero-strip-menu">
 		<ul>
-			<li class="aero-menu-active"><a data-title="Basic Details" class="aicon-basic"><span></span></a></li>
-			<li><a data-title="Styling" class="aicon-style"><span></span></a></li>
-			<li><a data-title="Navigation" class="aicon-nav"><span></span></a></li>
-			<li><a data-title="Location" class="aicon-loc"><span></span></a></li>
-			<li><a data-title="Exceptions &amp; Validation" class="aicon-alert"><span></span></a></li>
-			<li><a data-title="Branching" class="aicon-branch"><span></span></a></li>
-			<li><a data-title="Custom code" class="aicon-code"><span></span></a></li>
+			<li class="aero-menu-active"><a data-title="<%= AeroStep.lang.basic %>" class="aicon-basic"><span></span></a></li>
+			<li><a data-title="<%= AeroStep.lang.styling %>" class="aicon-style"><span></span></a></li>
+			<li><a data-title="<%= AeroStep.lang.navigation %>" class="aicon-nav"><span></span></a></li>
+			<li><a data-title="<%= AeroStep.lang.location %>" class="aicon-loc"><span></span></a></li>
+			<li><a data-title="<%= AeroStep.lang.exce %>" class="aicon-alert"><span></span></a></li>
+			<li><a data-title="<%= AeroStep.lang.branching %>" class="aicon-branch"><span></span></a></li>
+			<li><a data-title="<%= AeroStep.lang.customcode %>" class="aicon-code"><span></span></a></li>
 		</ul>
 	</div>
 	<div class="aero-admin-body">
@@ -20,9 +20,9 @@
 		    	<h1><%= AeroStep.lang.contente %></h1>
 
 				<ul class="aero-tab aero-three clearfix">
-					<li><a class="aero-tab-active" href="#aero-tab-1">Content</a></li>
-					<li><a href="#aero-tab-2">Rich Media</a></li>
-					<li><a id="aero-section-quiz" href="#aero-tab-3">Quizzing</a></li>
+					<li><a class="aero-tab-active" href="#aero-tab-1"><%= AeroStep.lang.content %></a></li>
+					<li><a href="#aero-tab-2"><%= AeroStep.lang.richmedia %></a></li>
+					<li><a id="aero-section-quiz" href="#aero-tab-3"><%= AeroStep.lang.quizzing %></a></li>
 				</ul>
 
 				<!-- BASIC CONTENT -->
@@ -40,10 +40,10 @@
 				<div id="aero-tab-2" class="aero-tab-content">
 					<p><%= AeroStep.lang.contentd %></p>
 
-                    <label>Youtube URL</label>
+                    <label><%= AeroStep.lang.youtube %></label>
                     <input type="text" name="aero_youtube" value="<%= model.youtube %>" />
 
-					<label>Embed</label>
+					<label><%= AeroStep.lang.embed %></label>
 					<textarea class="aero_embed_val" name="aero_embed"><%= model.embed %></textarea>
 				</div>
 
@@ -53,10 +53,10 @@
 
                     <label><%= AeroStep.lang.chooselay %></label>
                     <select type="text" name="aero_quizsize">
-                        <option value="" <%= (model.quizsize == "" ? "selected":"") %>>1 column (default)</option>
-                        <option value="two" <%= (model.quizsize == "two" ? "selected":"") %>>2 column</option>
-                        <option value="three" <%= (model.quizsize == "three" ? "selected":"") %>>3 column</option>
-                        <option value="four" <%= (model.quizsize == "four" ? "selected":"") %>>4 column</option>
+                        <option value="" <%= (model.quizsize == "" ? "selected":"") %>><%= AeroStep.lang.onec %></option>
+                        <option value="two" <%= (model.quizsize == "two" ? "selected":"") %>><%= AeroStep.lang.twoc %></option>
+                        <option value="three" <%= (model.quizsize == "three" ? "selected":"") %>><%= AeroStep.lang.threec %></option>
+                        <option value="four" <%= (model.quizsize == "four" ? "selected":"") %>><%= AeroStep.lang.fourc %></option>
                     </select>
 
                     <!-- Answers -->
@@ -90,20 +90,20 @@
 
 				<label><%= AeroStep.lang.pos %></label>
 				<select type="text" name="aero_position">
-					<option value="bottom" <%= (model.position == "bottom" ? "selected":"") %>>Bottom (default)</option>
-					<option value="top" <%= (model.position == "top" ? "selected":"") %>>Top</option>
-					<option value="left" <%= (model.position == "left" ? "selected":"") %>>Left</option>
-					<option value="right" <%= (model.position == "right" ? "selected":"") %>>Right</option>
-					<option value="orphan" <%= (model.position == "orphan" ? "selected":"") %>>Orphan</option>
+					<option value="bottom" <%= (model.position == "bottom" ? "selected":"") %>><%= AeroStep.lang.bottom %></option>
+					<option value="top" <%= (model.position == "top" ? "selected":"") %>><%= AeroStep.lang.top %></option>
+					<option value="left" <%= (model.position == "left" ? "selected":"") %>><%= AeroStep.lang.left %></option>
+					<option value="right" <%= (model.position == "right" ? "selected":"") %>><%= AeroStep.lang.right %></option>
+					<option value="orphan" <%= (model.position == "orphan" ? "selected":"") %>><%= AeroStep.lang.orphan %></option>
 				</select>
 
 				<label><%= AeroStep.lang.size %></label>
 				<select type="text" name="aero_size">
-					<option value="" <%= (model.size == "" ? "selected":"") %>>Small (default)</option>
-					<option value="med" <%= (model.size == "med" ? "selected":"") %>>Medium</option>
-					<option value="lrg" <%= (model.size == "lrg" ? "selected":"") %>>Large</option>
-					<option value="auto" <%= (model.size == "auto" ? "selected":"") %>>Auto</option>
-					<option value="custom" <%= (!isNaN(model.size) ? "selected":"") %>>Custom</option>
+					<option value="" <%= (model.size == "" ? "selected":"") %>><%= AeroStep.lang.ssmall %></option>
+					<option value="med" <%= (model.size == "med" ? "selected":"") %>><%= AeroStep.lang.smedium %></option>
+					<option value="lrg" <%= (model.size == "lrg" ? "selected":"") %>><%= AeroStep.lang.slarge %></option>
+					<option value="auto" <%= (model.size == "auto" ? "selected":"") %>><%= AeroStep.lang.sauto %></option>
+					<option value="custom" <%= (!isNaN(model.size) ? "selected":"") %>><%= AeroStep.lang.scustom %></option>
 				</select>
 
 				<div class="aero-custom-size" style="<%= isNaN(model.size) ? 'display:none' : '' %>">
@@ -129,12 +129,12 @@
                 <div class="aero-color-wrapper" style="<%= model.isRestrict ? '' : 'display:none' %>">
                     <label><%= AeroStep.lang.restrictc %></label>
                     <select name="aero_restrictColor">
-                        <option value="">Transparent (default)</option>
-                        <option <%= model.restrictColor == '#DB5052' ? 'selected="selected"' :'' %> value="#DB5052">Red</option>
-                        <option <%= model.restrictColor == '#D8EA37' ? 'selected="selected"' :'' %> value="#D8EA37">Yellow</option>
-                        <option <%= model.restrictColor == '#3BEA37' ? 'selected="selected"' :'' %> value="#3BEA37">Green</option>
-                        <option <%= model.restrictColor == '#378BEA' ? 'selected="selected"' :'' %> value="#378BEA">Blue</option>
-                        <option <%= model.restrictColor == '#000' ? 'selected="selected"' :'' %> value="#000">Black</option>
+                        <option value=""><%= AeroStep.lang.trans %></option>
+                        <option <%= model.restrictColor == '#DB5052' ? 'selected="selected"' :'' %> value="#DB5052"><%= AeroStep.lang.red %></option>
+                        <option <%= model.restrictColor == '#D8EA37' ? 'selected="selected"' :'' %> value="#D8EA37"><%= AeroStep.lang.yellow %></option>
+                        <option <%= model.restrictColor == '#3BEA37' ? 'selected="selected"' :'' %> value="#3BEA37"><%= AeroStep.lang.green %></option>
+                        <option <%= model.restrictColor == '#378BEA' ? 'selected="selected"' :'' %> value="#378BEA"><%= AeroStep.lang.blue %></option>
+                        <option <%= model.restrictColor == '#000' ? 'selected="selected"' :'' %> value="#000"><%= AeroStep.lang.black %></option>
                     </select>
                 </div>
 
@@ -153,23 +153,23 @@
 						%>
 						<div class="aero-nav-item">
 							<select class="aero_nav_when" style="width:200px;">
-								<option value="next">Next is clicked</option>
-								<option value="click" <%= j== "click" ? "selected" : "" %>>Element is clicked</option>
-								<option value="mousedown" <%= j== "mousedown" ? "selected" : "" %>>Item is dragged</option>
-								<option value="hover" <%= j == "hover" ? "selected" : "" %>>Hover over element</option>
-								<option value="blur"  <%= j == "blur" ? "selected" : "" %>>Keyboard input finished</option>
-								<option value="unload" <%= j == "unload" ? "selected" : "" %>>Page changed or refreshed</option>
-								<option value="observe" <%= j == "observe" ? "selected" : "" %>>Next item visible</option>
+								<option value="next"><%= AeroStep.lang.nnext %></option>
+								<option value="click" <%= j== "click" ? "selected" : "" %>><%= AeroStep.lang.nclick %></option>
+								<option value="mousedown" <%= j== "mousedown" ? "selected" : "" %>><%= AeroStep.lang.ndrag %></option>
+								<option value="hover" <%= j == "hover" ? "selected" : "" %>><%= AeroStep.lang.nhover %></option>
+								<option value="blur"  <%= j == "blur" ? "selected" : "" %>><%= AeroStep.lang.nkey %></option>
+								<option value="unload" <%= j == "unload" ? "selected" : "" %>><%= AeroStep.lang.npage %></option>
+								<option value="observe" <%= j == "observe" ? "selected" : "" %>><%= AeroStep.lang.nvisible %></option>
 							</select>
 							<select class="aero_nav_to" style="width:170px;">
-								<option value="-1">Next Step (default)</option>
+								<option value="-1"><%= AeroStep.lang.nstep %></option>
 								<% for(var i = 0; i < Aero.tip._guide.step.length + 1; i++){
 									var d = "";
 									var s = "";
 									if(model.index != i){
 										if(model.nav[j] == i) s = "selected";
 								%>
-									<option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
+									<option value="<%= i %>" <%= s %>><%= AeroStep.lang.step %> <%= i + 1 %></option>
 								<% }} %>
 							</select>
 						</div>
@@ -181,10 +181,10 @@
 
 				<label><%= AeroStep.lang.hide %></label>
 				<select type="text" name="aero_hide">
-					<option value="" <%= (model.position == "top" ? "selected":"") %>>None (default)</option>
-					<option value="noNext" <%= (model.noNext ? "selected":"") %>>Next button</option>
-					<option value="noPrev" <%= (model.noPrev ? "selected":"") %>>Previous button</option>
-					<option value="noNav" <%= (model.noNav ? "selected":"") %>>All buttons</option>
+					<option value="" <%= (model.position == "top" ? "selected":"") %>><%= AeroStep.lang.none %></option>
+					<option value="noNext" <%= (model.noNext ? "selected":"") %>><%= AeroStep.lang.bnext %></option>
+					<option value="noPrev" <%= (model.noPrev ? "selected":"") %>><%= AeroStep.lang.bprev %></option>
+					<option value="noNav" <%= (model.noNav ? "selected":"") %>><%= AeroStep.lang.ball %></option>
 				</select>
 				<div><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
@@ -228,10 +228,10 @@
 
 				<label><%= AeroStep.lang.urlv %></label>
 				<select type="text" name="aero_noUrl">
-					<option value="" <%= (model.noUrl == "" ? "selected":"") %>>Whole URL (default)</option>
-					<option value="anc" <%= (model.noUrl == "anc" ? "selected":"") %>>Without Anchors (example.com/#something)</option>
-					<option value="par" <%= (model.noUrl == "par" ? "selected":"") %>>Without Parameters (example.com?key=value)</option>
-					<option value="all" <%= (model.noUrl == "all" ? "selected":"") %>>Ignore URL Entirely</option>
+					<option value="" <%= (model.noUrl == "" ? "selected":"") %>><%= AeroStep.lang.uall %></option>
+					<option value="anc" <%= (model.noUrl == "anc" ? "selected":"") %>><%= AeroStep.lang.uanch %></option>
+					<option value="par" <%= (model.noUrl == "par" ? "selected":"") %>><%= AeroStep.lang.uparam %></option>
+					<option value="all" <%= (model.noUrl == "all" ? "selected":"") %>><%= AeroStep.lang.uignor %></option>
 				</select>
 				<div><%= asSaveButton %><%= asCancelButton %></div>
 			</div>
@@ -250,12 +250,12 @@
                     <!-- FINDING EXCEPTIONS -->
                     <label><%= AeroStep.lang.excef %></label>
                     <select type="text" name="aero_miss">
-                        <option value="" <%= (!model.miss ? "selected" : "") %>>Alert (default)</option>
-                        <option value="skip" <%= (model.miss == "skip" ? "selected":"") %>>Skip step</option>
-                        <option value="skipto" <%= (model.miss == "skipto" ? "selected":"") %>>Skip to step...</option>
-                        <option value="back" <%= (model.miss == "back" ? "selected":"") %>>Move back to previous step</option>
-                        <option value="alert" <%= (model.miss == "alert" ? "selected":"") %>>Display a message</option>
-						<option value="ignore" <%= (model.miss == "ignore" ? "selected":"") %>>Do Nothing</option>
+						<option value="" <%= (!model.miss ? "selected" : "") %>><%= AeroStep.lang.xalert %><%= AeroStep.lang.default %></option>
+						<option value="skip" <%= (model.miss == "skip" ? "selected":"") %>><%= AeroStep.lang.xskip %></option>
+						<option value="skipto" <%= (model.miss == "skipto" ? "selected":"") %>><%= AeroStep.lang.xskipto %></option>
+						<option value="back" <%= (model.miss == "back" ? "selected":"") %>><%= AeroStep.lang.xback %></option>
+						<option value="alert" <%= (model.miss == "alert" ? "selected":"") %>><%= AeroStep.lang.xmess %></option>
+						<option value="ignore" <%= (model.miss == "ignore" ? "selected":"") %>><%= AeroStep.lang.xno %></option>
                     </select>
 
                     <div class="aero-skip-edit" style="<%= (model.miss != "skipto") ? 'display:none' : '' %>">
@@ -269,7 +269,7 @@
                             if(model.index != i){
                             if(model.skipto && parseInt(model.skipto) == i) s = "selected";
                             %>
-                            <option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
+                            <option value="<%= i %>" <%= s %>><%= AeroStep.lang.step %> <%= i + 1 %></option>
                             <% }} %>
                         </select>
                     </div>
@@ -289,12 +289,12 @@
 
 					<label><%= AeroStep.lang.excel %></label>
 					<select type="text" name="aero_loss">
-						<option value="" <%= (!model.loss ? "selected" : "") %>>Alert</option>
-						<option value="skip" <%= (model.loss == "skip" ? "selected":"") %>>Skip step</option>
-						<option value="skipto" <%= (model.loss == "skipto" ? "selected":"") %>>Skip to step...</option>
-						<option value="back" <%= (model.loss == "back" ? "selected":"") %>>Move back to previous step</option>
-						<option value="alert" <%= (model.loss == "alert" ? "selected":"") %>>Display a message</option>
-						<option value="ignore" <%= (model.loss == "ignore" ? "selected":"") %>>Do Nothing (default)</option>
+						<option value="" <%= (!model.loss ? "selected" : "") %>><%= AeroStep.lang.xalert %></option>
+						<option value="skip" <%= (model.loss == "skip" ? "selected":"") %>><%= AeroStep.lang.xskip %></option>
+						<option value="skipto" <%= (model.loss == "skipto" ? "selected":"") %>><%= AeroStep.lang.xskipto %></option>
+						<option value="back" <%= (model.loss == "back" ? "selected":"") %>><%= AeroStep.lang.xback %></option>
+						<option value="alert" <%= (model.loss == "alert" ? "selected":"") %>><%= AeroStep.lang.xmess %></option>
+						<option value="ignore" <%= (model.loss == "ignore" ? "selected":"") %>><%= AeroStep.lang.xno %><%= AeroStep.lang.default %></option>
 					</select>
 
 					<div class="aero-loss-skip-edit" style="<%= (model.loss != "skipto") ? 'display:none' : '' %>">
@@ -308,7 +308,7 @@
 							if(model.index != i){
 							if(model.skipto && parseInt(model.skipto) == i) s = "selected";
 							%>
-							<option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
+							<option value="<%= i %>" <%= s %>><%= AeroStep.lang.step %> <%= i + 1 %></option>
 							<% }} %>
 						</select>
 					</div>
@@ -368,10 +368,10 @@
 					<p style="margin-bottom:20px; margin-top:15px;"><%= AeroStep.lang.bre %></p>
 					<label><%= AeroStep.lang.br %></label>
 					<select type="text" name="aero_return">
-						<option value="" <%= (!model.return ? "selected" : "") %>>Don't return (default)</option>
+						<option value="" <%= (!model.return ? "selected" : "") %>><%= AeroStep.lang.dontr %><%= AeroStep.lang.default %></option>
 						<% for(var i = 0; i < Aero.tip._guide.step.length + 1; i++){
 							var s = (model.return == i) ? "selected" : ""; %>
-							<option value="<%= i %>" <%= s %>>Step <%= i + 1 %></option>
+							<option value="<%= i %>" <%= s %>><%= AeroStep.lang.step %> <%= i + 1 %></option>
 						<% } %>
 					</select>
 				</div>

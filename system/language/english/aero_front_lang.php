@@ -54,6 +54,17 @@ $lang['active']			= "Active";
 $lang['cond'] = "Click here or conditional content.";
 
 /**
+ *  Guide admin nav
+ */
+//
+$lang['styling']           = "Styling";
+$lang['navigation']        = "Navigation";
+$lang['location']          = "Location";
+$lang['exceptions']        = "Exceptions &amp; Validation";
+$lang['branching']         = "Branching";
+$lang['customcode']        = "Custom code";
+
+/**
  *  Guide admin
  */
 //Buttons
@@ -83,6 +94,72 @@ $lang['roled']		= "Restrict your guide to one or multiple roles.";
 /**
  *  Steps admin
  */
+$lang['richmedia']  = "Rich Media";
+$lang['quizzing']   = "Quizzing";
+$lang['youtube']    = "Youtube URL";
+$lang['embed']      = "Embed";
+
+//Tip Position
+$lang['bottom']     = "Bottom (default)";
+$lang['top']        = "Top";
+$lang['left']       = "Left";
+$lang['right']      = "Right";
+$lang['orphan']     = "Orphan";
+
+//Tip sizes
+$lang['ssmall']     = "Bottom (default)";
+$lang['smedium']    = "Top";
+$lang['slarge']     = "Left";
+$lang['sauto']      = "Right";
+$lang['scustom']    = "Orphan";
+
+//Colors
+$lang['trans']      = "Transparent (default)";
+$lang['red']        = "Red";
+$lang['yellow']     = "Yellow";
+$lang['green']      = "Green";
+$lang['blue']       = "Blue";
+$lang['black']      = "Black";
+
+//Step Navigation
+$lang['nnext']      = "Next is clicked";
+$lang['nclick']     = "Item is clicked";
+$lang['ndrag']      = "Item is dragged";
+$lang['nhover']     = "Hover over item";
+$lang['nkey']       = "Keyboard entry finished";
+$lang['npage']      = "Page changed or refreshed";
+$lang['nvisible']   = "Next item is visible";
+
+$lang['step']      = "Step";
+$lang['nstep']      = "Next Step (default)";
+
+//Hide buttons
+$lang['none']      = "None (default)";
+$lang['bnext']     = "Next button";
+$lang['bprev']     = "Previous button";
+$lang['ball']      = "All buttons";
+
+
+//URL validation
+$lang['uall']      = "Whole URL (default)";
+$lang['uanch']     = "Without Anchors (example.com/#something)";
+$lang['uparam']    = "Without Parameters (example.com?key=value)";
+$lang['uignor']    = "Ignore URL Entirely";
+
+
+//Exceptions
+$lang['default']   = " (default)";
+$lang['xalert']      = "Alert";
+$lang['xskip']      = "Skip step";
+$lang['xskipto']    = "Skip to step...";
+$lang['xback']      = "Move back to previous step";
+$lang['xmess']      = "Display a message";
+$lang['xno']        = "Do Nothing";
+
+//Branching
+$lang['dontr']     = "Don't return";
+
+//Buttons, titles, and descriptions
 $lang['done'] 		= "I'm done";
 $lang['stepa'] 		= "Add Step";
 $lang['stepn'] 		= "Step Number";
@@ -169,6 +246,12 @@ $lang['infod']       = "Animate tooltip";
 
 $lang['restrictt']   = "Feature Restricted";
 $lang['restrictb']   = "This feature has been restricted and requires guidance for first time that you use it.";
+
+//Quiz layout
+$lang['onec']       = "1 column (default)";
+$lang['twoc']       = "2 column";
+$lang['threec']     = "3 column";
+$lang['fourc']      = "4 column";
 
 /* End of file injected_lang.php */
 /* Location: ./system/language/english/injected_lang.php */
