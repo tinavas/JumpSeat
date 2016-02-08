@@ -42,11 +42,11 @@
 			        <thead>
 			            <tr>
 			                <th><input type="checkbox" class="select-all" /></th>
-			                <th>URL</th>
-			                <th>Description</th>
-			                <th>Prefix</th>
-			                <th>Suffix</th>
-			                <th></th>
+			                <th><?= $lang->url; ?></th>
+			                <th><?= $lang->description; ?></th>
+			                <th><?= $lang->prefix; ?></th>
+			                <th><?= $lang->suffix; ?></th>
+			                <th><?= $lang->tools; ?></th>
 			            </tr>
 			        </thead>
 			        <tbody></tbody>

@@ -24,29 +24,29 @@
 		 		<img src="<?= $baseUrl; ?>/assets/images/jumpseat-stacked.png" />
             </div>
             <div class="large-9 center">
-                <p>Your Installation was Successful!</p>
+                <p><?= $lang->installgood; ?></p>
             </div>
         </div>
      </div>
      <div class="row">
          <div class="login-form small-offset-1 small-10 medium-offset-2 medium-8 large-offset-4 large-4 columns form">
             <form class="login install">
-                <p>To get started, you will first need an administrator JumpSeat account: Enter an email address and password and we will create your first user:</p>
+                <p><?= $lang->installdesc; ?></p>
 
                 <div class="row">
                     <div class="large-6 columns">
-                        <input type="text" class="aero-required" value="" name="firstname" placeholder="First Name" />
+                        <input type="text" class="aero-required" value="" name="firstname" placeholder="<?= $lang->firstname; ?>" />
                     </div>
                     <div class="large-6 columns">
-                        <input type="text" class="aero-required" value="" name="lastname" placeholder="Last Name" />
+                        <input type="text" class="aero-required" value="" name="lastname" placeholder="<?= $lang->lastname; ?>" />
                     </div>
                 </div>
 
-                <input type="text" class="aero-required" value="" name="email" placeholder="Email Address" />
+                <input type="text" class="aero-required" value="" name="email" placeholder="<?= $lang->emailaddress; ?>" />
 
-                <input name="password" type="password" class="aero-required" placeholder="Password" value="">
-                <input type="password" class="passwordv aero-required" placeholder="Verify password" value="">
-                <a href="/apps" class="btn sign-in">Sign in</a>
+                <input name="password" type="password" class="aero-required" placeholder="<?= $lang->password; ?>" value="">
+                <input type="password" class="passwordv aero-required" placeholder="<?= $lang->passwordvp; ?>" value="">
+                <a href="/apps" class="btn sign-in"><?= $lang->signin; ?></a>
             </form>
         </div>
     </div>

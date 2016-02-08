@@ -22,7 +22,10 @@ class Login extends CI_Controller {
 		if (session_status() != PHP_SESSION_NONE) session_destroy();
 
         $this->load->model('user_model');
+
         $data['baseUrl'] = base_url();
+        $this->lang->load('aero', $this->config->item('language'));
+        $data['lang'] = (object) $this->lang->language;
 
         if($this->user_model->count() == 0) {
             $this->load->view('install_view', $data);

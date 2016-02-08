@@ -41,12 +41,12 @@
 			        <thead>
 			            <tr>
 			                <th></th>
-			                <th>Name</th>
-			                <th>Description</th>
-			                <th>Active</th>
-			                <th class="center">Steps</th>
-                            <th>Creator</th>
-			                <th>Tools</th>
+			                <th><?= $lang->name; ?></th>
+			                <th><?= $lang->version; ?></th>
+			                <th><?= $lang->active; ?></th>
+			                <th class="center"><?= $lang->steps; ?></th>
+                            <th><?= $lang->creator; ?></th>
+			                <th><?= $lang->tools; ?></th>
 			            </tr>
 			        </thead>
 			        <tbody></tbody>

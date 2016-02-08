@@ -55,9 +55,9 @@
 							        <thead>
 							            <tr>
 							                <th><input type="checkbox" class="select-all" /></th>
-							                <th>Description</th>
-							                <th>Replace</th>
-							                <th>With</th>
+							                <th><?= $lang->description; ?></th>
+							                <th><?= $lang->replace; ?></th>
+							                <th><?= $lang->with; ?></th>
 							                <th></th>
 							            </tr>
 							        </thead>

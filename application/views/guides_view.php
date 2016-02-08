@@ -51,13 +51,13 @@
 			        <thead>
 			            <tr>
 			                <th><input type="checkbox" class="select-all" /></th>
-			                <th>Name</th>
-			                <th>Description</th>
-			                <th>Active</th>
-			                <th class="center">Steps</th>
-			                <th>Version</th>
-                            <th>Creator</th>
-			                <th>Tools</th>
+			                <th><?= $lang->name; ?></th>
+			                <th><?= $lang->description; ?></th>
+			                <th><?= $lang->active; ?></th>
+			                <th class="center"><?= $lang->steps; ?></th>
+			                <th><?= $lang->version; ?></th>
+                            <th><?= $lang->creator; ?></th>
+			                <th><?= $lang->tools; ?></th>
 			            </tr>
 			        </thead>
 			        <tbody></tbody>

@@ -24,7 +24,7 @@
 		 		<img src="<?= $baseUrl; ?>/assets/images/jumpseat-stacked.png" />
             </div>
             <div class="large-9 center">
-                <p>Revolutionizing how <strong>you</strong> onboard, support and educate your users</p>
+                <p><?= $lang->tagline; ?></p>
             </div>
         </div>
      </div>
@@ -33,17 +33,17 @@
             <form class="login">
                 <input type="text" value="" name="username" placeholder="Username/Email" />
                 <input type="password" value="" name="password" placeholder="Password" />
-                <a href="/apps" class="btn sign-in">Sign in</a>
+                <a href="/apps" class="btn sign-in"><?= $lang->signin; ?></a>
             </form>
 
             <form class="email-form clearfix">
                 <input id="reset" type="text" value="" name="email" placeholder="Username/Email" />
-                <a class="reset-pwd btn">Reset</a>
-                <a class="reset-cnl btn">Cancel</a>
+                <a class="reset-pwd btn"><?= $lang->reset; ?></a>
+                <a class="reset-cnl btn"><?= $lang->cancel; ?></a>
             </form>
 
             <div class="login reset-password">
-                <a href="#">Forgot your password? Click here to reset it</a>
+                <a href="#"><?= $lang->passreset; ?></a>
             </div>
         </div>
     </div>

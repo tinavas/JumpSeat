@@ -42,11 +42,11 @@
 			        <thead>
 			            <tr>
 			                <th></th>
-                            <th>Version</th>
-			                <th>Description</th>
-			                <th class="center">Steps</th>
-                            <th>Modified</th>
-			                <th></th>
+                            <th><?= $lang->version; ?></th>
+			                <th><?= $lang->description; ?></th>
+			                <th class="center"><?= $lang->steps; ?></th>
+                            <th><?= $lang->modified; ?></th>
+			                <th><?= $lang->tools; ?></th>
 			            </tr>
 			        </thead>
 			        <tbody></tbody>

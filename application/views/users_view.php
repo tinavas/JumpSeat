@@ -43,13 +43,13 @@
 			        <thead>
 			            <tr>
 			                <th></th>
-			                <th>First Name</th>
-			                <th>Last Name</th>
-			                <th>Email Address</th>
-			                <th>Created</th>
-			                <th>Last login</th>
-			                <th>System Admin</th>
-			                <th></th>
+			                <th><?= $lang->firstname; ?></th>
+			                <th><?= $lang->lastname; ?></th>
+			                <th><?= $lang->emailaddress; ?></th>
+			                <th><?= $lang->created; ?></th>
+			                <th><?= $lang->lastlogin; ?></th>
+			                <th><?= $lang->sysadmin; ?></th>
+			                <th><?= $lang->tools; ?></th>
 			            </tr>
 			        </thead>
 			        <tbody></tbody>

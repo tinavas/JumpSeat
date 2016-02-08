@@ -17,8 +17,8 @@
 <div id="screenGuide" class="balloon">
 	<div class="row">
 		<div class="large-8 columns" style="margin-bottom:2em;">
-			<h4>Page not found</h4>
-		   	<p>Either this page does not exist, or you do not have access to this page. Please contact your administrator if you feel this is incorrect.</p>
+			<h4><?= $lang->notfound; ?></h4>
+		   	<p><?= $lang->notfounddesc; ?></p>
 		</div>
 	</div>
 </div>

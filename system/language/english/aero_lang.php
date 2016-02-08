@@ -1,7 +1,20 @@
 <?php
 
 //Copyright
-$lang['copy']		= "TenSpeed Technologies, Inc. &copy; 2015 All rights reserved.<br>You are running version ";
+$lang['copy']		    = "TenSpeed Technologies, Inc. &copy; 2015 All rights reserved.<br>You are running version ";
+$lang['tagline']        = "Revolutionizing how <strong>you</strong> onboard, support and educate your users";
+
+//Login
+$lang['signin']         = "Sign in";
+$lang['reset']          = "Reset";
+$lang['passreset']      = "Forgot your password? Click here to reset it";
+$lang['badpass']        = "Invalid username or password";
+
+$lang['notfound']       = "Page not found";
+$lang['notfounddesc']   = "Either this page does not exist, or you do not have access to this page. Please contact your administrator if you feel this is incorrect.";
+
+$lang['installgood']    = "Your Installation was Successful!";
+$lang['installdesc']    = "To get started, you will first need an administrator JumpSeat account: Enter an email address and password and we will create your first user:";
 
 //Menu System
 $lang['home']			= "Home";
@@ -15,6 +28,7 @@ $lang['spathway']		= "Select a Pathway";
 $lang['pathways']		= "Pathways";
 $lang['config']			= "Configuration";
 $lang['blacklist']		= "URL Blacklisting";
+$lang['version']		= "Version";
 $lang['versions']		= "Versions";
 $lang['logout']			= "Logout";
 
@@ -53,6 +67,20 @@ $lang['success']		= "Success! Your changes have been saved.";
 $lang['selected']       = "Guide(s) Selected";
 $lang['case']       = "Case sensitive?";
 
+//Common Field Labels
+$lang['description']  = "Description";
+$lang['modified']     = "Modified";
+$lang['firstname']    = "First Name";
+$lang['lastname']     = "Last Name";
+$lang['created']      = "Created";
+$lang['lastlogin']    = "Last Login";
+$lang['sysadmin']     = "System Admin";
+$lang['creator']      = "Creator";
+$lang['name']         = "Name";
+$lang['tools']        = "Tools";
+$lang['replace']       = "Replace";
+$lang['asdasd']       = "asdasd";
+
 /**
  *  Apps
  */
@@ -77,6 +105,8 @@ $lang['more']			= "more";
 /**
  *  Blacklist
  */
+$lang['prefix']			= "Prefix";
+$lang['suffix']			= "Suffix";
 $lang['eurl']			= "Enter a URL";
 $lang['matchpre']		= "Match with any prefix";
 $lang['matchsuf']		= "Match with any suffix";
@@ -188,6 +218,7 @@ $lang['firstnamep'] 	= "Enter a firstname";
 $lang['lastname'] 		= "Lastname";
 $lang['lastnamep'] 		= "Enter a lastname";
 $lang['email'] 			= "Email";
+$lang['emailaddress'] 	= "Email Address";
 $lang['emailp'] 		= "Enter email address";
 $lang['passwordc'] 		= "Change Password";
 $lang['password'] 		= "Password";
