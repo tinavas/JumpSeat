@@ -54,6 +54,7 @@ Aero.model.step = {
 			ls[index] = guide;
 
 			//Update local storage
+            aeroStorage.setItem('aero:session:end', 0);
 			aeroStorage.setItem('aero:guides', JSON.stringify(ls), function(){});
             aeroStorage.setItem('aero:session', JSON.stringify(ls[index]), function(){
                 //Set session

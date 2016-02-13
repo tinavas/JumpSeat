@@ -346,6 +346,12 @@ Aero.tip = {
         //Validate
         if(!this.validate()) return;
 
+        //Last step
+        if(aeroStorage.getItem('aero:session:end') == "1"){
+            if(!AeroStep.admin) self.stop();
+            return;
+        }
+
 		var step = Aero.step.get(this._current);
 
 		this._forward = true;
@@ -382,6 +388,11 @@ Aero.tip = {
      * @returns {void}
 	 */
 	jumpTo : function(i){
+
+        if(aeroStorage.getItem('aero:session:end') == "1"){
+            if(!AeroStep.admin) self.stop();
+            return;
+        }
 
         var step = Aero.step.get(i);
 		this._forward = true;
@@ -1080,7 +1091,7 @@ Aero.tip = {
      * @returns {string} $nav Navigation type
 	 */
 	setEvents : function($el, nav, $tip, position){
-		var self = this, last = false;
+		var self = this;
 
 		//Watch
 		$q(document).off("scroll.scw").on("scroll.scw" + Aero.tip._current, function(){ self.setPosition($el, $tip, position);  }, 250);
@@ -1099,7 +1110,6 @@ Aero.tip = {
 		aeroStorage.removeItem('aero:session:end');
 		if(parseInt($q('.aero-tip:last').attr('id').replace('astep-', '')) == (Aero.tip._guide.step.length - 1)){
 			aeroStorage.setItem('aero:session:end', 1);
-			last = true;
 		}
 
 		//Branch continue
@@ -1149,11 +1159,6 @@ Aero.tip = {
                             Aero.navigating = true;
                             if(!self.validate()) return;
 
-                            if(last){
-                                if(!AeroStep.admin) self.stop();
-                                return;
-                            }
-
                             self.jumpTo(nav[n]);
                         });
                         break;
@@ -1162,11 +1167,6 @@ Aero.tip = {
                         $el.off('mousedown.aeronav').on('mousedown.aeronav', $el, function(){
                             Aero.navigating = true;
                             if(!self.validate()) return;
-
-                            if(last){
-                                if(!AeroStep.admin) self.stop();
-                                return;
-                            }
 
                             self.jumpTo(nav[n]);
                         });
@@ -1184,7 +1184,6 @@ Aero.tip = {
                         break;
 
                     case "blur":
-                        $el.focus();
                         $el.off('keydown.aeronav').on('keydown.aeronav', $el, function(e){
                             Aero.navigating = true;
                             if(!self.validate()) return;
@@ -1195,7 +1194,7 @@ Aero.tip = {
                             }
                         });
 						$el.off('focusout.aeronavb').on('focusout.aeronavb', $el, function(e){
-							Aero.navigating = true;
+                            Aero.navigating = true;
 							if(!self.validate()) return;
 							self.jumpTo(nav[n]);
 						});
