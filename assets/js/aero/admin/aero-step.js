@@ -131,6 +131,12 @@ Aero.view.step.admin = {
                     url = url.replace(sl, "");
                 }
 
+                //Auto check page unload
+                var ahref = $q(path).attr('href');
+                if(tag == "a" && ahref != "javascript://" && ahref != "#"){
+                    nav = { unload : 1 };
+                }
+
                 //Step settings
                 var settings = {
                     id : null,
