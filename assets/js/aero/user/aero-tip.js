@@ -310,31 +310,50 @@ Aero.tip = {
 	 */
 	stop : function(){
 
+        var _this = this;
+
         //Validate
-        if(!this.validate()) return;
+        if(!_this.validate()) return;
 
-		//Remove play button if exists
-		$q('.aero-play-icon').remove();
+		//Check cross domain is active
+		aeroStorage.getItem('aero:session:cds', function (r) {
 
-        // @todo clear on restrict and auto only
-        aeroStorage.setItem('aero:cache', 0);
+			if(r) {
+                Aero.host = AeroStep.host;
 
-		//Return to branch?
-		var isReturn = this.isReturnBranch();
+				//Remove it
+				aeroStorage.removeItem('aero:sidebar:cdshost', true);
+                aeroStorage.removeItem('aero:session:cds', true);
 
-		if(!isReturn){
-			//Last step end?
-			if(Aero.tip._guide.step && Aero.tip._current == (Aero.tip._guide.step.length - 1)) this.sayCongrats();
+                //Reload window
+                aeroStorage.removeItem('aero:guides', null);
+                aeroStorage.removeItem('aero:cache', null);
+			}
 
-			this.setStep(null);
-			this.hide(this._current);
-			clearInterval(this.ob);
-			Aero.tip._guide = null;
+			//Remove play button if exists
+			$q('.aero-play-icon').remove();
 
-			//Clear session
-			AeroStep.session.destroy();
-			Aero.guide.init();
-		}
+			// @todo clear on restrict and auto only
+			aeroStorage.setItem('aero:cache', -1);
+
+			//Return to branch?
+			var isReturn = _this.isReturnBranch();
+
+			if(!isReturn){
+				//Last step end?
+				if(Aero.tip._guide.step && Aero.tip._current == (Aero.tip._guide.step.length - 1)) _this.sayCongrats();
+
+				_this.setStep(null);
+				_this.hide(_this._current);
+				clearInterval(_this.ob);
+				Aero.tip._guide = null;
+
+				//Clear session
+				AeroStep.session.destroy();
+				Aero.guide.init();
+			}
+
+		}, true);
 	},
 
 	/**
