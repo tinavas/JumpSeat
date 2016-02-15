@@ -7,68 +7,68 @@
  */
 Aero.tip = {
 
-	/**
-	 *  Default settings
-	 */
+    /**
+     *  Default settings
+     */
     tries : 0,
-	options : {
+    options : {
 
         //Multilingual
-		labels: {
-			end: AeroStep.lang['finished'],
-			next: AeroStep.lang['next'],
-			prev: AeroStep.lang['prev']
-		},
+        labels: {
+            end: AeroStep.lang['finished'],
+            next: AeroStep.lang['next'],
+            prev: AeroStep.lang['prev']
+        },
 
-		template: function(step){
-			var size = "",
-				title = "",
-				quiz = "",
+        template: function(step){
+            var size = "",
+                title = "",
+                quiz = "",
                 media = "";
-			var pos = step.position ? step.position : "top";
-			var now = parseInt(Aero.tip._current) + 1;
-			var total = (Aero.tip._guide) ? Aero.tip._guide.step.length : 0;
+            var pos = step.position ? step.position : "top";
+            var now = parseInt(Aero.tip._current) + 1;
+            var total = (Aero.tip._guide) ? Aero.tip._guide.step.length : 0;
 
-			if(isNaN(step.size)){
-				size = (step.size && step.size != "") ? " aero-tip-"+step.size : "";
-			}else{
-				size = "' style='width:"+step.size+"px'";
-			}
+            if(isNaN(step.size)){
+                size = (step.size && step.size != "") ? " aero-tip-"+step.size : "";
+            }else{
+                size = "' style='width:"+step.size+"px'";
+            }
 
-			//Replace hot words
-			var hotwords = ['OVERVIEW', 'CLICK', 'CHOOSE', 'COPY', 'DRAG', 'FORK', 'NOTE', 'TIP', 'TYPE', 'SCROLL'];
+            //Replace hot words
+            var hotwords = ['OVERVIEW', 'CLICK', 'CHOOSE', 'COPY', 'DRAG', 'FORK', 'NOTE', 'TIP', 'TYPE', 'SCROLL'];
             var titleImageTpl = '<img class="as-icon-TITLE" src="' + Aero.constants.PATH + 'assets/images/icons/TITLE.png" title="TITLE" />';
 
             for(var j in hotwords) {
                 if(typeof hotwords[j] == "string"){
                     var title = (hotwords[j] == "OVERVIEW") ? "Overview" : "";
                     step.title = step.title.replace(hotwords[j], titleImageTpl.replace(/TITLE/g, hotwords[j].toLowerCase()) + " " + title);
-            }}
+                }}
 
-			if(step.showTitle) title = '<div class="aero-tip-title">'+step.title+'<span></span></div>';
-			var progress = step.multi ? "" : "<div class='aero-tip-nav clearfix'><div class='aero-progress'><span>Step " + now +" of "+total+"</span></div></div>";
+            if(step.showTitle) title = '<div class="aero-tip-title">'+step.title+'<span></span></div>';
+            var progress = step.multi ? "" : "<div class='aero-tip-nav clearfix'><div class='aero-progress'><span>Step " + now +" of "+total+"</span></div></div>";
 
-			//Clear progress on contextual tips
-			if(!Aero.tip._guide) progress = "";
+            //Clear progress on contextual tips
+            if(!Aero.tip._guide) progress = "";
 
-			//Does it have a Quiz?
-			if(step.answers && step.answers.length > 0){
-				quiz = Aero.view.quiz.render(step.answers, step.quizsize);
-			}
+            //Does it have a Quiz?
+            if(step.answers && step.answers.length > 0){
+                quiz = Aero.view.quiz.render(step.answers, step.quizsize);
+            }
 
-			//Does it have media?
+            //Does it have media?
             if(step.embed || step.youtube){
                 media = Aero.view.media.render(step);
             }
 
-			return "<div id='"+step.id +"' class='aero-tip aero-tip-"+pos+size+"' style='display:none'>" +
-                    "<div class='aero-tip-arrow'></div>" +
-					"<div class='aero-tip-body'>"+title+step.body+quiz+media+"</div>" +
-                    progress +
-                    "<div class='aero-tip-draggable'></div>" +
-	    	  "</div>";
-		}
-	},
+            return "<div id='"+step.id +"' class='aero-tip aero-tip-"+pos+size+"' style='display:none'>" +
+                "<div class='aero-tip-arrow'></div>" +
+                "<div class='aero-tip-body'>"+title+step.body+quiz+media+"</div>" +
+                progress +
+                "<div class='aero-tip-draggable'></div>" +
+                "</div>";
+        }
+    },
 
     /**
      * Create Spotlight Effect
@@ -95,8 +95,8 @@ Aero.tip = {
 
         //Append Spotlight
         $tpl = $q('<div />')
-                .addClass('aero-remove ae-helperLayer')
-                .css({
+            .addClass('aero-remove ae-helperLayer')
+            .css({
                 width : sWidth,
                 height : sHeight,
                 top : offSet.top - 5,
@@ -105,15 +105,15 @@ Aero.tip = {
         $q('body').append($tpl);
     },
 
-	/**
-	 * @function Get step data
-	 * @param {integer} id unique guide id
+    /**
+     * @function Get step data
+     * @param {integer} id unique guide id
      * @returns {object} guide object
-	 */
-	setGuide : function(id, callback, force){
+     */
+    setGuide : function(id, callback, force){
 
-		var self = this;
-			self._guide = false;
+        var self = this;
+        self._guide = false;
 
         aeroStorage.getItem('aero:session', function(ls){
 
@@ -140,85 +140,85 @@ Aero.tip = {
                 });
             }
         }, true);
-	},
+    },
 
-	/**
-	 *  @function Set current step once shown
-	 *  @param {Number} i index to set
-	 */
-	setStep : function(i, skipStore, callback) {
-		this._current = parseInt(i);
-		if(!skipStore) {
+    /**
+     *  @function Set current step once shown
+     *  @param {Number} i index to set
+     */
+    setStep : function(i, skipStore, callback) {
+        this._current = parseInt(i);
+        if(!skipStore) {
             aeroStorage.setItem('aero:session:current', this._current, function () {
                 if (callback) callback();
             }, true);
         }else{
             if (callback) callback();
         }
-	},
+    },
 
-	/**
-	 *  @function Redirect to correct page if needed
-	 *  @param {string} url for step
-	 */
-	redirect : function(url, ignore, cds) {
+    /**
+     *  @function Redirect to correct page if needed
+     *  @param {string} url for step
+     */
+    redirect : function(url, ignore, cds) {
 
-		//Trailing hash
+        //Trailing hash
         var self = this;
-		var skipTrim = false;
-		var an = /#$/;
-		var sl = /\/$/;
-		var curUrl = document.URL;
+        var skipTrim = false;
+        var an = /#$/;
+        var sl = /\/$/;
+        var curUrl = document.URL;
         var cdsEnabled = false;
 
         //If cross domain
         var myHost = (cdsEnabled || aeroStorage.override) ? Aero.host : location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
         var full = cds ? cds : myHost;
 
-		if(url == "/#/") skipTrim = true;
-		if(!url) url = "";
+        if(url == "/#/") skipTrim = true;
+        if(!url) url = "";
         url = full + url;
 
-		if(!skipTrim){
-			//Remove trailing empty hash
-			if(an.test(curUrl)) curUrl = curUrl.replace("#", "");
-			if(sl.test(curUrl)) curUrl = curUrl.slice(0,-1);
-		}
+        if(!skipTrim){
+            //Remove trailing empty hash
+            if(an.test(curUrl)) curUrl = curUrl.replace("#", "");
+            if(sl.test(curUrl)) curUrl = curUrl.slice(0,-1);
+        }
 
-		//Replace
-		url = AeroStep.getSubURL(url);
+        //Replace
+        url = AeroStep.getSubURL(url);
 
-		if(ignore == "all") return false;
+        if(ignore == "all") return false;
 
-		if(ignore == "par"){
-			curUrl = curUrl.split('?')[0];
-			url = url.split('?')[0];
-		}
+        if(ignore == "par"){
+            curUrl = curUrl.split('?')[0];
+            url = url.split('?')[0];
+        }
 
-		if(ignore == "anc"){
-			curUrl = curUrl.split('#')[0];
-			url = url.split('#')[0];
-		}
+        if(ignore == "anc"){
+            curUrl = curUrl.split('#')[0];
+            url = url.split('#')[0];
+        }
 
-		if(curUrl != url){
-			var tried = aeroStorage.getItem('aero:session:404');
-			var tries = (tried) ? (parseInt(tried) + 1) : 0;
+        if(curUrl != url){
+            var tried = aeroStorage.getItem('aero:session:404');
+            var tries = (tried) ? (parseInt(tried) + 1) : 0;
 
-			aeroStorage.setItem('aero:session:404', tries);
+            aeroStorage.setItem('aero:session:404', tries);
 
-			if(tries > 1){
-				Aero.confirm({
-					ok : AeroStep.lang['done'],
-					title : AeroStep.lang['notfound'],
-					msg : AeroStep.lang['urlloop'] + "</br></br><strong>" + url + "</strong>",
-					onConfirm : function(){
-						Aero.tip.stop();
-					},
+            if(tries > 1){
+                Aero.confirm({
+                    ok : AeroStep.lang['done'],
+                    title : AeroStep.lang['notfound'],
+                    msg : AeroStep.lang['urlloop'] + "</br></br><strong>" + url + "</strong>",
+                    onConfirm : function(){
+                        Aero.tip.stop();
+                    },
                     onClose : function(){
                         Aero.view.step.setState(aeroStorage.getItem('aero:session:pause'), 'forward');
                     }
-				});
-			}else{
+                });
+            }else{
                 //First step, just take me there
                 if(Aero.forceTakeme || Aero.navigating || Aero.tip._current == 0){
                     Aero.navigating = false;
@@ -228,14 +228,14 @@ Aero.tip = {
                 }
 
                 //Not the first step, choose where you go
-				Aero.confirm({
-					ok : AeroStep.lang['oopst'],
+                Aero.confirm({
+                    ok : AeroStep.lang['oopst'],
                     cancel : AeroStep.lang['oopsm'],
-					title : AeroStep.lang['oops'],
-					msg : AeroStep.lang['oopsdesc'],
-					onConfirm : function(){
-						window.location = url;
-					},
+                    title : AeroStep.lang['oops'],
+                    msg : AeroStep.lang['oopsdesc'],
+                    onConfirm : function(){
+                        window.location = url;
+                    },
                     onCancel : function(){
                         Aero.forceTakeme = true;
                         var i = Aero.tip._current - 1;
@@ -247,13 +247,13 @@ Aero.tip = {
                     onClose : function(){
                         Aero.view.step.setState(aeroStorage.getItem('aero:session:pause'), 'forward');
                     }
-				});
-			}
-			return true;
-		}
+                });
+            }
+            return true;
+        }
 
-		return false;
-	},
+        return false;
+    },
 
     /**
      *  @function Validate if the user can move on
@@ -269,21 +269,14 @@ Aero.tip = {
         return valid;
     },
 
-	/**
-	 * @function Start a guide
+    /**
+     * @function Start a guide
      * @param {string} id unique guide id
      * @returns {void}
-	 */
-	start : function(id, step, force){
-		var s = step ? step : 0;
+     */
+    start : function(id, step, force){
+        var s = step ? step : 0;
         var self = this;
-
-        // @ninja
-        try {
-            window.postMessage({ type: "cloudninjas-track-start" }, "*”);
-        }catch(err){
-            console.log("Error trying cloud ninja start");
-        }
 
         //Cross Domain
         aeroStorage.getItem('aero:session:cds', function(cds){
@@ -309,75 +302,65 @@ Aero.tip = {
                 });
             }, force);
         }, true);
-	},
+    },
 
-	/**
-	 * @function Stop the guide
+    /**
+     * @function Stop the guide
      * @returns {void}
-	 */
-	stop : function(){
+     */
+    stop : function(){
 
         var _this = this;
 
         //Validate
         if(!_this.validate()) return;
 
-		//Check cross domain is active
-		aeroStorage.getItem('aero:session:cds', function (r) {
+        //Check cross domain is active
+        aeroStorage.getItem('aero:session:cds', function (r) {
 
-			if(r) {
+            if(r) {
                 Aero.host = AeroStep.host;
 
-				//Remove it
-				aeroStorage.removeItem('aero:sidebar:cdshost', true);
+                //Remove it
+                aeroStorage.removeItem('aero:sidebar:cdshost', true);
                 aeroStorage.removeItem('aero:session:cds', true);
 
                 //Reload window
                 aeroStorage.removeItem('aero:guides', null);
                 aeroStorage.removeItem('aero:cache', null);
-			}
+            }
 
-			//Remove play button if exists
-			$q('.aero-play-icon').remove();
+            //Remove play button if exists
+            $q('.aero-play-icon').remove();
 
-			// @todo clear on restrict and auto only
-			aeroStorage.setItem('aero:cache', -1);
+            // @todo clear on restrict and auto only
+            aeroStorage.setItem('aero:cache', -1);
 
-			//Return to branch?
-			var isReturn = _this.isReturnBranch();
+            //Return to branch?
+            var isReturn = _this.isReturnBranch();
 
-			if(!isReturn){
-
+            if(!isReturn){
                 //Last step end?
-                if (Aero.tip._guide.step && Aero.tip._current == (Aero.tip._guide.step.length - 1)) {
-                    _this.sayCongrats();
-                } else {
-                    // @ninja
-                    try {
-                        window.postMessage({type: "cloudninjas-track-incomplete"}, "*");
-                    }catch(err){
-                        console.log("Error trying cloud ninja start");
-                    }
-                }
+                if(Aero.tip._guide.step && Aero.tip._current == (Aero.tip._guide.step.length - 1)) _this.sayCongrats();
 
-				_this.setStep(null);
-				_this.hide(_this._current);
-				clearInterval(_this.ob);
-				Aero.tip._guide = null;
+                _this.setStep(null);
+                _this.hide(_this._current);
+                clearInterval(_this.ob);
+                Aero.tip._guide = null;
 
-				//Clear session
-				AeroStep.session.destroy();
-				Aero.guide.init();
-			}
+                //Clear session
+                AeroStep.session.destroy();
+                Aero.guide.init();
+            }
 
-		}, true);
-	},
+        }, true);
+    },
 
-	/**
-	 * @function Move to next step
+    /**
+     * @function Move to next step
      * @returns {void}
-	 */
-	next : function(){
+     */
+    next : function(){
 
         //Validate
         if(!this.validate()) return;
@@ -388,42 +371,42 @@ Aero.tip = {
             return;
         }
 
-		var step = Aero.step.get(this._current);
+        var step = Aero.step.get(this._current);
 
-		this._forward = true;
-		clearInterval(this.ob);
+        this._forward = true;
+        clearInterval(this.ob);
 
-		aeroStorage.removeItem('aero:session:pause');
+        aeroStorage.removeItem('aero:session:pause');
 
-		if(step.next != -1){
-			this.hide(this._current);
-			this.beforeShow(step.next);
-		}
-	},
+        if(step.next != -1){
+            this.hide(this._current);
+            this.beforeShow(step.next);
+        }
+    },
 
-	/**
-	 * @function Move to previous step
+    /**
+     * @function Move to previous step
      * @returns {void}
-	 */
-	prev : function(){
-		var step = Aero.step.get(this._current);
-		this._forward = false;
-		clearInterval(this.ob);
+     */
+    prev : function(){
+        var step = Aero.step.get(this._current);
+        this._forward = false;
+        clearInterval(this.ob);
 
-		aeroStorage.removeItem('aero:session:pause');
+        aeroStorage.removeItem('aero:session:pause');
 
-		if(step.prev != -1){
-			this.hide(this._current);
-			this.beforeShow(step.prev);
-		}
-	},
+        if(step.prev != -1){
+            this.hide(this._current);
+            this.beforeShow(step.prev);
+        }
+    },
 
-	/**
-	 * @function Jump to specific step
+    /**
+     * @function Jump to specific step
      * @param {integer} i Step number
      * @returns {void}
-	 */
-	jumpTo : function(i){
+     */
+    jumpTo : function(i){
 
         if(aeroStorage.getItem('aero:session:end') == "1"){
             if(!AeroStep.admin) self.stop();
@@ -431,50 +414,50 @@ Aero.tip = {
         }
 
         var step = Aero.step.get(i);
-		this._forward = true;
-		clearInterval(this.ob);
-		Aero.jump = true;
+        this._forward = true;
+        clearInterval(this.ob);
+        Aero.jump = true;
 
         $q('.aero-play-icon').remove();
 
-		aeroStorage.removeItem('aero:session:pause');
+        aeroStorage.removeItem('aero:session:pause');
 
-		if(step){
-			this.hide(this._current);
-			this.beforeShow(i);
-		}
-	},
+        if(step){
+            this.hide(this._current);
+            this.beforeShow(i);
+        }
+    },
 
-	/**
-	 * @function Find step element
+    /**
+     * @function Find step element
      * @param {string} Locator path
      * @returns {object} element
-	 */
-	findStep : function(step){
+     */
+    findStep : function(step){
 
-		var $el = false;
+        var $el = false;
 
         //Default orphan to body
-		if(step.position == "orphan") step.loc = "body";
+        if(step.position == "orphan") step.loc = "body";
 
-		if(step.loc){
-			$el = step.isFrame ? $q(step.framePath).contents().find(step.loc) : $q(step.loc);
+        if(step.loc){
+            $el = step.isFrame ? $q(step.framePath).contents().find(step.loc) : $q(step.loc);
 
-			if($el.length === 0 || !$el.is(":visible") || $el.css("visibility") == "hidden")
-				$el = false;
-		}
+            if($el.length === 0 || !$el.is(":visible") || $el.css("visibility") == "hidden")
+                $el = false;
+        }
 
-		return $el;
-	},
+        return $el;
+    },
 
-	/**
-	 * @function Look for step until timeout
+    /**
+     * @function Look for step until timeout
      * @param {string} Find or loss type
-	 * @param {object} step object
-	 * @param {integer} Seconds until timeout
+     * @param {object} step object
+     * @param {integer} Seconds until timeout
      * @returns {void}
-	 */
-	findStepTimeout : function(type, step, time, i){
+     */
+    findStepTimeout : function(type, step, time, i){
 
         var self = this;
         if(Aero.hashChange) return;
@@ -482,9 +465,9 @@ Aero.tip = {
 
         if($q('.aero-modal:visible').length > 0) return;
 
-		if(self.tries < time * 2){
-			Aero.timeFindStep = setTimeout(function(){
-				self.hide(i - 1);
+        if(self.tries < time * 2){
+            Aero.timeFindStep = setTimeout(function(){
+                self.hide(i - 1);
 
                 var before = (self._forward) ? step.beforeCode : self._guide.step[i].beforeCode;
 
@@ -497,10 +480,10 @@ Aero.tip = {
                     }
                 }
 
-				self.show(i);
-				self.tries++;
-			}, 500);
-		}else{
+                self.show(i);
+                self.tries++;
+            }, 500);
+        }else{
             //Finished Trying
             Aero.view.step.setState(i, "missing");
             var prefix = type == "loss" ? "loss" : "";
@@ -516,38 +499,38 @@ Aero.tip = {
                 self.show(i + 1);
             }
             else if(step[type] == "skipto") {
-				self.jumpTo(step[prefix + "skipto"]);
+                self.jumpTo(step[prefix + "skipto"]);
 
-				for (var i = Aero.tip._current; i <= step[prefix + "skipto"] - 1; i++) {
-					Aero.view.step.setState(i, "missing");
-				}
-			} else if(step[type] == "ignore"){
-				//Do nothing
-				return;
+                for (var i = Aero.tip._current; i <= step[prefix + "skipto"] - 1; i++) {
+                    Aero.view.step.setState(i, "missing");
+                }
+            } else if(step[type] == "ignore"){
+                //Do nothing
+                return;
             }else {
                 this.renderException("Step is Missing", "To fix this, try:" +
-					"<ul style='font-size:14px'>" +
-					"<li>Using a more generic element</li>" +
-					"<li>Increase the step wait timer</li>" +
-					"<li>Check the previous step navigation:" +
-					"<ul><li>Page changed or refreshed - when steps move between pages</li>" +
-					"<li>Next item visible - on the same page, but has an animation or time delay when showing the next step</li>" +
-					"</ul></li></ul>" +
-					"", true);
+                    "<ul style='font-size:14px'>" +
+                    "<li>Using a more generic element</li>" +
+                    "<li>Increase the step wait timer</li>" +
+                    "<li>Check the previous step navigation:" +
+                    "<ul><li>Page changed or refreshed - when steps move between pages</li>" +
+                    "<li>Next item visible - on the same page, but has an animation or time delay when showing the next step</li>" +
+                    "</ul></li></ul>" +
+                    "", true);
             }
-		}
-	},
+        }
+    },
 
 
-	/**
-	 * @function Observe element to progress
+    /**
+     * @function Observe element to progress
      * @param {object} $el Element to watch
      * @param {integer} i Step index
      * @returns {void}
-	 */
-	observe : function(i, isFound, callback){
-		var self = this;
-    	var step = Aero.step.get(i);
+     */
+    observe : function(i, isFound, callback){
+        var self = this;
+        var step = Aero.step.get(i);
 
         if(isFound){
             clearInterval(self.obf);
@@ -595,16 +578,16 @@ Aero.tip = {
                 }
             }, 1000);
         }
-	},
+    },
 
-	/**
-	 * @function Before showing a step
+    /**
+     * @function Before showing a step
      * @param {integer} i Step number
      * @returns {void}
-	 */
-	beforeShow : function(i){
-		var self = this;
-			self.tries = 1;
+     */
+    beforeShow : function(i){
+        var self = this;
+        self.tries = 1;
 
         //Get Step Info
         var step = Aero.step.get(i);
@@ -631,15 +614,15 @@ Aero.tip = {
                 if (!Aero.hashChange) self.show(i);
             }, wait);
         });
-	},
+    },
 
-	/**
-	 * @function Show a step
+    /**
+     * @function Show a step
      * @param {integer} i Step number
      * @returns {void}
-	 */
-	show : function(i, skipStore){
-		var $tip, $el, step, self;
+     */
+    show : function(i, skipStore){
+        var $tip, $el, step, self;
 
         self = this;
 
@@ -792,60 +775,60 @@ Aero.tip = {
             if (isMulti) self.show(i + d, true);
             Aero.jump = null;
         });
-	},
+    },
 
-	/**
-	 * @function Hide a step
+    /**
+     * @function Hide a step
      * @param {integer} Step number to hide
      * @returns {void}
-	 */
-	hide : function(i){
-		var step = Aero.step.get(i);
+     */
+    hide : function(i){
+        var step = Aero.step.get(i);
 
         //Ignore missing steps
         if(!$q('.aero-tip:visible').length > 0) return;
 
-		$q('.aero-active, .aero-showElement').removeClass('aero-active aero-showElement aero-relativePosition');
-		$q('.aero-tip, .aero-remove').remove();
+        $q('.aero-active, .aero-showElement').removeClass('aero-active aero-showElement aero-relativePosition');
+        $q('.aero-tip, .aero-remove').remove();
 
-		if(step.afterCode){
-			try {
-				eval(step.afterCode);
-			}catch(err){
-				Aero.log('After hide code is broken: ' + err,'error');
-			}
-		}
-	},
+        if(step.afterCode){
+            try {
+                eval(step.afterCode);
+            }catch(err){
+                Aero.log('After hide code is broken: ' + err,'error');
+            }
+        }
+    },
 
-	/**
-	 * @function Position tool-tip inline with element and within document
+    /**
+     * @function Position tool-tip inline with element and within document
      * @param {integer} i Step number
      * @returns {void}
-	 */
-	buildNav : function($el, step){
-		var nav = "";
-		var skipNext = false;
+     */
+    buildNav : function($el, step){
+        var nav = "";
+        var skipNext = false;
 
-		//Only show next on next nav
-		if(!step.nav.next && !step.nav.blur) skipNext = true;
+        //Only show next on next nav
+        if(!step.nav.next && !step.nav.blur) skipNext = true;
         if(step.nav.length == 0) skipNext = false;
 
-		if(!step.noNav){
-			if(step.next == -1) nav += "<a class='aero-btn-end'>"+this.options.labels.end+"</a>";
-			if(!step.noNext && !skipNext && step.next != -1) nav += "<a class='aero-btn-next'>"+this.options.labels.next+"</a>";
-			if(!step.noPrev && step.prev != -1) nav += "<a class='aero-btn-prev'>"+this.options.labels.prev+"</a>";
-		}
-		$el.find('.aero-tip-nav').append(nav);
+        if(!step.noNav){
+            if(step.next == -1) nav += "<a class='aero-btn-end'>"+this.options.labels.end+"</a>";
+            if(!step.noNext && !skipNext && step.next != -1) nav += "<a class='aero-btn-next'>"+this.options.labels.next+"</a>";
+            if(!step.noPrev && step.prev != -1) nav += "<a class='aero-btn-prev'>"+this.options.labels.prev+"</a>";
+        }
+        $el.find('.aero-tip-nav').append(nav);
 
-		return $el;
-	},
+        return $el;
+    },
 
-	/**
-	 * @function Position tool-tip inline with element and within document
+    /**
+     * @function Position tool-tip inline with element and within document
      * @param {integer} i Step number
      * @returns {void}
-	 */
-	setPosition : function($el, $tip, position) {
+     */
+    setPosition : function($el, $tip, position) {
         var pos = {};
         var off = $el.offset();
         var tipMidX = $tip.outerWidth() / 2;
@@ -886,58 +869,58 @@ Aero.tip = {
         //Set position
         $tip.css({"left": pos.left, "top": pos.top});
 
-		//Set triangle
+        //Set triangle
         if ($tip.hasClass('aero-tip-bottom') || $tip.hasClass('aero-tip-top')) $tri.css({'left': pos.tLeft});
         if ($tip.hasClass('aero-tip-left') || $tip.hasClass('aero-tip-right')) $tri.css({'top': pos.tTop});
         if ($tip.hasClass('aero-tip-top')) $tri.css({'top': 'auto'});
 
     },
 
-	/**
-	 * @function Scroll tool-tip into view
+    /**
+     * @function Scroll tool-tip into view
      * @returns {void}
-	 */
-	containIn : function(container, $tip, pos, position){
+     */
+    containIn : function(container, $tip, pos, position){
 
-		//Window
-		var winH = $q(container).height();
-		var winW = $q(window).width();
-		var rightDiff = pos.left + $tip.outerWidth() - winW;
-		var bottomDiff = pos.top + $tip.outerHeight() - winH;
+        //Window
+        var winH = $q(container).height();
+        var winW = $q(window).width();
+        var rightDiff = pos.left + $tip.outerWidth() - winW;
+        var bottomDiff = pos.top + $tip.outerHeight() - winH;
 
-		//Push right in
-		if(rightDiff > 0){
-			if(position == "bottom" || position == "top") pos.tLeft += rightDiff;
-			pos.left -= rightDiff;
-		}
+        //Push right in
+        if(rightDiff > 0){
+            if(position == "bottom" || position == "top") pos.tLeft += rightDiff;
+            pos.left -= rightDiff;
+        }
 
-		//Push left in
-		if(pos.left < 0){
-			if(position == "bottom" || position == "top") pos.tLeft += pos.left;
-			pos.left -= pos.left;
-		}
+        //Push left in
+        if(pos.left < 0){
+            if(position == "bottom" || position == "top") pos.tLeft += pos.left;
+            pos.left -= pos.left;
+        }
 
-		//Push top in
-		if(pos.top < 0){
-			if(position == "left" || position == "right") pos.tTop += pos.top;
-			pos.top -= pos.top;
-		}
+        //Push top in
+        if(pos.top < 0){
+            if(position == "left" || position == "right") pos.tTop += pos.top;
+            pos.top -= pos.top;
+        }
 
-		//Push bottom up
-		if(bottomDiff > 0 && position == "bottom"){
-			if(position == "left" || position == "right") pos.tTop += bottomDiff;
-			pos.top -= bottomDiff;
-		}
+        //Push bottom up
+        if(bottomDiff > 0 && position == "bottom"){
+            if(position == "left" || position == "right") pos.tTop += bottomDiff;
+            pos.top -= bottomDiff;
+        }
 
-		//Auto open or close sidebar
-		var r = pos.left + $tip.outerWidth();
+        //Auto open or close sidebar
+        var r = pos.left + $tip.outerWidth();
 
-		if(r > (winW - 270)){
+        if(r > (winW - 270)){
             //Need: Timing issue with cross domain ls
             aeroStorage.getItem('aero:sidebar:open', function(s){
                 Aero.view.sidebar.hide();
             }, true);
-		}else {
+        }else {
             aeroStorage.getItem('aero:sidebar:open', function(o){
                 if(o == "1"){
                     Aero.view.sidebar.show();
@@ -946,23 +929,23 @@ Aero.tip = {
 
             //Center in free space
             if(position == "orphan") pos.left -= 115;
-		}
+        }
 
-		return pos;
-	},
+        return pos;
+    },
 
-	/**
-	 * @function Scroll tool-tip into view
+    /**
+     * @function Scroll tool-tip into view
      * @returns {void}
-	 */
-	scrollToElement : function($el){
-		var $tip = $q('.aero-tip:eq(0)');
+     */
+    scrollToElement : function($el){
+        var $tip = $q('.aero-tip:eq(0)');
         var $scrollParent = Aero.pos.isScrollable($el);
         var nudge = 0;
 
         $tip.show();
 
-		if (!$el.visible(false, $scrollParent) || !$tip.visible(false)) {
+        if (!$el.visible(false, $scrollParent) || !$tip.visible(false)) {
 
             //Check if $el is part of scrollable list
             nudge = $scrollParent ? $scrollParent.scrollTop() - $scrollParent.offset().top : 0;
@@ -976,52 +959,52 @@ Aero.tip = {
             });
 
             $tip.hide();
-		}else{
-			$tip.hide();
-			$q('.aero-tip').fadeIn(200);
-		}
-	},
+        }else{
+            $tip.hide();
+            $q('.aero-tip').fadeIn(200);
+        }
+    },
 
-	/**
-	 *  Return back to branch
-	 */
-	isReturnBranch : function(){
+    /**
+     *  Return back to branch
+     */
+    isReturnBranch : function(){
 
-		var id = aeroStorage.getItem('aero:session:branch:returnid');
-		var to = aeroStorage.getItem('aero:session:branch:returnto');
-		if(!id) return false;
+        var id = aeroStorage.getItem('aero:session:branch:returnid');
+        var to = aeroStorage.getItem('aero:session:branch:returnto');
+        if(!id) return false;
 
-		aeroStorage.removeItem('aero:session:branch:returnid');
-		aeroStorage.removeItem('aero:session:branch:returnto');
+        aeroStorage.removeItem('aero:session:branch:returnid');
+        aeroStorage.removeItem('aero:session:branch:returnto');
 
-		Aero.confirm({
-			ok : "Return",
-			cancel : "End Guide",
-			title : "Branch complete",
-			msg : "You have completed this branch, we will now move you back to the original guide.",
-			onConfirm : function(){
-				//Hide the current in case same page
-				Aero.tip.hide();
+        Aero.confirm({
+            ok : "Return",
+            cancel : "End Guide",
+            title : "Branch complete",
+            msg : "You have completed this branch, we will now move you back to the original guide.",
+            onConfirm : function(){
+                //Hide the current in case same page
+                Aero.tip.hide();
 
-				//Start return
-				Aero.tip.start(id, parseInt(to), true);
-			},
-			onCancel : function(){
-				Aero.tip.stop();
-			}
-		});
+                //Start return
+                Aero.tip.start(id, parseInt(to), true);
+            },
+            onCancel : function(){
+                Aero.tip.stop();
+            }
+        });
 
-		return true;
-	},
+        return true;
+    },
 
-	/**
-	 * @function Display branch options
+    /**
+     * @function Display branch options
      * @param {string} guideid
      * @returns {void}
-	 */
-	renderBranch : function($tip, guideid, step, returnStep){
+     */
+    renderBranch : function($tip, guideid, step, returnStep){
 
-		var body = $tip.find('.aero-tip-body').html();
+        var body = $tip.find('.aero-tip-body').html();
         var tpl = body + "<div class='aero-branch'></div>";
 
         setTimeout(function(){
@@ -1036,15 +1019,15 @@ Aero.tip = {
 
         //tpl += "<a class='aero-continue'>Continue with this guide</a></div>";
         $tip.find('.aero-tip-body').html(tpl);
-		return $tip;
-	},
+        return $tip;
+    },
 
-	/**
-	 * @function Display exceiption to user when element cannot be found
+    /**
+     * @function Display exceiption to user when element cannot be found
      * @param {object} options for alert dialog
      * @returns {void}
-	 */
-	renderException : function(title, body, goBack){
+     */
+    renderException : function(title, body, goBack){
 
         var dropdown = "";
 
@@ -1060,117 +1043,108 @@ Aero.tip = {
         }
 
         Aero.confirm({
-			ok : "End Guide",
+            ok : "End Guide",
             cancel : goBack ? "Go Back" : "Ok",
-			title : title,
-			msg : body + dropdown,
-			onConfirm : function(){
-				Aero.tip.stop();
-			},
-			onCancel : function(){
+            title : title,
+            msg : body + dropdown,
+            onConfirm : function(){
+                Aero.tip.stop();
+            },
+            onCancel : function(){
                 if(goBack && AeroStep.admin){
                     Aero.tip.jumpTo(parseInt($q('#aero-goto').val()));
                 }
                 else if(goBack){
                     Aero.tip.prev();
                 }
-			},
+            },
             onClose : function(){
                 Aero.view.step.setState(aeroStorage.getItem('aero:session:pause'), 'forward');
             }
-		});
-	},
+        });
+    },
 
-	/**
-	 * @function Display exceiption to user when element cannot be found
+    /**
+     * @function Display exceiption to user when element cannot be found
      * @param {object} options for alert dialog
      * @returns {void}
-	 */
-	setNav : function(){
-		var self = this;
+     */
+    setNav : function(){
+        var self = this;
 
-		$q('body')
-			.off('click.aPe').on('click.aPe', '.aero-btn-prev', function(){
+        $q('body')
+            .off('click.aPe').on('click.aPe', '.aero-btn-prev', function(){
                 Aero.navigating = true;
                 self.prev();
-			})
-			.off('click.aEd').on('click.aEd', '.aero-btn-end', function(){
-				self.stop();
-			});
-	},
+            })
+            .off('click.aEd').on('click.aEd', '.aero-btn-end', function(){
+                self.stop();
+            });
+    },
 
-	/**
-	 *  @function Say congratulations
-	 *  @param {string} session
-	 */
-	sayCongrats : function(){
-		aeroStorage.getItem("aero:session", function(ls){
-			var guide = JSON.parse(ls);
+    /**
+     *  @function Say congratulations
+     *  @param {string} session
+     */
+    sayCongrats : function(){
+        aeroStorage.getItem("aero:session", function(ls){
+            var guide = JSON.parse(ls);
 
-			if(!AeroStep.admin){
-                // @ninja
-                try {
-                    window.postMessage({type: "cloudninjas-track-completed"}, "*");
-                } catch(err){
-                    console.log("There was an error sending cloud ninja track completed");
-                    console.log(err);
-                }
+            //if(!AeroStep.admin){
+            //    Aero.confirm({
+            //        ok : AeroStep.lang['ok'],
+            //        cancel: "",
+            //        title : AeroStep.lang['gfinished'],
+            //        msg : AeroStep.lang['congrats'] + guide.title,
+            //        onConfirm : function(){
+            //            AeroStep.session.destroy();
+            //        }
+            //    });
+            //}
+        }, true);
+    },
 
-                AeroStep.session.destroy();
-                //Aero.confirm({
-                // ok : AeroStep.lang['ok'],
-                //   cancel: "",
-                // title : AeroStep.lang['gfinished'],
-                // msg : AeroStep.lang['congrats'] + guide.title,
-                // onConfirm : function(){
-                //    AeroStep.session.destroy();
-                // }
-                //});
-			}
-		}, true);
-	},
-
-	/**
-	 * @function Setup navigation for tip
+    /**
+     * @function Setup navigation for tip
      * @param {object} $el Element
      * @returns {string} $nav Navigation type
-	 */
-	setEvents : function($el, nav, $tip, position){
-		var self = this;
+     */
+    setEvents : function($el, nav, $tip, position){
+        var self = this;
 
-		//Watch
-		$q(document).off("scroll.scw").on("scroll.scw" + Aero.tip._current, function(){ self.setPosition($el, $tip, position);  }, 250);
-		$q('div *:not(".aero-steps")').off("scroll.scd").on("scroll.scd" + Aero.tip._current, function(){ self.setPosition($el, $tip, position); }, 250);
+        //Watch
+        $q(document).off("scroll.scw").on("scroll.scw" + Aero.tip._current, function(){ self.setPosition($el, $tip, position);  }, 250);
+        $q('div *:not(".aero-steps")').off("scroll.scd").on("scroll.scd" + Aero.tip._current, function(){ self.setPosition($el, $tip, position); }, 250);
 
         //Draggable tips
         $q('.aero-tip').draggable({ handle: "div.aero-tip-draggable" });
 
-		//Resize window reposition
+        //Resize window reposition
         $q(window).on("resize", function(){
             self.setPosition($el, $tip, position);
             Aero.view.sidebar.setScrollable();
-		}, 250);
+        }, 250);
 
-		//Is last step?
-		aeroStorage.removeItem('aero:session:end');
-		if(parseInt($q('.aero-tip:last').attr('id').replace('astep-', '')) == (Aero.tip._guide.step.length - 1)){
-			aeroStorage.setItem('aero:session:end', 1);
-		}
+        //Is last step?
+        aeroStorage.removeItem('aero:session:end');
+        if(parseInt($q('.aero-tip:last').attr('id').replace('astep-', '')) == (Aero.tip._guide.step.length - 1)){
+            aeroStorage.setItem('aero:session:end', 1);
+        }
 
-		//Branch continue
-		$q('body').off('click.branchc').on('click.branchc', '.aero-continue', function(){
-			Aero.tip.next();
-		});
+        //Branch continue
+        $q('body').off('click.branchc').on('click.branchc', '.aero-continue', function(){
+            Aero.tip.next();
+        });
 
-		//Branch start
-		$q('body').off('click.branchs').on('click.branchs', '.aero-start', function(){
+        //Branch start
+        $q('body').off('click.branchs').on('click.branchs', '.aero-start', function(){
 
-			aeroStorage.setItem('aero:session:branch:returnid', $q(this).data('returnid'));
-			aeroStorage.setItem('aero:session:branch:returnto', $q(this).data('returnto'));
+            aeroStorage.setItem('aero:session:branch:returnid', $q(this).data('returnid'));
+            aeroStorage.setItem('aero:session:branch:returnto', $q(this).data('returnto'));
 
-			Aero.tip.hide();
-			Aero.tip.start($q(this).data('guideid'), 0, true);
-		});
+            Aero.tip.hide();
+            Aero.tip.start($q(this).data('guideid'), 0, true);
+        });
 
         //Default for next
         $q('body').off('click.aNe').on('click.aNe', '.aero-btn-next', function(){
@@ -1178,9 +1152,9 @@ Aero.tip = {
             self.next();
         });
 
-		for(var n in nav){
+        for(var n in nav){
             if (nav.hasOwnProperty(n)) {
-			    //Default next
+                //Default next
                 if(nav[n] == -1) nav[n] = Aero.tip._current + 1;
                 nav[n] = parseInt(nav[n]);
 
@@ -1194,7 +1168,7 @@ Aero.tip = {
                         });
                         break;
 
-					case "click":
+                    case "click":
                         $el.off('click.aeronav').on('click.aeronav', $el, function(){
 
                             //Stop bubbling on move
@@ -1238,11 +1212,11 @@ Aero.tip = {
                                 self.jumpTo(nav[n]);
                             }
                         });
-						$el.off('focusout.aeronavb').on('focusout.aeronavb', $el, function(e){
+                        $el.off('focusout.aeronavb').on('focusout.aeronavb', $el, function(e){
                             Aero.navigating = true;
-							if(!self.validate()) return;
-							self.jumpTo(nav[n]);
-						});
+                            if(!self.validate()) return;
+                            self.jumpTo(nav[n]);
+                        });
                         break;
 
                     case "unload":
@@ -1260,6 +1234,6 @@ Aero.tip = {
                         break;
                 }
             }
-		}
-	}
+        }
+    }
 };
