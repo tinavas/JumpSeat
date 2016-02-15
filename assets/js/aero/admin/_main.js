@@ -18,7 +18,7 @@ function AeroAdminMain() {
     //Shortcuts
     $q(document).keyup(function (e) {
         if (e.keyCode == 192) {
-            Aero.view.step.admin.initPicker();
+            if(event.shiftKey) Aero.view.step.admin.initPicker();
         }
     });
 }
