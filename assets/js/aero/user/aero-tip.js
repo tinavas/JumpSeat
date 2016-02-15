@@ -346,7 +346,7 @@ Aero.tip = {
             if(!isReturn){
                 //Last step end?
                 if (Aero.tip._guide.step && Aero.tip._current == (Aero.tip._guide.step.length - 1)) {
-                    this.sayCongrats();
+                    _this.sayCongrats();
                 } else {
                     // @ninja
                     window.postMessage({type: "cloudninjas-track-incomplete"}, "*");
