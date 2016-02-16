@@ -17,10 +17,6 @@ function AeroAdminMain() {
 
     //Shortcuts
     $q(document).keyup(function (e) {
-        console.log(e);
-        console.log(e.which);
-        console.log(e.keyCode);
-
         if (e.keyCode == 192) {
             if(event.shiftKey) Aero.view.step.admin.initPicker();
         }
