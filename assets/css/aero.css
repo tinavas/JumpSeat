@@ -1259,6 +1259,9 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
 .aero-checked, .aero-checked:hover {
     background:#B4F5BC;
 }
+.aero-quiz label {
+	color:#fff;
+}
 
 /* Front */
 .aero-tip-draggable {
