@@ -110,11 +110,11 @@ $lang['right']      = "Right";
 $lang['orphan']     = "Orphan";
 
 //Tip sizes
-$lang['ssmall']     = "Bottom (default)";
-$lang['smedium']    = "Top";
-$lang['slarge']     = "Left";
-$lang['sauto']      = "Right";
-$lang['scustom']    = "Orphan";
+$lang['ssmall']     = "Small (default)";
+$lang['smedium']    = "Medium";
+$lang['slarge']     = "Large";
+$lang['sauto']      = "Auto";
+$lang['scustom']    = "Custom";
 
 //Colors
 $lang['trans']      = "Transparent (default)";
