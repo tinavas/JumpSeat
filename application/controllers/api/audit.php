@@ -42,8 +42,7 @@ class Audit extends REST_Controller
 	function create_get()
 	{
 
-        $entry = json_decode($this->get('data'));
-        //$entry = $this->request->body;
+        $entry = json_decode($this->get('data'), true);
 		$id = $this->audit_model->create($entry);
 
 		$response_code = $id ? 200 : 400;

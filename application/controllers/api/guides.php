@@ -177,7 +177,7 @@ class Guides extends REST_Controller
     	unset($this->request_data['id']);
 
     	$guide = $this->guide_model->update_by_id($id, $this->request_data);
-		$this->response($guide, 201);
+		$this->response($guide, empty($guide) ? 400 : 200);
     }
 
     /**

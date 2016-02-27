@@ -123,7 +123,7 @@ class Audit_Model extends CI_Model
 	*/
 	public function create($entry = array())
 	{
-        if (!isset($entry) && (!empty($entry)))
+        if (!empty($entry))
             unset($entry['id']);
 
 		try
