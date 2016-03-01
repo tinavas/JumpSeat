@@ -35,13 +35,30 @@ class Guide_Model extends CI_Model
     /**
      *  Get real url from collection name
      */
-    public function get_real_url(){
+    public function decode_url()
+    {
 
         $first = str_replace("http_", "http://", $this->host);
         $second = str_replace("https_", "https://", $first);
         $host = str_replace("_", ".", $second);
 
         return $host;
+    }
+
+    /**
+     * Decode host from collection friendly host name, and set it in $this->host
+     * (Useful for external sources using REST services)
+     * @param string $host URL of the application
+     * @return string
+     */
+    public function encode_url($host = '')
+    {
+        if (empty($host))
+            $host = $this->host;
+
+        $first = str_replace("http://", "http_", $host);
+        $second = str_replace("https://", "https_", $first);
+        $this->host = str_replace(".", "_", $second);
     }
 
 
@@ -269,7 +286,7 @@ class Guide_Model extends CI_Model
         unset($guide['id']);
         if(!isset($guide['step'])) $guide['step'] = array();
 
-        $app = $this->app_model->get_by_host($this->get_real_url());
+        $app = $this->app_model->get_by_host($this->decode_url());
 
         $this->load->library('person');
         $guide['version'] = 1;
@@ -422,8 +439,12 @@ class Guide_Model extends CI_Model
      * @param string id
      * @return boolean
      */
-    public function delete_by_id($id)
+    public function delete_by_id($id, $host = '')
     {
+        // Need to handle host coming from external sources
+        if (!empty($host) && !empty($this->host))
+            $this->host=$this->encode_url($host);
+
         try
         {
             if(is_string($id)){
@@ -476,7 +497,7 @@ class Guide_Model extends CI_Model
      */
     public function update_cache($app = null)
     {
-        if(!$app) $app = $this->app_model->get_by_host($this->get_real_url());
+        if(!$app) $app = $this->app_model->get_by_host($this->decode_url());
         $app['version']++;
 
         $this->app_model->update_by_id($app['id'], $app);
@@ -487,7 +508,7 @@ class Guide_Model extends CI_Model
      */
     public function get_cache($host = null)
     {
-        if(!isset($host)) $host = $this->get_real_url();
+        if(!isset($host)) $host = $this->decode_url();
 
         $app = $this->app_model->get_by_host($host);
         return $app['version'];
