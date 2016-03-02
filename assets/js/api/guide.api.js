@@ -142,7 +142,7 @@ Guide.api = {
      */
     del : function(id){
         //Call
-        Aero.send(Guide.model.url, { id : id}, function(){
+        Aero.send(Guide.model.url, { id : id }, function(){
             Guide.view.table.ajax.reload();
         }, "DELETE");
     }
