@@ -25,8 +25,8 @@ class PathwayMap_Model extends CI_Model
 		$this->guide_collection = $host . "_" . GUIDES;
 		$this->pathway_collection = $host . "_" . PATHWAY;
 	}
-	
-	
+
+
 	/**
 	 * Does a user relationship already exist
 	 * @param string $roleid
@@ -40,10 +40,10 @@ class PathwayMap_Model extends CI_Model
 			->select(array('guideid'))
 			->where(array('pathwayid' => $pathwayid, 'guideid' => $guideid))
 			->get($this->collection);
-	
+
 		return (sizeof($role_map) > 0);
 	}
-	
+
 
 	/**
 	 * Get pathway by id
@@ -77,9 +77,9 @@ class PathwayMap_Model extends CI_Model
 			$data['index'] = $index;
 			$data['guideid'] = $guide;
 			$data['pathwayid'] = $pathwayid;
-		
+
 			log_message('debug', 'Aero:' . $guide);
-			
+
 			$map = $this->mongo_db
 				->where(array('pathwayid' => $pathwayid))
 				->where(array('guideid' => $guide))
@@ -133,7 +133,7 @@ class PathwayMap_Model extends CI_Model
                     if($guide['id'] == $pathway['guideid'])
                     {
                         //Hide inactive guides
-                        if(!$create && !$guide['active'])
+                        if(!$admin && !$create && !$guide['active'])
                             unset($pathway_map[$key]);
                         else
                             $pathway = $guide;
