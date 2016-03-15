@@ -44,9 +44,11 @@ Aero.view.pathway = {
                 });
             }else{
 				Aero.pathway.getGuides(id, function(guides){
-					guides[0].path = title;
-					guides[0].pathid = id;
-					Aero.view.guide.render(guides);
+					if(guides.length > 0) {
+                        guides[0].path = title;
+                        guides[0].pathid = id;
+                        Aero.view.guide.render(guides);
+                    }
 				});
 			}
 
