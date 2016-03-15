@@ -1128,7 +1128,8 @@ a.aicon-role:hover span, .aero-menu-active a.aicon-role span { background-positi
     display: block;
     background: #167FA3;
     border-radius: 30px;
-    font-size: 9px;
+    font-size: 9px!important;
+	line-height: 9px!important;
     color: #fff;
     font-weight: bold!important;
     width: 20px;
