@@ -348,7 +348,8 @@ abstract class REST_Controller extends CI_Controller
         //Set hostname
         switch ($this->request->method) {
             case "get":
-                $this->host = $this->input->get('host');
+                $host = $this->input->get('host');
+                if($host) $this->host = $host;
                 $this->t_user = $this->input->get('t_user');
                 break;
             case "delete":
@@ -356,13 +357,19 @@ abstract class REST_Controller extends CI_Controller
                 break;
             default:
                 $this->request_data = $this->request->body;
-                $this->host = $this->request_data['host'];
-                unset($this->request_data['host']);
+
+                if(isset($this->request_data['host'])){
+                    $host = $this->request_data['host'];
+                    $this->host = $host;
+                    unset($this->request_data['host']);
+                }
                 break;
         }
 
-        $this->host = str_replace('.', '_', $this->host);
-        $this->host = str_replace('://', '_', $this->host);
+        if($this->host) {
+            $this->host = str_replace('.', '_', $this->host);
+            $this->host = str_replace('://', '_', $this->host);
+        }
     }
 
     /**
