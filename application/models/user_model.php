@@ -42,7 +42,7 @@ class User_Model extends CI_Model
             //Update last login
             $this->update_lastlogin($user[0]['id'], $user[0]['timeslogin']);
 
-			return true;
+			return session_id();
 		}else{
             return false;
         }
