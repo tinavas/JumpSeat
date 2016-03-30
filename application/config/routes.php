@@ -45,25 +45,25 @@ $route['404_override'] = '';
 $route['example'] = "welcome";
 $route['apps'] = "app/index";
 $route['app/users'] = "app/users";
-$route['app/(:any)/pathways'] = "app/section/$1/pathways";
-$route['app/(:any)/pathway/(:any)'] = "app/subsection/$1/$2/pathwaymap";
-$route['app/(:any)/guides'] = "app/section/$1/guides";
-$route['app/(:any)/roles'] = "app/section/$1/roles";
-$route['app/(:any)/role/(:any)'] = "app/subsection/$1/$2/rolemap";
-$route['app/(:any)/config'] = "app/section/$1/pagedata";
-$route['app/(:any)/security'] = "app/section/$1/security";
-$route['app/(:any)/blacklist'] = "app/section/$1/blacklist";
-$route['(:any)/profile'] = "profile/index/$1";
-$route['app/(:any)/analytics'] = "analytics/index/$1";
-$route['app/(:any)/versions/(:any)'] = "app/subsection/$1/$2/versions";
-$route['app/(:any)/trash'] = "app/section/$1/trash";
+$route['app/(.+)/pathways'] = "app/section/$1/pathways";
+$route['app/(.+)/pathway/(.+)'] = "app/subsection/$1/$2/pathwaymap";
+$route['app/(.+)/guides'] = "app/section/$1/guides";
+$route['app/(.+)/roles'] = "app/section/$1/roles";
+$route['app/(.+)/role/(.+)'] = "app/subsection/$1/$2/rolemap";
+$route['app/(.+)/config'] = "app/section/$1/pagedata";
+$route['app/(.+)/security'] = "app/section/$1/security";
+$route['app/(.+)/blacklist'] = "app/section/$1/blacklist";
+$route['(.+)/profile'] = "profile/index/$1";
+$route['app/(.+)/analytics'] = "analytics/index/$1";
+$route['app/(.+)/versions/(.+)'] = "app/subsection/$1/$2/versions";
+$route['app/(.+)/trash'] = "app/section/$1/trash";
 
 //Custom for screenshot apps
-$route['app/(:any)/features'] = "app/section/$1/features";
-$route['app/(:any)/features/(:any)'] = "app/subsection/$1/$2/pages";
+$route['app/(.+)/features'] = "app/section/$1/features";
+$route['app/(.+)/features/(.+)'] = "app/subsection/$1/$2/pages";
 
 //Screenshot app
-$route['iapp/(:any)'] = "iapp/feature/$1/$2";
+$route['iapp/(.+)'] = "iapp/feature/$1/$2";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
