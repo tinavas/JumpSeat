@@ -127,6 +127,7 @@ $lang['black']      = "Black";
 //Step Navigation
 $lang['nnext']      = "Next is clicked";
 $lang['nclick']     = "Item is clicked";
+$lang['nrclick']    = "Item is right clicked";
 $lang['ndrag']      = "Item is dragged";
 $lang['nhover']     = "Hover over item";
 $lang['nkey']       = "Keyboard entry finished";
