@@ -417,8 +417,11 @@ Aero.tip = {
     jumpTo : function(i){
 
         if(aeroStorage.getItem('aero:session:end') == "1"){
-            if(!AeroStep.admin) self.stop();
-            return;
+            if(!AeroStep.admin) {
+                self.stop();
+            }else{
+                aeroStorage.removeItem('aero:session:end');
+            }
         }
 
         var step = Aero.step.get(i);
@@ -1191,6 +1194,20 @@ Aero.tip = {
 
                             //Stop bubbling on move
                             $el.off('click.aeronav');
+
+                            //Set nav
+                            Aero.navigating = true;
+                            if(!self.validate()) return;
+
+                            self.jumpTo(nav[n]);
+                        });
+                        break;
+
+                    case "rclick":
+                        $el.off('contextmenu.aeronav').on('contextmenu.aeronav', $el, function(){
+
+                            //Stop bubbling on move
+                            $el.off('contextmenu.aeronav');
 
                             //Set nav
                             Aero.navigating = true;
